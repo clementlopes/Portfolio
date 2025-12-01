@@ -118,7 +118,8 @@ if [ -s "$TEMP_COMMITS" ]; then
             PR_TEXT=" in [#${PR_NUMBER}](${GITHUB_URL}/pull/${PR_NUMBER})"
         fi
 
-        echo "- [${SHORT_COMMIT_HASH}](${GITHUB_URL}/commit/${COMMIT_HASH}) ${SUBJECT} by [@${AUTHOR_USERNAME}](${GITHUB_URL}/${AUTHOR_USERNAME})${PR_TEXT}"
+        # Corrigido: link para o perfil do usuário em vez de dentro do repositório
+        echo "- [${SHORT_COMMIT_HASH}](${GITHUB_URL}/commit/${COMMIT_HASH}) ${SUBJECT} by [@${AUTHOR_USERNAME}](https://github.com/${AUTHOR_USERNAME})${PR_TEXT}"
     done < "$TEMP_COMMITS"
 else
     echo "- No changes found between ${PREVIOUS_TAG} and ${CURRENT_TAG}"
@@ -157,7 +158,8 @@ if [ -s "$TEMP_AUTHORS" ]; then
             USERNAME=$(echo "$AUTHOR" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-')
         fi
 
-        echo "- [@${USERNAME}](${GITHUB_URL}/${USERNAME}) made their first contribution 🎉"
+        # Corrigido: link para o perfil do usuário em vez de dentro do repositório
+        echo "- [@${USERNAME}](https://github.com/${USERNAME}) made their first contribution 🎉"
     done < "$TEMP_AUTHORS"
 fi
 
