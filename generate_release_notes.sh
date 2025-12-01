@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Script adapted for GitHub Releases
+# Script adapted for GitHub Releases with GitHub usernames
 # Using sh-compatible syntax for maximum portability
 
 if [ "$#" -ne 1 ]; then
@@ -82,8 +82,17 @@ if [ -s "$TEMP_COMMITS" ]; then
 
         SUBJECT=$(git show -s --format=%s "$COMMIT_HASH")
         BODY=$(git show -s --format=%b "$COMMIT_HASH")
-        AUTHOR=$(git show -s --format=%an "$COMMIT_HASH")
+        AUTHOR_NAME=$(git show -s --format=%an "$COMMIT_HASH")
+        AUTHOR_EMAIL=$(git show -s --format=%ae "$COMMIT_HASH")
         SHORT_COMMIT_HASH=$(echo "$COMMIT_HASH" | cut -c1-7)
+
+        # Buscar GitHub username via API usando o email
+        AUTHOR_USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/search/users?q=$AUTHOR_EMAIL+in:email" \
+          | jq -r '.items[0].login // empty')
+
+        # Fallback para nome formatado se não encontrar
+        [ -z "$AUTHOR_USERNAME" ] && AUTHOR_USERNAME=$(echo "$AUTHOR_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
 
         PR_NUMBER=$(echo "$SUBJECT $BODY" | grep -o '#[0-9]*' | head -n 1 | sed 's/#//')
         if [ -z "$PR_NUMBER" ]; then
@@ -92,7 +101,7 @@ if [ -s "$TEMP_COMMITS" ]; then
             PR_TEXT=" in [#${PR_NUMBER}](${GITHUB_URL}/pull/${PR_NUMBER})"
         fi
 
-        echo "- [${SHORT_COMMIT_HASH}](${GITHUB_URL}/commit/${COMMIT_HASH}) ${SUBJECT}${PR_TEXT}"
+        echo "- [${SHORT_COMMIT_HASH}](${GITHUB_URL}/commit/${COMMIT_HASH}) ${SUBJECT} by [@${AUTHOR_USERNAME}](${GITHUB_URL}/${AUTHOR_USERNAME})${PR_TEXT}"
     done < "$TEMP_COMMITS"
 else
     echo "- No changes found between ${PREVIOUS_TAG} and ${CURRENT_TAG}"
@@ -108,9 +117,14 @@ if [ -s "$TEMP_AUTHORS" ]; then
             continue
         fi
 
-        USERNAME=$(echo "$AUTHOR" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+        # Buscar GitHub username via API usando o email
+        USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/search/users?q=$EMAIL+in:email" \
+          | jq -r '.items[0].login // empty')
 
-        echo "- @${USERNAME} made their first contribution 🎉"
+        [ -z "$USERNAME" ] && USERNAME=$(echo "$AUTHOR" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+
+        echo "- [@${USERNAME}](${GITHUB_URL}/${USERNAME}) made their first contribution 🎉"
     done < "$TEMP_AUTHORS"
 fi
 
