@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Script adapted for GitHub Releases with GitHub usernames
-# Using sh-compatible syntax for maximum portability
+# Script adaptado para GitHub Releases com GitHub usernames
+# Usando sintaxe compatível com sh para máxima portabilidade
 
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <owner/repo>" >&2
@@ -87,12 +87,29 @@ if [ -s "$TEMP_COMMITS" ]; then
         SHORT_COMMIT_HASH=$(echo "$COMMIT_HASH" | cut -c1-7)
 
         # Buscar GitHub username via API usando o email
-        AUTHOR_USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-          "https://api.github.com/search/users?q=$AUTHOR_EMAIL+in:email" \
-          | jq -r '.items[0].login // empty')
+        AUTHOR_USERNAME=""
+        if [ -n "$GITHUB_TOKEN" ]; then
+            # Primeiro tentar buscar pelo email
+            AUTHOR_USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                "https://api.github.com/search/users?q=$AUTHOR_EMAIL+in:email" \
+                | jq -r '.items[0].login // empty' 2>/dev/null)
+        fi
 
-        # Fallback para nome formatado se não encontrar
-        [ -z "$AUTHOR_USERNAME" ] && AUTHOR_USERNAME=$(echo "$AUTHOR_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+        # Se não encontrou pelo email, tentar buscar pelo nome
+        if [ -z "$AUTHOR_USERNAME" ] || [ "$AUTHOR_USERNAME" = "null" ]; then
+            if [ -n "$GITHUB_TOKEN" ]; then
+                # Remover caracteres especiais do nome para a busca
+                SEARCH_NAME=$(echo "$AUTHOR_NAME" | tr ' ' '+' | sed 's/[^a-zA-Z0-9+]//g')
+                AUTHOR_USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                    "https://api.github.com/search/users?q=$SEARCH_NAME+in:name" \
+                    | jq -r '.items[0].login // empty' 2>/dev/null)
+            fi
+        fi
+
+        # Fallback para nome formatado apenas se tudo mais falhar
+        if [ -z "$AUTHOR_USERNAME" ] || [ "$AUTHOR_USERNAME" = "null" ]; then
+            AUTHOR_USERNAME=$(echo "$AUTHOR_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-')
+        fi
 
         PR_NUMBER=$(echo "$SUBJECT $BODY" | grep -o '#[0-9]*' | head -n 1 | sed 's/#//')
         if [ -z "$PR_NUMBER" ]; then
@@ -118,11 +135,27 @@ if [ -s "$TEMP_AUTHORS" ]; then
         fi
 
         # Buscar GitHub username via API usando o email
-        USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-          "https://api.github.com/search/users?q=$EMAIL+in:email" \
-          | jq -r '.items[0].login // empty')
+        USERNAME=""
+        if [ -n "$GITHUB_TOKEN" ]; then
+            USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                "https://api.github.com/search/users?q=$EMAIL+in:email" \
+                | jq -r '.items[0].login // empty' 2>/dev/null)
+        fi
 
-        [ -z "$USERNAME" ] && USERNAME=$(echo "$AUTHOR" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+        # Se não encontrou pelo email, tentar buscar pelo nome
+        if [ -z "$USERNAME" ] || [ "$USERNAME" = "null" ]; then
+            if [ -n "$GITHUB_TOKEN" ]; then
+                SEARCH_NAME=$(echo "$AUTHOR" | tr ' ' '+' | sed 's/[^a-zA-Z0-9+]//g')
+                USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                    "https://api.github.com/search/users?q=$SEARCH_NAME+in:name" \
+                    | jq -r '.items[0].login // empty' 2>/dev/null)
+            fi
+        fi
+
+        # Fallback para nome formatado apenas se tudo mais falhar
+        if [ -z "$USERNAME" ] || [ "$USERNAME" = "null" ]; then
+            USERNAME=$(echo "$AUTHOR" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-')
+        fi
 
         echo "- [@${USERNAME}](${GITHUB_URL}/${USERNAME}) made their first contribution 🎉"
     done < "$TEMP_AUTHORS"

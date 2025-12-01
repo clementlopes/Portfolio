@@ -47,6 +47,8 @@ jobs:
 
       - name: Generate release notes
         id: notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           RELEASE_NOTES=$(./generate_release_notes.sh "$GITHUB_REPOSITORY")
           echo "notes<<EOF" >> $GITHUB_OUTPUT
