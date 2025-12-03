@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 class="text-xl font-bold underline">    Hello world!  </h1>
-  </div>
-
+      <nuxt-page></nuxt-page>
 </template>
+<script setup lang="ts">
+
+</script>
