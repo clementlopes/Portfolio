@@ -8,23 +8,27 @@
               class="text-xl md:text-2xl font-normal normal-case text-base-content/80">Júnior Frontend Developer</span>
         </h1>
         <p class="py-6 text-lg text-base-content/90">
-          Passionate about creating robust web applications with modern technologies.
-          Specialized in Nuxt, Vue, and API integration with PocketBase.
-        </p>
+          A curious frontend developer building thoughtful, responsive, and accessible UIs with Vue & Nuxt
+          making one commit at a time. Currently leveling up and open to junior opportunities.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-          <button class="btn btn-primary btn-wide">Get Started</button>
-          <button class="btn btn-outline btn-wide">View Projects</button>
+          <a href="#contact" class="btn btn-primary btn-wide">Contact</a>
+          <a href="#contact" class="btn btn-outline btn-wide">View Projects</a>
         </div>
 
       </div>
 
-      <div class="w-96 rounded-full avatar hover:shadow-xl shadow-primary/30 transition-shadow duration-300 ">
+      <div class=" w-96 rounded-full avatar
+  hover:scale-105
+  filter
+  hover:drop-shadow
+  transition-all duration-300">
         <div class="w-96 rounded-full ring-1 ring-primary">
-          <img src="/photo.png" alt="Profile photo" />
+          <img src="/photo.png" alt="Profile photo"/>
         </div>
       </div>
 
     </div>
+
   </section>
 </template>
 

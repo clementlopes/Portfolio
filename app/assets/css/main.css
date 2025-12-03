@@ -2,12 +2,10 @@
 @plugin "daisyui" {
     themes: dracula --default, light;
 }
-
-html {
-  scroll-behavior: smooth;
+/* Define shadow colors per theme */
+[data-theme="light"] {
+    --shadow-color: 66 42 213;
 }
-
-/* Ensure content does not go under the fixed header */
-section[id] {
-  scroll-margin-top: 80px; /* Adjust based on your header height */
+[data-theme="dracula"] {
+    --shadow-color: 255 121 198;
 }

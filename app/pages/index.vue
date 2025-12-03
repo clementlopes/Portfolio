@@ -2,22 +2,27 @@
   <div>
     <Hero />
     <Skills />
-    <Projects />
     <Contacts />
   </div>
 </template>
 
 <script setup lang="ts">
-// Home page with all portfolio sections
 import Hero from '~/components/hero.vue'
 import Skills from '~/components/skills.vue'
-import Projects from '~/components/projects.vue'
 import Contacts from '~/components/contacts.vue'
 
 useHead({
-  title: 'Clément Lopes - Portfolio',
+  title: 'Clément Lopes - Frontend Developer',
   meta: [
-    { name: 'description', content: 'Full Stack Developer & DevOps Engineer Portfolio' }
-  ]
+    { name: 'description',
+      content: 'Frontend Developer passionate about Vue, Nuxt, and accessible UIs. Portfolio featuring projects, skills, and contact. Open to junior/entry-level roles in Portugal and remote.' },
+
+    { name: 'canonical', content: 'https://clementlopes.site' },
+
+    { name: 'keywords', content: 'frontend developer, Vue.js developer, Nuxt , developer Portugal, Tailwind CSS, Pinia, DaisyUI, Vue 3, Nuxt 4, API, javascript, typescript, Clément Lopes' },
+
+    { name: 'author', content: 'Clément Lopes' },
+]
+
 })
 </script>
