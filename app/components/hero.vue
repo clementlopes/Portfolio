@@ -15,7 +15,7 @@
 
       </div>
 
-      <div class=" w-96 rounded-full avatar  hover:scale-105 hover:shadow-2xl shadow-primary/50 transition-all duration-300">
+      <div class=" w-96 rounded-full avatar shadow-lg hover:scale-105 hover:shadow-2xl shadow-primary/50 transition-all duration-300">
         <div class="w-96 rounded-full ring-1 ring-primary opacity-70 hover:opacity-100">
           <img src="/photo.png" alt="Profile photo"/>
         </div>
