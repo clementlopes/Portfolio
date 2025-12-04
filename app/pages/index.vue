@@ -1,16 +1,13 @@
 <template>
   <div>
     <Hero />
+    <about />
     <Skills />
     <Contacts />
   </div>
 </template>
 
 <script setup lang="ts">
-import Hero from '~/components/hero.vue'
-import Skills from '~/components/skills.vue'
-import Contacts from '~/components/contacts.vue'
-
 useHead({
   title: 'Clément Lopes - Frontend Developer',
   meta: [

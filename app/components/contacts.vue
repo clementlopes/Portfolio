@@ -5,7 +5,7 @@
 <template>
   <section id="contact" class="py-16 bg-base-100">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Get In Touch</h2>
+      <h2 class="text-4xl font-bold text-center mb-12">Get In Touch</h2>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
         <div class="bg-base-200 p-8 rounded-2xl shadow-lg">
