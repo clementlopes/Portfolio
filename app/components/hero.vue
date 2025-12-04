@@ -4,8 +4,6 @@
       <div class="text-center lg:text-left lg:w-1/2">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           FRONTEND DEVELOPER<br/>
-          <!--          <span-->
-          <!--              class="text-xl md:text-2xl font-normal normal-case text-base-content/80">Júnior Frontend Developer</span>-->
         </h1>
         <p class="py-6 text-lg text-base-content/90">
           A curious frontend developer building thoughtful, responsive, and accessible UIs with Vue & Nuxt
