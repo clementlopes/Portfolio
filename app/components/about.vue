@@ -6,14 +6,14 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        <!-- Professional Introduction -->
-        <div class="lg:order-0">
+        <!-- Introduction -->
+        <div class="lg:order-0 p-4">
           <div class="mb-8 text-center ">
             <h3 class="text-3xl font-bold mb-6 text-base-content text-primary ">Hi i'm Clément Lopes</h3>
           </div>
 
         </div>
-        <div class="grid grid-cols-1 prose prose-lg max-w-none text-base-content/90">
+        <div class="grid grid-cols-1 p-4 lg:border-l-1 border-gray-500/50 ">
           <p class="mb-4 text-justify">
             Junior Frontend Developer with professional experience in building and maintaining
             a Point-of-Sales (POS) system using Vue.js, Vuex, and TypeScript. I specialize in
@@ -32,7 +32,25 @@
             Git and Kanban. I'm committed to continuous learning and improvement,
             making one commit at a time.
           </p>
+          <!--          FILES-->
+          <div class="w-full grid grid-cols-1 rounded-t-2xl bg-base-200 gap-2 md:grid-cols-2  my-4 p-4 ">
+
+            <div class="w-full grid gap-4">
+              <h3 class="text-md font-bold">Curriculum</h3>
+              <div class="bg-base-100">
+                teste
+              </div>
+            </div>
+            <div class="w-full grid">
+              <h3 class="text-md font-bold">Recommedation letter</h3>
+              <div class="bg-base-100">
+                teste
+              </div>
+            </div>
+
+          </div>
         </div>
+
       </div>
     </div>
   </section>

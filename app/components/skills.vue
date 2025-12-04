@@ -14,7 +14,7 @@
 
           <h3 class="text-3xl font-bold">FRONTEND</h3>
           </div>
-          <div class=" w-full flex flex-col lg:w-2/3 lg:flex-row ">
+          <div class=" w-full flex flex-col flex-wrap lg:w-2/3 md:flex-row">
 
             <div class="flex flex-cols-2 p-4 items-center text-center">
               <img class="flex size-16 " alt="JavaScript" src="/javascript.svg"/>
@@ -48,7 +48,7 @@
           <div class="w-full text-center border-b flex items-center justify-center p-4 lg:border-b-0 lg:w-1/3 ">
             <h3 class="text-3xl font-bold">BACKEND</h3>
           </div>
-          <div class=" w-full flex flex-col lg:w-2/3 lg:flex-row">
+          <div class=" w-full flex flex-col flex-wrap lg:w-2/3 md:flex-row">
 
             <div class="flex flex-cols-2 p-4 items-center text-center">
               <img class="flex size-16 " alt="PocketBase" src="/pocketbase.svg"/>
@@ -67,7 +67,7 @@
           <div class="w-full text-center border-b flex items-center justify-center p-4 lg:border-b-0 lg:w-1/3 ">
             <h3 class="text-3xl font-bold">DATABASE</h3>
           </div>
-          <div class=" w-full flex flex-col lg:w-2/3 lg:flex-row ">
+          <div class=" w-full flex flex-col flex-wrap lg:w-2/3 md:flex-row">
 
             <div class="flex flex-cols-2 p-4 items-center text-center">
               <img class="flex size-16 " alt="SQL" src="/sql.png" />
@@ -86,7 +86,7 @@
           <div class="w-full text-center border-b flex items-center justify-center p-4 lg:border-b-0 lg:w-1/3 ">
             <h3 class="text-3xl font-bold">TOOLS</h3>
           </div>
-          <div class=" w-full flex flex-col lg:w-2/3 lg:flex-row">
+          <div class=" w-full flex flex-col flex-wrap lg:w-2/3 md:flex-row">
 
             <div class="flex flex-cols-2 p-4 items-center text-center">
               <img class="flex size-16 " alt="Git" src="/git.svg"/>

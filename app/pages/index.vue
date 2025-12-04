@@ -5,6 +5,7 @@
     <Skills />
     <projects />
     <Contacts />
+    <scroll-to-top />
   </div>
 </template>
 

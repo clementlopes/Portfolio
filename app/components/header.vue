@@ -1,5 +1,6 @@
 <template>
   <div class="navbar top-0 fixed bg-base-100 px-4 shadow-lg z-100">
+
     <div class="navbar-start">
       <!-- mobile menu -->
       <div class="dropdown">
@@ -9,20 +10,22 @@
           </svg>
         </label>
         <ul tabindex="0" class="w-52 menu menu-sm dropdown-content mt-3 p-2 bg-base-100 rounded-box shadow">
-          <li><a class="bg-base-100 hover:bg-accent" href="#hero">Home</a></li>
-          <li><a href="#skills">Skills</a></li>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">My Stack</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
-      <a href="#hero" class="btn btn-ghost font-bold text-xl">Clément Lopes</a>
+      <a href="#hero" class="font-bold text-xl hover:scale-105 transition duration-500">Clément Lopes</a>
     </div>
 
     <!-- desktop menu -->
     <div class="hidden lg:flex navbar-center">
       <ul class="px-1 menu menu-horizontal">
         <li><a href="#hero" class="text-lg">Home</a></li>
-        <li><a href="#skills" class="text-lg">Skills</a></li>
+        <li><a href="#about" class="text-lg">About</a></li>
+        <li><a href="#skills" class="text-lg">My Stack</a></li>
         <li><a href="#projects" class="text-lg">Projects</a></li>
         <li><a href="#contact" class="text-lg">Contact</a></li>
       </ul>
