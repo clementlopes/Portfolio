@@ -1,22 +1,28 @@
 <template>
-  <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
-    <div class="grid grid-flow-col gap-4">
-      <a class="link link-hover">About me</a>
-      <a class="link link-hover">Contact</a>
-      <a class="link link-hover">Projects</a>
-      <a class="link link-hover">Blog</a>
+  <footer class="footer footer-center p-6 bg-base-200 text-base-content rounded-t-lg" role="contentinfo">
+
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between flex-wrap w-full max-w-4xl mx-auto">
+
+      <nav class="flex flex-wrap justify-center gap-6 mb-4 lg:mb-0" aria-label="footer-navigation">
+        <h3 id="footer-navigation" class="sr-only">Navigation</h3>
+        <NuxtLink to="/#hero" class="link link-hover hover:text-primary transition-colors duration-200">Home</NuxtLink>
+        <NuxtLink to="/#about" class="link link-hover hover:text-primary transition-colors duration-200">About</NuxtLink>
+        <NuxtLink to="/#skills" class="link link-hover hover:text-primary transition-colors duration-200">My Stack</NuxtLink>
+        <NuxtLink to="/#projects" class="link link-hover hover:text-primary transition-colors duration-200">Projects</NuxtLink>
+        <NuxtLink to="/#contact" class="link link-hover hover:text-primary transition-colors duration-200">Contact</NuxtLink>
+      </nav>
+
+      <p class="text-sm">© {{ currentYear }} Clément Lopes. All rights reserved.</p>
+
     </div>
 
-    <div>
-      <p class="text-sm">Copyright © {{ new Date().getFullYear() }} - All rights reserved</p>
-    </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-// Footer component with social links using DaisyUI classes
+const currentYear = ref(new Date().getFullYear())
+
 </script>
 
 <style scoped>
-/* This component doesn't need specific styling as it uses DaisyUI classes */
 </style>

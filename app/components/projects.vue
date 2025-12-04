@@ -7,20 +7,15 @@
 
         <!-- PGO -->
         <div class="card bg-base-100 shadow-xl border hover:shadow-2xl transition-shadow duration-300">
-          <figure class="px-4 pt-4">
-            <div class="bg-primary/10 p-4 rounded-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                   class="h-12 w-12 text-primary">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-              </svg>
+          <a href="https://www.github.com/clementlopes" target="_blank">
+          <div class="px-4 pt-4">
+            <div class=" bg-gray-200 p-4 rounded-lg">
+              <img src="/pgo.png" alt="Pgo" />
             </div>
-          </figure>
+          </div>
           <div class="card-body">
-            <h3 class="card-title text-xl">Pgo</h3>
-            <p class="text-base-content/80">Pgo é uma plataforma que compõe orçamentos com linhas individuais, aplica
-              desconto e IVA por linha e produz um PDF final com os totais calculados.</p>
+            <h3 class="card-title text-xl">Plataforma Gestão de Orçamentos</h3>
+            <p class="text-base-content/80 text-justify">Pgo is a budget-management platform developed entirely by me. It allows creating, editing, and deleting documents, clients, and line items with products or services, applying line-level values, and generating a final PDF.</p>
             <div class="mt-4">
               <div class="badge badge-outline badge-primary mr-2 mt-2">MySQL</div>
               <div class="badge badge-outline badge-primary mr-2 mt-2">PHP</div>
@@ -30,24 +25,20 @@
               <div class="badge badge-outline badge-primary mr-2 mt-2">jsPDF</div>
             </div>
           </div>
+          </a>
         </div>
 
         <!-- Goldylocks POS -->
         <div class="card bg-base-100 shadow-xl border hover:shadow-2xl transition-shadow duration-300">
-          <figure class="px-4 pt-4">
-            <div class="bg-primary/10 p-4 rounded-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                   class="h-12 w-12 text-primary">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-              </svg>
+          <a href="https://www.github.com/goldylocks-portugal" target="_blank">
+          <div class="px-4 pt-4">
+            <div class="bg-gray-200 p-4 rounded-lg">
+              <img src="/goldylocks.png" alt="Pgo" />
             </div>
-          </figure>
+          </div>
           <div class="card-body">
             <h3 class="card-title text-xl">Goldylocks POS</h3>
-            <p class="text-base-content/80">Pgo é uma plataforma que compõe orçamentos com linhas individuais, aplica
-              desconto e IVA por linha e produz um PDF final com os totais calculados.</p>
+            <p class="text-base-content/80 text-justify">Responsible for maintaining and improving the frontend of a Point-of-Sale system, implementing new features, fixing operational issues within the sales workflow, coordinating with the backend team, and performing API testing in Postman.</p>
             <div class="mt-4">
               <div class="badge badge-outline badge-primary mr-2 mt-2">Vue.js</div>
               <div class="badge badge-outline badge-primary mr-2 mt-2">VueX</div>
@@ -55,6 +46,7 @@
               <div class="badge badge-outline badge-primary mr-2 mt-2">Electron</div>
             </div>
           </div>
+          </a>
         </div>
 
 
