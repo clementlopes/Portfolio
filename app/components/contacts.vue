@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <section id="contact" class="py-16 bg-base-100">
     <div class="container mx-auto px-4">
@@ -90,7 +86,7 @@
     </div>
   </section>
 </template>
+<script setup lang="ts">
 
-<style scoped>
+</script>
 
-</style>

@@ -21,8 +21,4 @@
 
 <script setup lang="ts">
 const currentYear = ref(new Date().getFullYear())
-
 </script>
-
-<style scoped>
-</style>
