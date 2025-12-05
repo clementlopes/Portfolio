@@ -1,0 +1,31 @@
+# Dependencies
+node_modules
+
+# Nuxt build outputs
+.nuxt
+.output
+.dist
+
+# IDE files
+.nyc_output
+.coverage
+.nyc_output
+coverage
+
+# Logs
+logs
+*.log
+
+# Environment
+.env
+
+# Git
+.git
+.gitignore
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Nuxt dev tools
+*.tsbuildinfo
