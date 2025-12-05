@@ -33,18 +33,36 @@
             making one commit at a time.
           </p>
           <!--          FILES-->
-          <div class="w-full grid grid-cols-1 rounded-t-2xl bg-base-200 gap-2 md:grid-cols-2  my-4 p-4 ">
+          <div class="w-full grid grid-cols-1 rounded-t-2xl bg-base-200 gap-2 md:grid-cols-2 my-4 p-4 ">
 
-            <div class="w-full grid gap-4">
+            <div class="w-full grid gap-4 mt-2">
               <h3 class="text-md font-bold">Curriculum</h3>
-              <div class="bg-base-100">
-                teste
+              <div class="bg-base-100 flex justify-between p-4">
+                <a href="/files/clement_lopes_cv_En.pdf" target="_blank" rel="noopener noreferrer" class="font-semibold text-lg  hover:text-primary">
+                  Cv Clément Lopes
+                </a>
+
+                <a href="/files/clement_lopes_cv_En.pdf" download class=" hover:text-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+
+                </a>
               </div>
             </div>
-            <div class="w-full grid">
+            <div class="w-full grid gap-4 mt-2">
               <h3 class="text-md font-bold">Recommedation letter</h3>
-              <div class="bg-base-100">
-                teste
+              <div class="bg-base-100 flex justify-between p-4">
+                <a href="/files/Recommedation_letter.pdf" target="_blank" rel="noopener noreferrer" class="font-semibold text-lg hover:text-primary ">
+                  Cv Clément Lopes
+                </a>
+
+                <a href="/files/Recommedation_letter.pdf" download class=" hover:text-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+
+                </a>
               </div>
             </div>
 
@@ -57,34 +75,7 @@
 </template>
 
 <script setup lang="ts">
-/**
- * Stores
- */
 
-/**
- * Props/Emits
- */
-
-/**
- * References
- */
-const componentName = ref('about');
-
-/**
- * Computed Properties
- */
-
-/**
- * Methods
- */
-
-/**
- * Watchers
- */
-
-/**
- * Mounted/Unmounted
- */
 </script>
 
 <style scoped>

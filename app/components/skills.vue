@@ -18,27 +18,27 @@
           <div class=" w-full flex flex-col flex-wrap lg:w-2/3 md:flex-row">
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300 ">
-              <img class="flex size-16 " alt="JavaScript" src="/javascript.svg"/>
+              <img class="flex size-16 " alt="JavaScript" src="/img/javascript.svg"/>
               <p class="flex p-2 text-xl font-semibold ">Javascript</p>
             </div>
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="TypeScript" src="/typescript.svg"/>
+              <img class="flex size-16 " alt="TypeScript" src="/img/typescript.svg"/>
               <p class="flex p-2 text-xl font-semibold ">TypeScript</p>
             </div>
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="Vue.js" src="/vue.svg"/>
+              <img class="flex size-16 " alt="Vue.js" src="/img/vue.svg"/>
               <p class="flex p-2 text-xl font-semibold ">Vue.js</p>
             </div>
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="Nuxt" src="/nuxt.svg"/>
+              <img class="flex size-16 " alt="Nuxt" src="/img/nuxt.svg"/>
               <p class="flex p-2 text-xl font-semibold ">Nuxt</p>
             </div>
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="TailWindCSS" src="/tailwind.svg"/>
+              <img class="flex size-16 " alt="TailWindCSS" src="/img/tailwind.svg"/>
               <p class="flex p-2 text-xl font-semibold ">TailwindCss</p>
             </div>
 
@@ -52,12 +52,12 @@
           <div class=" w-full flex flex-col flex-wrap lg:w-2/3 md:flex-row">
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="PocketBase" src="/pocketbase.svg"/>
+              <img class="flex size-16 " alt="PocketBase" src="/img/pocketbase.svg"/>
               <p class="flex p-2 text-xl font-semibold ">PocketBase</p>
             </div>
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="SupaBase" src="/supabase.png"/>
+              <img class="flex size-16 " alt="SupaBase" src="/img/supabase.png"/>
               <p class="flex p-2 text-xl font-semibold ">SupaBase</p>
             </div>
 
@@ -71,12 +71,12 @@
           <div class=" w-full flex flex-col flex-wrap lg:w-2/3 md:flex-row">
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="SQL" src="/sql.png"/>
+              <img class="flex size-16 " alt="SQL" src="/img/sql.png"/>
               <p class="flex p-2 text-xl font-semibold ">SQL</p>
             </div>
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="MySQL" src="/MySQL.svg"/>
+              <img class="flex size-16 " alt="MySQL" src="/img/MySQL.svg"/>
               <p class="flex p-2 text-xl font-semibold ">MySql</p>
             </div>
 
@@ -90,27 +90,27 @@
           <div class=" w-full flex flex-col flex-wrap lg:w-2/3 md:flex-row">
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="Git" src="/git.svg"/>
+              <img class="flex size-16 " alt="Git" src="/img/git.svg"/>
               <p class="flex p-2 text-xl font-semibold ">Git</p>
             </div>
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="Docker" src="/docker.svg"/>
+              <img class="flex size-16 " alt="Docker" src="/img/docker.svg"/>
               <p class="flex p-2 text-xl font-semibold ">Docker</p>
             </div>
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="Proxmox" src="/proxmox.svg"/>
+              <img class="flex size-16 " alt="Proxmox" src="/img/proxmox.svg"/>
               <p class="flex p-2 text-xl font-semibold ">Proxmox</p>
             </div>
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="Postman" src="/postman.svg"/>
+              <img class="flex size-16 " alt="Postman" src="/img/postman.svg"/>
               <p class="flex p-2 text-xl font-semibold ">Postman</p>
             </div>
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="SonarQube" src="/sonar.png"/>
+              <img class="flex size-16 " alt="SonarQube" src="/img/sonar.png"/>
               <p class="flex p-2 text-xl font-semibold ">SonarQube</p>
             </div>
 
