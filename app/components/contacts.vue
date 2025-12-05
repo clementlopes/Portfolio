@@ -1,7 +1,7 @@
 <template>
   <section id="contact" class="py-16 bg-base-100">
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-12">Get In Touch</h2>
+      <h2 class="text-4xl font-bold text-center mb-12 text-primary">Get In Touch</h2>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
         <div class="bg-base-200 p-8 rounded-2xl shadow-lg">
@@ -47,7 +47,7 @@
             <div>
               <div class="flex items-center">
 
-                <a class="px-2 text-primary hover:text-base-content" href="https://www.github.com/clementlopes" target="_blank">
+                <a class="px-2 hover:text-primary" href="https://www.github.com/clementlopes" target="_blank">
                   <svg xmlns="http://www.w3.org/2000/svg"
                        width="24" height="24" viewBox="0 0 64 64"
                        fill="currentColor" stroke="currentColor"
@@ -56,7 +56,7 @@
                   </svg>
                 </a>
 
-                <a class="px-2 text-primary hover:text-base-content"
+                <a class="px-2 hover:text-primary"
                    href="https://www.linkedin.com/in/cl%C3%A9ment-lopes-208719375/"
                    target="_blank">
 

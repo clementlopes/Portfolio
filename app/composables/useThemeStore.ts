@@ -3,14 +3,14 @@ import { ref, computed } from 'vue';
 
 export const useThemeStore = defineStore('useThemeStore', () =>{
 
-    const activeTheme = ref("dracula");
+    const activeTheme = ref("forest");
 
     const getActiveTheme = computed(() =>{
       return activeTheme.value;
     })
 
     const changeTheme = () => {
-        activeTheme.value === "dracula" ? activeTheme.value = "light" : activeTheme.value ="dracula";
+        activeTheme.value === "forest" ? activeTheme.value = "winter" : activeTheme.value ="forest";
     }
 
     return{

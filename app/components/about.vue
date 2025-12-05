@@ -2,14 +2,14 @@
   <section id="about" class="py-16 bg-base-100">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-center mb-12">This is me</h2>
+        <h2 class="text-4xl font-bold text-center mb-12 text-primary">This is me</h2>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         <!-- Introduction -->
         <div class="lg:order-0 p-4">
           <div class="mb-8 text-center ">
-            <h3 class="text-3xl font-bold mb-6 text-base-content text-primary ">Hi i'm Clément Lopes</h3>
+            <h3 class="text-3xl font-bold mb-6 text-base-content ">Hi i'm Clément Lopes</h3>
           </div>
 
         </div>

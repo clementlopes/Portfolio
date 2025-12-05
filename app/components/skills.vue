@@ -1,10 +1,10 @@
 <template>
   <section id="skills" class="py-16 bg-base-100">
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-12">My Stack</h2>
+      <h2 class="text-4xl font-bold text-center mb-12 text-primary">My Stack</h2>
       <div class="grid grid-rows-1 gap-8">
         <!--        FrontEnd-->
-        <div class="card bg-base-100 shadow-xl w-full border flex flex-col lg:flex-row p-4 hover:scale-105 transition duration-1000">
+        <div class="card bg-base-100 shadow-xl w-full border flex flex-col lg:flex-row p-4 hover:scale-105 hover:border-primary transition duration-1000">
 
           <div
               class="w-full text-center border-b flex items-center justify-center p-4 lg:border-b-0 lg:w-1/3 ">
@@ -41,7 +41,7 @@
           </div>
         </div>
         <!-- BackEnd -->
-        <div class="card bg-base-100 shadow-xl w-full border flex flex-col lg:flex-row p-4 hover:scale-105 transition duration-1000 ">
+        <div class="card bg-base-100 shadow-xl w-full border flex flex-col lg:flex-row p-4 hover:scale-105 hover:border-primary transition duration-1000 ">
           <div class="w-full text-center border-b flex items-center justify-center p-4 lg:border-b-0 lg:w-1/3 ">
             <h3 class="text-3xl font-bold">BACKEND</h3>
           </div>
@@ -60,7 +60,7 @@
           </div>
         </div>
         <!-- DATABASE -->
-        <div class="card bg-base-100 shadow-xl w-full border flex flex-col lg:flex-row p-4 hover:scale-105 transition duration-1000">
+        <div class="card bg-base-100 shadow-xl w-full border flex flex-col lg:flex-row p-4 hover:scale-105 hover:border-primary transition duration-1000">
           <div class="w-full text-center border-b flex items-center justify-center p-4 lg:border-b-0 lg:w-1/3 ">
             <h3 class="text-3xl font-bold">DATABASE</h3>
           </div>
@@ -79,7 +79,7 @@
           </div>
         </div>
         <!-- TOOLS -->
-        <div class="card bg-base-100 shadow-xl w-full border flex flex-col lg:flex-row p-4 hover:scale-105 transition duration-1000">
+        <div class="card bg-base-100 shadow-xl w-full border flex flex-col lg:flex-row p-4 hover:scale-105 hover:border-primary transition duration-1000">
           <div class="w-full text-center border-b flex items-center justify-center p-4 lg:border-b-0 lg:w-1/3 ">
             <h3 class="text-3xl font-bold">TOOLS</h3>
           </div>
