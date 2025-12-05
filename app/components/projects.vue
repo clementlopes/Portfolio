@@ -10,7 +10,7 @@
           <a href="https://www.github.com/clementlopes" target="_blank">
           <div class="px-4 pt-4">
             <div class=" bg-gray-200 p-4 rounded-lg">
-              <img src="/pgo.png" alt="Pgo" />
+              <img src="/img/pgo.png" alt="Pgo" />
             </div>
           </div>
           <div class="card-body">
@@ -33,7 +33,7 @@
           <a href="https://www.github.com/goldylocks-portugal" target="_blank">
           <div class="px-4 pt-4">
             <div class="bg-gray-200 p-4 rounded-lg">
-              <img src="/goldylocks.png" alt="Pgo" />
+              <img src="/img/goldylocks.png" alt="Pgo" />
             </div>
           </div>
           <div class="card-body">
