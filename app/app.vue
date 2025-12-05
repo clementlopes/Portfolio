@@ -1,6 +1,10 @@
 <template>
-      <nuxt-page></nuxt-page>
+    <Header/>
+    <NuxtPage/>
+    <Footer/>
 </template>
-<script setup lang="ts">
 
+<script setup lang="ts">
+import Header from './components/header.vue';
+import Footer from './components/footer.vue';
 </script>
