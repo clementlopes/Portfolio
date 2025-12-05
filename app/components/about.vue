@@ -77,9 +77,3 @@
 <script setup lang="ts">
 
 </script>
-
-<style scoped>
-.prose {
-  color: inherit;
-}
-</style>
