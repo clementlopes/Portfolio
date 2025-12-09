@@ -9,7 +9,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/>
           </svg>
         </label>
-        <ul tabindex="0" class="w-52 menu menu-sm dropdown-content mt-3 p-2 bg-base-100 rounded-box shadow">
+        <ul tabindex="0" class="w-52 menu menu-md dropdown-content mt-3 p-2 bg-base-100 rounded-box shadow">
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#skills">My Stack</a></li>
@@ -34,7 +34,7 @@
     <div class="navbar-end">
       <label class="swap-rotate swap btn btn-ghost">
         <!-- this hidden checkbox controls the state -->
-        <input type="checkbox" :checked="themeStore.activeTheme === 'forest'" data-toggle-theme="forest,winter"
+        <input type="checkbox" :checked="themeStore.activeTheme !== 'forest'" data-toggle-theme="forest,winter"
                @change="themeStore.changeTheme()"/>
 
         <!-- sun icon -->

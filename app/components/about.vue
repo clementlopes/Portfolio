@@ -1,6 +1,6 @@
 <template>
   <section id="about" class="py-16 bg-base-100">
-    <div class="container mx-auto px-4">
+    <div class="container mx-auto px-4 mt-10">
       <div class="text-center mb-16">
         <h2 class="text-4xl font-bold text-center mb-12 text-primary">This is me</h2>
       </div>
@@ -38,13 +38,16 @@
             <div class="w-full grid gap-4 mt-2">
               <h3 class="text-md font-bold">Curriculum</h3>
               <div class="bg-base-100 flex justify-between p-4">
-                <a href="/files/clement_lopes_cv_En.pdf" target="_blank" rel="noopener noreferrer" class="font-semibold text-lg  hover:text-primary">
+                <a href="/files/clement_lopes_cv_En.pdf" target="_blank" rel="noopener noreferrer"
+                   class="font-semibold text-lg  hover:text-primary">
                   Cv Clément Lopes
                 </a>
 
                 <a href="/files/clement_lopes_cv_En.pdf" download class=" hover:text-primary">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                       stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
                   </svg>
 
                 </a>
@@ -53,13 +56,16 @@
             <div class="w-full grid gap-4 mt-2">
               <h3 class="text-md font-bold">Recommedation letter</h3>
               <div class="bg-base-100 flex justify-between p-4">
-                <a href="/files/Recommedation_letter.pdf" target="_blank" rel="noopener noreferrer" class="font-semibold text-lg hover:text-primary ">
-                  Cv Clément Lopes
+                <a href="/files/Recommedation_letter.pdf" target="_blank" rel="noopener noreferrer"
+                   class="font-semibold text-lg hover:text-primary ">
+                  Recommedation letter
                 </a>
 
                 <a href="/files/Recommedation_letter.pdf" download class=" hover:text-primary">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                       stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
                   </svg>
 
                 </a>
