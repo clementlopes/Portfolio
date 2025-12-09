@@ -1,5 +1,12 @@
 <template>
-  <div>
-    <h1 class="text-xl font-bold underline">    Hello world!  </h1>
-  </div>
+    <Header/>
+    <NuxtPage/>
+    <ProgressBar/>
+    <Footer/>
 </template>
+
+<script setup lang="ts">
+import Header from './components/header.vue';
+import Footer from './components/footer.vue';
+import ProgressBar from './components/progressBar.vue';
+</script>

@@ -1,0 +1,35 @@
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy app source
+COPY . .
+
+# Generate static site
+RUN npm run generate
+
+# Production stage - Use nginx to serve static files
+FROM nginx:alpine
+
+LABEL maintainer="Your Name"
+
+# Copy nginx configuration
+COPY nginx-static.conf /etc/nginx/nginx.conf
+
+# Copy generated static files
+COPY --from=builder /app/.output/public /usr/share/nginx/html
+
+# Expose port
+EXPOSE 80
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost/ || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]
