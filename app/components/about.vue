@@ -54,7 +54,7 @@
               <h3 class="text-md font-bold">Recommedation letter</h3>
               <div class="bg-base-100 flex justify-between p-4">
                 <a href="/files/Recommedation_letter.pdf" target="_blank" rel="noopener noreferrer" class="font-semibold text-lg hover:text-primary ">
-                  Cv Clément Lopes
+                  Recommedation letter
                 </a>
 
                 <a href="/files/Recommedation_letter.pdf" download class=" hover:text-primary">

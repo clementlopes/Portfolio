@@ -48,7 +48,7 @@
           <div class=" w-full flex flex-col flex-wrap lg:w-2/3 md:flex-row">
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="PocketBase" src="/img/pocketbase.svg"/>
+              <img class="flex size-16 base " alt="PocketBase" src="/img/pocketbase.svg"/>
               <p class="flex p-2 text-xl font-semibold ">PocketBase</p>
             </div>
 
