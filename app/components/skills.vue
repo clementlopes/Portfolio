@@ -1,6 +1,6 @@
 <template>
   <section id="skills" class="py-16 bg-base-100">
-    <div class="container mx-auto px-4">
+    <div class="container mx-auto px-4 mt-10">
       <h2 class="text-4xl font-bold text-center mb-12 text-primary">My Stack</h2>
       <div class="grid grid-rows-1 gap-8">
         <!--        FrontEnd-->
