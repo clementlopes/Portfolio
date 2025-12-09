@@ -1,2 +1,11 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+    themes: forest --default, winter;
+}
+/* Define shadow colors per theme */
+[data-theme="light"] {
+    --shadow-color: 66 42 213;
+}
+[data-theme="dracula"] {
+    --shadow-color: 255 121 198;
+}
