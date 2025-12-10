@@ -12,7 +12,7 @@
         <NuxtLink to="/#contact" class="link link-hover hover:text-primary transition-colors duration-200">Contact</NuxtLink>
       </nav>
 
-      <p class="text-sm">© {{ currentYear }} Clément Lopes. All rights reserved.</p>
+      <p class="text-sm">© {{ currentYear }} Clément Lopes</p>
 
     </div>
 
