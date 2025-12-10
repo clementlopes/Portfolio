@@ -1,7 +1,7 @@
 # 👋 Clément Lopes — Frontend Developer
 
 I build clean, responsive, and performant web experiences with modern Vue tooling.  
-This is the source code for my personal portfolio, deployed from my **homelab** to the world 🌐.
+This is the source code for my personal portfolio, deployed from my **homelab** to the world.
 
 🔗 **Live Site**: [https://clementlopes.site](https://clementlopes.site)
 
