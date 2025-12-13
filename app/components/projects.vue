@@ -7,7 +7,7 @@
 
         <!-- PGO -->
         <div class="card bg-base-100 shadow-xl border hover:shadow-2xl hover:border-primary transition-shadow duration-300">
-          <a href="https://www.github.com/clementlopes" target="_blank">
+          <a href="https://github.com/clementlopes/Plataforma-gestao-de-orcamentos" target="_blank">
           <div class="px-4 pt-4">
             <div class=" bg-gray-200 p-4 rounded-lg">
               <img src="/img/pgo.png" alt="Pgo" />
