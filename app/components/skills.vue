@@ -1,6 +1,6 @@
 <template>
   <section id="skills" class="py-16 bg-base-100">
-    <div class="container mx-auto px-4">
+    <div class="container mx-auto px-4 mt-10">
       <h2 class="text-4xl font-bold text-center mb-12 text-primary">My Stack</h2>
       <div class="grid grid-rows-1 gap-8">
         <!--        FrontEnd-->
@@ -48,7 +48,7 @@
           <div class=" w-full flex flex-col flex-wrap lg:w-2/3 md:flex-row">
 
             <div class="flex flex-cols-2 p-4 items-center text-center hover:scale-110 transition duration-300">
-              <img class="flex size-16 " alt="PocketBase" src="/img/pocketbase.svg"/>
+              <img class="flex size-16 base " alt="PocketBase" src="/img/pocketbase.svg"/>
               <p class="flex p-2 text-xl font-semibold ">PocketBase</p>
             </div>
 

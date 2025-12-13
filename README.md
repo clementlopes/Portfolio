@@ -1,75 +1,42 @@
-# Nuxt Minimal Starter
+# 👋 Clément Lopes — Frontend Developer
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+I build clean, responsive, and performant web experiences with modern Vue tooling.  
+This is the source code for my personal portfolio, deployed from my **homelab** to the world.
 
-## Setup
+🔗 **Live Site**: [https://clementlopes.site](https://clementlopes.site)
 
-Make sure to install dependencies:
+---
 
-```bash
-# npm
-npm install
+## 🛠️ Tech Stack
 
-# pnpm
-pnpm install
+### Frontend
+- **Framework**: [Nuxt 4](https://nuxt.com) (Vue 3, Vite)
+- **State Management**: [Pinia](https://pinia.vuejs.org)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) + [DaisyUI](https://daisyui.com)
+- **IDE**: [WebStorm](https://www.jetbrains.com/webstorm/)
 
-# yarn
-yarn install
+### Deployment & Infrastructure
+- **Homelab**: Self-managed server running [Proxmox VE](https://www.proxmox.com)
+- **Containers**: Docker inside LXC container [Docker LXC](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker)
+- **Orchestration**: [Portainer](https://www.portainer.io) for container management
+- **Networking**: [Cloudflare Tunnel](https://www.cloudflare.com) for secure, public access (no open ports!)
+- **Domain**: `clementlopes.site` (managed via Cloudflare DNS)
 
-# bun
-bun install
-```
+---
 
-## Development Server
+## 🚀 Features
 
-Start the development server on `http://localhost:3000`:
+- ✨ **Theme toggle** [dark/light theme](https://www.npmjs.com/package/theme-change)
+- 📱 Fully responsive & accessible
+- ⚡ Optimized with Nuxt’s hybrid rendering (SSG/SSR)
+- 🔒 End-to-end secure deployment (Cloudflare Tunnel + HTTPS)
+- 🧪 Easy local development + production-ready Docker setup
 
-```bash
-# npm
-npm run dev
+---
 
-# pnpm
-pnpm dev
+## 🧪 Local Development
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo

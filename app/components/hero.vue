@@ -1,6 +1,6 @@
 <template>
   <section id="hero" class="hero min-h-screen bg-base-100">
-    <div class="hero-content flex-col lg:flex-row justify-between w-full max-w-7xl px-4 py-12">
+    <div class="hero-content flex-col lg:flex-row justify-between w-full max-w-7xl px-4 py-12 mt-10">
       <div class="text-center lg:text-left lg:w-1/2">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           FRONTEND DEVELOPER<br/>

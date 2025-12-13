@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install production dependencies only (smaller image, faster build)
-RUN npm ci --only=production
+RUN npm ci
 
 # Copy the entire application source code into the container
 COPY . .
