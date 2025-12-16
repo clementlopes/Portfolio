@@ -1,7 +1,5 @@
 #!/bin/sh
-
-# Script adaptado para GitHub Releases com GitHub usernames
-# Usando sintaxe compatível com sh para máxima portabilidade
+set -e
 
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <owner/repo>" >&2
@@ -59,8 +57,9 @@ fi
 TEMP_COMMITS=$(mktemp)
 TEMP_AUTHORS=$(mktemp)
 
-git log --pretty=format:"%H" "$COMMIT_RANGE" > "$TEMP_COMMITS"
-git log --format='%an|%ae' "$COMMIT_RANGE" | sort -u > "$TEMP_AUTHORS"
+# Use --use-mailmap to unify author identities (requires .mailmap file)
+git log --use-mailmap --pretty=format:"%H" "$COMMIT_RANGE" > "$TEMP_COMMITS"
+git log --use-mailmap --format='%an|%ae' "$COMMIT_RANGE" | sort -u > "$TEMP_AUTHORS"
 
 COMMITS_COUNT=$(wc -l < "$TEMP_COMMITS")
 CONTRIBUTORS_COUNT=$(wc -l < "$TEMP_AUTHORS")
@@ -76,9 +75,7 @@ echo ""
 
 if [ -s "$TEMP_COMMITS" ]; then
     while IFS= read -r COMMIT_HASH || [ -n "$COMMIT_HASH" ]; do
-        if [ -z "$COMMIT_HASH" ]; then
-            continue
-        fi
+        [ -z "$COMMIT_HASH" ] && continue
 
         SUBJECT=$(git show -s --format=%s "$COMMIT_HASH")
         BODY=$(git show -s --format=%b "$COMMIT_HASH")
@@ -86,40 +83,46 @@ if [ -s "$TEMP_COMMITS" ]; then
         AUTHOR_EMAIL=$(git show -s --format=%ae "$COMMIT_HASH")
         SHORT_COMMIT_HASH=$(echo "$COMMIT_HASH" | cut -c1-7)
 
-        # Buscar GitHub username via API usando o email
-        AUTHOR_USERNAME=""
-        if [ -n "$GITHUB_TOKEN" ]; then
-            # Primeiro tentar buscar pelo email
-            AUTHOR_USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-                "https://api.github.com/search/users?q=$AUTHOR_EMAIL+in:email" \
-                | jq -r '.items[0].login // empty' 2>/dev/null)
-        fi
-
-        # Se não encontrou pelo email, tentar buscar pelo nome
-        if [ -z "$AUTHOR_USERNAME" ] || [ "$AUTHOR_USERNAME" = "null" ]; then
-            if [ -n "$GITHUB_TOKEN" ]; then
-                # Remover caracteres especiais do nome para a busca
-                SEARCH_NAME=$(echo "$AUTHOR_NAME" | tr ' ' '+' | sed 's/[^a-zA-Z0-9+]//g')
-                AUTHOR_USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-                    "https://api.github.com/search/users?q=$SEARCH_NAME+in:name" \
+        # Get username from GitHub
+        USERNAME=""
+        if [ -n "${GITHUB_TOKEN}" ]; then
+            # 1. Verify if email is from GitHub "noreply" (more reliable)
+            if echo "$AUTHOR_EMAIL" | grep -q "@users.noreply.github.com"; then
+                USERNAME=$(echo "$AUTHOR_EMAIL" | sed 's/.*+\([^@]*\)@.*/\1/')
+            else
+                # 2. Try get email only works if public
+                USERNAME=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
+                    "https://api.github.com/search/users?q=${AUTHOR_EMAIL}+in:email" \
                     | jq -r '.items[0].login // empty' 2>/dev/null)
+
+                # 3. if dont get email try by name
+                if [ -z "$USERNAME" ] || [ "$USERNAME" = "null" ]; then
+                    SEARCH_NAME=$(echo "$AUTHOR_NAME" | tr ' ' '+' | sed 's/[^a-zA-Z0-9+]//g')
+                    USERNAME=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
+                        "https://api.github.com/search/users?q=${SEARCH_NAME}+in:name" \
+                        | jq -r '.items[0].login // empty' 2>/dev/null)
+                fi
             fi
+
+            # 4. if dont get username or email put it the name
+            if [ -z "$USERNAME" ] || [ "$USERNAME" = "null" ]; then
+                USERNAME=$(echo "$AUTHOR_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-')
+            fi
+        else
+            # No token, use fallback with name on commit
+            USERNAME=$(echo "$AUTHOR_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-')
         fi
 
-        # Fallback para nome formatado apenas se tudo mais falhar
-        if [ -z "$AUTHOR_USERNAME" ] || [ "$AUTHOR_USERNAME" = "null" ]; then
-            AUTHOR_USERNAME=$(echo "$AUTHOR_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-')
-        fi
 
-        PR_NUMBER=$(echo "$SUBJECT $BODY" | grep -o '#[0-9]*' | head -n 1 | sed 's/#//')
+        PR_NUMBER=$(echo "$SUBJECT $BODY" | grep -o '#[0-9]*' | head -n1 | sed 's/#//')
         if [ -z "$PR_NUMBER" ]; then
             PR_TEXT=""
         else
             PR_TEXT=" in [#${PR_NUMBER}](${GITHUB_URL}/pull/${PR_NUMBER})"
         fi
 
-        # Corrigido: link para o perfil do usuário em vez de dentro do repositório
-        echo "- [${SHORT_COMMIT_HASH}](${GITHUB_URL}/commit/${COMMIT_HASH}) ${SUBJECT} by [@${AUTHOR_USERNAME}](https://github.com/${AUTHOR_USERNAME})${PR_TEXT}"
+        # show link for commit and profile link of contributer
+        echo "- [${SHORT_COMMIT_HASH}](${GITHUB_URL}/commit/${COMMIT_HASH}) ${SUBJECT} by [@${USERNAME}](https://github.com/${USERNAME})${PR_TEXT}"
     done < "$TEMP_COMMITS"
 else
     echo "- No changes found between ${PREVIOUS_TAG} and ${CURRENT_TAG}"
@@ -131,34 +134,33 @@ echo ""
 
 if [ -s "$TEMP_AUTHORS" ]; then
     while IFS='|' read -r AUTHOR EMAIL || [ -n "$AUTHOR" ]; do
-        if [ -z "$AUTHOR" ]; then
-            continue
-        fi
+        [ -z "$AUTHOR" ] && continue
 
-        # Buscar GitHub username via API usando o email
+        # Get username of GitHub
         USERNAME=""
-        if [ -n "$GITHUB_TOKEN" ]; then
-            USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-                "https://api.github.com/search/users?q=$EMAIL+in:email" \
-                | jq -r '.items[0].login // empty' 2>/dev/null)
-        fi
-
-        # Se não encontrou pelo email, tentar buscar pelo nome
-        if [ -z "$USERNAME" ] || [ "$USERNAME" = "null" ]; then
-            if [ -n "$GITHUB_TOKEN" ]; then
-                SEARCH_NAME=$(echo "$AUTHOR" | tr ' ' '+' | sed 's/[^a-zA-Z0-9+]//g')
-                USERNAME=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-                    "https://api.github.com/search/users?q=$SEARCH_NAME+in:name" \
+        if [ -n "${GITHUB_TOKEN}" ]; then
+            if echo "$EMAIL" | grep -q "@users.noreply.github.com"; then
+                USERNAME=$(echo "$EMAIL" | sed 's/.*+\([^@]*\)@.*/\1/')
+            else
+                USERNAME=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
+                    "https://api.github.com/search/users?q=${EMAIL}+in:email" \
                     | jq -r '.items[0].login // empty' 2>/dev/null)
-            fi
-        fi
 
-        # Fallback para nome formatado apenas se tudo mais falhar
-        if [ -z "$USERNAME" ] || [ "$USERNAME" = "null" ]; then
+                if [ -z "$USERNAME" ] || [ "$USERNAME" = "null" ]; then
+                    SEARCH_NAME=$(echo "$AUTHOR" | tr ' ' '+' | sed 's/[^a-zA-Z0-9+]//g')
+                    USERNAME=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
+                        "https://api.github.com/search/users?q=${SEARCH_NAME}+in:name" \
+                        | jq -r '.items[0].login // empty' 2>/dev/null)
+                fi
+            fi
+
+            if [ -z "$USERNAME" ] || [ "$USERNAME" = "null" ]; then
+                USERNAME=$(echo "$AUTHOR" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-')
+            fi
+        else
             USERNAME=$(echo "$AUTHOR" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-')
         fi
 
-        # Corrigido: link para o perfil do usuário em vez de dentro do repositório
         echo "- [@${USERNAME}](https://github.com/${USERNAME}) made their first contribution 🎉"
     done < "$TEMP_AUTHORS"
 fi
