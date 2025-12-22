@@ -20,7 +20,7 @@ This is the source code for my personal portfolio, deployed from my **homelab** 
 - **Containers**: Docker inside LXC container [Docker LXC](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker)
 - **Orchestration**: [Portainer](https://www.portainer.io) for container management
 - **Networking**: [Cloudflare Tunnel](https://www.cloudflare.com) for secure, public access (no open ports!)
-- **Domain**: `clementlopes.site` (managed via Cloudflare DNS)
+- **Domain**: `clementlopes.site` (Cloudflare DNS)
 
 ---
 
