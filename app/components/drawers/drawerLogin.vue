@@ -123,10 +123,12 @@
 
 import {useDrawersStore} from "~/composables/useDrawersStore";
 import {useAuthStore} from "~/composables/useAuthStore";
+import Notyf from "~/utils/LibNotyf";
 
 
 const drawerStore = useDrawersStore();
 const authStore = useAuthStore();
+const notyf = new Notyf()
 
 /**
  * Props/Emits
@@ -163,6 +165,7 @@ const doLogin = async () => {
 
   try {
     data = await authStore.login(email.value, password.value);
+    notyf.success('Bem vindo '+data.record.name)
     console.log(data)
   } catch (e) {
     console.error(e)
