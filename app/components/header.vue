@@ -34,7 +34,7 @@
     <div class="navbar-end">
       <label class="swap-rotate swap btn btn-ghost">
         <!-- this hidden checkbox controls the state -->
-        <input type="checkbox" :checked="themeStore.activeTheme !== 'forest'" data-toggle-theme="forest,winter"
+        <input type="checkbox" :checked="themeStore.activeTheme === 'winter'" data-toggle-theme="forest,winter"
                @change="themeStore.changeTheme()"/>
 
         <!-- sun icon -->
