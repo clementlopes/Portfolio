@@ -125,12 +125,10 @@
 import {useDrawersStore} from "~/composables/useDrawersStore";
 import {useAuthStore} from "~/composables/useAuthStore";
 import {useToastStore} from "~/composables/useToastStore";
-import Notyf from "~/utils/LibNotyf";
 
 
 const drawerStore = useDrawersStore();
 const authStore = useAuthStore();
-const notyf = new Notyf();
 const toast = useToastStore();
 
 /**
@@ -187,7 +185,7 @@ const doGoogleLogin = async () => {
     return
   }
   close();
-  await navigateTo('/adminDashboard')
+  await navigateTo('/')
 
 }
 
