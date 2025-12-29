@@ -121,15 +121,18 @@
  * Stores
  */
 
-
+import {storeToRefs} from "pinia";
 import {useDrawersStore} from "~/composables/useDrawersStore";
 import {useAuthStore} from "~/composables/useAuthStore";
 import {useToastStore} from "~/composables/useToastStore";
+import {useUserStore} from "~/composables/useUserStore";
 
 
 const drawerStore = useDrawersStore();
 const authStore = useAuthStore();
 const toast = useToastStore();
+const userStore = useUserStore();
+const {userdata} = storeToRefs(userStore);
 
 /**
  * Props/Emits
@@ -167,11 +170,15 @@ const doLogin = async () => {
   try {
     data = await authStore.login(email.value, password.value);
     toast.openToast({type: 'success', message: `Bem vindo ${data.record.name}`})
-
+    
   } catch (e) {
 
     return
   }
+  console.log(data)
+  await userStore.saveUserData(data);
+
+
   close();
 }
 
