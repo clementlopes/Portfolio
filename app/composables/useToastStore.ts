@@ -1,8 +1,10 @@
 import {defineStore} from "pinia";
 import {ref} from 'vue'
+
 export const useToastStore = defineStore('useToastStore', () =>{
 
-    const toasts: Toast[] = ref([])
+    const toasts = ref<Toast[]>([])
+
 
     const openToast = ({type, message}) =>{
         const id = Date.now()
@@ -15,8 +17,14 @@ export const useToastStore = defineStore('useToastStore', () =>{
 
     }
 
+    const getToasts = computed(() => toasts)
+
     return{
         openToast,
+        toasts,
+        getToasts,
+
+
     }
 
 

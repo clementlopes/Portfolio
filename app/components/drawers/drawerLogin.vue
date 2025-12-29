@@ -3,7 +3,7 @@
   <!-- Background overlay -->
   <div
       v-if="open"
-      class="fixed inset-0 bg-black/50 z-40"
+      class="fixed inset-0 bg-base-100/50  backdrop-blur-[4px] z-40"
       @click="handleClose"
   />
 
@@ -13,7 +13,7 @@
       :class="open ? 'translate-x-0' : 'translate-x-full'"
   >
 
-    <div class=" bg-base-100 p-8 w-full h-full">
+    <div class=" bg-base-200 p-8 w-full h-full">
 
       <button class="absolute top-4 right-4 bg-error rounded-lg md:hidden" @click="handleClose">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -89,6 +89,7 @@
         <span>Login</span>
         </button>
 
+
       </form>
       <div class="flex items-center my-6">
         <hr class="flex-grow border-gray-700">
@@ -123,12 +124,14 @@
 
 import {useDrawersStore} from "~/composables/useDrawersStore";
 import {useAuthStore} from "~/composables/useAuthStore";
+import {useToastStore} from "~/composables/useToastStore";
 import Notyf from "~/utils/LibNotyf";
 
 
 const drawerStore = useDrawersStore();
 const authStore = useAuthStore();
-const notyf = new Notyf()
+const notyf = new Notyf();
+const toast = useToastStore();
 
 /**
  * Props/Emits
@@ -165,10 +168,10 @@ const doLogin = async () => {
 
   try {
     data = await authStore.login(email.value, password.value);
-    notyf.success('Bem vindo '+data.record.name)
-    console.log(data)
+    toast.openToast({type: 'success', message: `Bem vindo ${data.record.name}`})
+
   } catch (e) {
-    console.error(e)
+
     return
   }
   close();
