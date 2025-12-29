@@ -3,12 +3,16 @@
     <NuxtPage/>
     <ProgressBar/>
     <Footer/>
+    <DrawersContainer/>
+    <Toast/>
 </template>
 
 <script setup lang="ts">
 import Header from './components/header.vue';
 import Footer from './components/footer.vue';
 import ProgressBar from './components/progressBar.vue';
+import DrawersContainer from './components/drawers/drawersContainer.vue';
+import Toast from './components/toast/toast.vue'
 
 useHead({
   title: 'Clément Lopes - Frontend Developer',

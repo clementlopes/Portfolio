@@ -15,7 +15,7 @@
         </div>
         <div class="grid grid-cols-1 p-4 lg:border-l-1 border-gray-500/50 ">
           <p class="mb-4 text-justify">
-            Junior Frontend Developer with professional experience in building and maintaining
+            Frontend Developer with professional experience in building and maintaining
             a Point-of-Sales (POS) system using Vue.js, Vuex, and TypeScript. I specialize in
             creating responsive and user-friendly interfaces with modern technologies like
             TailwindCSS and DaisyUI, and in integrating and testing RESTful APIs using Postman.
