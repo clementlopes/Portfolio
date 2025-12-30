@@ -11,12 +11,17 @@ export const useThemeStore = defineStore('useThemeStore', () =>{
 
     const changeTheme = () => {
         activeTheme.value === "forest" ? activeTheme.value = "winter" : activeTheme.value ="forest";
-    }
+    };
+
+    const setInitialTheme = () => {
+        localStorage.getItem("theme") ? activeTheme.value = localStorage.getItem("theme")! : activeTheme.value = "forest";
+    };
 
     return{
         activeTheme,
         getActiveTheme,
         changeTheme,
+        setInitialTheme,
     }
 
 })
