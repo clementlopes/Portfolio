@@ -175,8 +175,9 @@ const doLogin = async () => {
 
     return
   }
-  console.log(data)
+
   await userStore.saveUserData(data);
+  
 
 
   close();

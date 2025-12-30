@@ -16,8 +16,14 @@ export const useAuthStore = defineStore('useAuthStore', () =>{
         return await pocketBaseStore.pb.collection('users').authWithOAuth2({provider: 'google'})
     };
 
+    const logout = async () => {
+        localStorage.removeItem('pocketbase_auth')
+        await pocketBaseStore.pb.authStore.clear();
+        };
+
 return{
     login,
     loginWithGoogle,
+    logout,
 }
 })
