@@ -106,7 +106,7 @@ import { onMounted } from "vue";
 import { useThemeStore } from "~/composables/useThemeStore";
 import { useDrawersStore } from "~/composables/useDrawersStore";
 import { useUserStore } from "~/composables/useUserStore";
-import { useAuthStore } from "~/composables/useAuthStore";
+import { useAuthStore } from "~/composables/useMyAuthStore";
 import { themeChange } from 'theme-change'
 import { storeToRefs } from 'pinia'
 

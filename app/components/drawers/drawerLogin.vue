@@ -123,7 +123,7 @@
 
 import {storeToRefs} from "pinia";
 import {useDrawersStore} from "~/composables/useDrawersStore";
-import {useAuthStore} from "~/composables/useAuthStore";
+import {useAuthStore} from "~/composables/useMyAuthStore";
 import {useToastStore} from "~/composables/useToastStore";
 import {useUserStore} from "~/composables/useUserStore";
 
@@ -175,10 +175,6 @@ const doLogin = async () => {
 
     return
   }
-
-  await userStore.saveUserData(data);
-  
-
 
   close();
 }
