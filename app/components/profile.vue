@@ -43,8 +43,8 @@
       </div>
 
       <!-- Right Col- profile form-->
-      <div class="lg:col-span-2">
-        <div class="tabs tabs-lift w-full min-h-0 border border-base-300 rounded-2xl shadow-xl">
+      <div class="lg:col-span-2 border">
+        <div class="w-full border border-base-300 rounded-2xl shadow-xl">
 
           <div class="tabs tabs-lift bg-base-100  ">
             <input type="radio" name="tabsProfile" class="tab [--tab-bg:theme(colors.base.200)]" aria-label="Profile" checked>
