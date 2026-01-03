@@ -1,18 +1,18 @@
 <template>
     <Header/>
     <NuxtPage/>
-    <ProgressBar/>
     <Footer/>
     <DrawersContainer/>
     <Toast/>
 </template>
 
 <script setup lang="ts">
+
 import Header from './components/header.vue';
 import Footer from './components/footer.vue';
-import ProgressBar from './components/progressBar.vue';
 import DrawersContainer from './components/drawers/drawersContainer.vue';
 import Toast from './components/toast/toast.vue'
+
 
 useHead({
   title: 'Clément Lopes - Frontend Developer',
@@ -22,7 +22,7 @@ useHead({
 
     { name: 'canonical', content: 'https://clementlopes.site' },
 
-    { name: 'keywords', content: 'frontend developer, Vue.js developer, Nuxt , developer Portugal, Tailwind CSS, Pinia, DaisyUI, Vue 3, Nuxt 4, API, javascript, typescript, Clément Lopes' },
+    { name: 'keywords', content: 'frontend developer, Vue.js developer, Nuxt , developer Portugal, Tailwind CSS, Pinia, VueX, State Management, DaisyUI, Vue 3, Nuxt 4, UI/UX, API, javascript, typescript, Clément Lopes' },
 
     { name: 'author', content: 'Clément Lopes' },
   ]

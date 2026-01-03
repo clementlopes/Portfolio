@@ -6,7 +6,7 @@
     <projects />
     <Contacts />
     <scroll-to-top />
-    <progressBar />
+    <ProgressBar/>
   </div>
 </template>
 
