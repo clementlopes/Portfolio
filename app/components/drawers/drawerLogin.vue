@@ -91,11 +91,7 @@
 
 
       </form>
-      <div class="flex items-center my-6">
-        <hr class="flex-grow border-gray-700">
-        <span class="mx-4 text-gray-500">or</span>
-        <hr class="flex-grow border-gray-700">
-      </div>
+      <div class="divider">OR</div>
       <div class="flex flex-col space-y-4">
         <button
             class="w-full btn btn-primary rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
