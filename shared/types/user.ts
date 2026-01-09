@@ -6,4 +6,7 @@ export interface User {
     avatar?: string,
     created: string,
     themeMode: string,
+    oldPassword?: string,
+    password?: string,
+    passwordConfirm?: string,
 }

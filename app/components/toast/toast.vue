@@ -15,10 +15,10 @@
 
 import {useToastStore} from "~/composables/useToastStore";
 import {storeToRefs} from "pinia";
-import SuccessIcon from "~/components/toast/icons/successIcon.vue";
-import ErrorIcon from "~/components/toast/icons/errorIcon.vue";
-import InfoIcon from "~/components/toast/icons/infoIcon.vue"
-import WarningIcon from "~/components/toast/icons/warningIcon.vue"
+import SuccessIcon from "~/components/icons/successIcon.vue";
+import ErrorIcon from "~/components/icons/errorIcon.vue";
+import InfoIcon from "~/components/icons/infoIcon.vue"
+import WarningIcon from "~/components/icons/warningIcon.vue"
 
 const toastStore = useToastStore();
 const {toasts} = storeToRefs(toastStore)

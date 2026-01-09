@@ -3,7 +3,7 @@ import PocketBase from 'pocketbase'
 
 export const usePocketbaseStore = defineStore('usePocketBaseStore', () =>{
 
-    const pb = new PocketBase('https://pocketbase.clementlopes.site');
+    const pb = new PocketBase('https://api.clementlopes.site');
 
     return{
         pb,

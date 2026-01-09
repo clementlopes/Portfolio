@@ -1,6 +1,6 @@
 <template>
 
-  <div class="w-full px-4 py-16 mt-20">
+  <div class="w-full h-full px-4 py-16 mt-20">
 
     <div class=" grid grid-cols-1 lg:grid-cols-3 gap-6 ">
 
@@ -14,7 +14,7 @@
                 <img :src="userData.avatar" />
               </div>
             </div>
-            <h2 class="text-xl font-bold">{{ userData.first_name }}</h2>
+            <h2 class="text-xl font-bold">{{ userData.name }}</h2>
             <p class="text-base-content/70">{{ userData.email }}</p>
             <div class="mt-4 w-full">
               <label class="btn btn-outline w-full btn-sm gap-2">
@@ -43,14 +43,13 @@
       </div>
 
       <!-- Right Col- profile form-->
-      <div class="lg:col-span-2 border">
-        <div class="w-full border border-base-300 rounded-2xl shadow-xl">
 
-          <div class="tabs tabs-lift bg-base-100  ">
-            <input type="radio" name="tabsProfile" class="tab [--tab-bg:theme(colors.base.200)]" aria-label="Profile" checked>
+        <div class="w-full col-span-2 shadow-xl rounded-xl border border-base-300">
 
-            <div class="tab-content bg-base-200 border-base-300 p-6">
-              <!-- Profile Tab -->
+          <div class="tabs tabs-lift ">
+            <input type="radio" name="tabsProfile" class="tab" aria-label="Profile" checked>
+            <!-- Profile Tab -->
+            <div class="tab-content bg-base-100 p-6 rounded-b-xs border border-base-300 ">
 
               <div>
                 <h2 class="text-xl font-bold mb-4">Profile</h2>
@@ -97,50 +96,45 @@
 
             </div>
 
-            <input type="radio" name="tabsProfile" class="tab [--tab-bg:theme(colors.base.200)]" aria-label="Security">
+            <input type="radio" name="tabsProfile" class="tab" aria-label="Security">
             <!-- security Tab-->
-            <div class="tab-content bg-base-200 border-base-300 p-6">
+            <div class="tab-content p-6 rounded-b-xs border border-base-300">
               <div>
                 <h2 class="text-xl font-bold mb-4">Security</h2>
 
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 
-                  <div class="form-control">
-                    <label class="fieldset-legend">Email</label>
-                    <input type="email" required class="input input-primary validator w-full" placeholder="Email"
-                      minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Repita a nova password">
-                    <p class="validator-hint">As password não coincidem</p>
+                  <div class="form-control w-full">
+                    <label class="fieldset-legend" for="email"> Email</label>
+                    <input id="email1" v-model="userData.email" type="email" placeholder="email@exemplo.com"
+                           class="input w-full validator">
+                    <p class="validator-hint">Required Field!</p>
                   </div>
 
                   <div class="form-control">
                     <label class="fieldset-legend">Password atual</label>
-                    <input type="password" required class="input input-primary validator w-full"
+                    <input type="password" required class="input validator w-full"
                       placeholder="Password atual" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                       title="Repita a nova password">
-                    <progress class="progress progress-primary w-full" value="100" max="100" />
-                    <p class="validator-hint">As passwords não coincidem</p>
+                    <p class="validator-hint">Required Field!</p>
                   </div>
 
                   <div class="form-control">
                     <label class="fieldset-legend">Nova Password</label>
 
-                    <input type="password" required class="input input-primary validator w-full"
+                    <input type="password" required class="input validator w-full"
                       placeholder="Nova password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                       title="Deve conter 8 caracteres com letra maiúscula, minuscula, números e símbolos">
-                    <progress class="progress progress-primary w-full" value="100" max="100" />
-                    <p class=" validator-hint">Mínimo de 8 caracteres com letra maiúscula, minuscula, números e
-                      símbolos</p>
+                    <p class=" validator-hint">Minimum 8 characters with uppercase, lowercase, numbers, and symbols.</p>
                   </div>
 
                   <div class="form-control">
                     <label class="fieldset-legend">Confirmar nova password</label>
-                    <input type="password" required class="input input-primary validator w-full "
+                    <input type="password" required class="input validator w-full "
                       placeholder="Confirme nova password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                       title="Deve conter 8 caracteres com letra maiúscula, minuscula, números e símbolos">
-                    <progress class="progress progress-primary w-full" value="100" max="100" />
-                    <p class="validator-hint">Mínimo de 8 caracteres com letra maiúscula, minuscula, números e
-                      símbolos</p>
+                    <p class="validator-hint">Passwords do not match!</p>
                   </div>
 
                 </div>
@@ -150,12 +144,11 @@
           </div>
 
           <!-- Botões de ação -->
-          <div class="flex w-full justify-end gap-2 p-4 bg-base-200 border-t border-base-300">
+          <div class="flex w-full justify-end gap-2 p-4">
             <button class="btn btn-outline btn-error rounded-md">Cancelar</button>
             <button class="btn btn-outline btn-success rounded-md">Guardar Alterações</button>
           </div>
         </div>
-      </div>
     </div>
 
 
@@ -170,8 +163,7 @@ import { onMounted, onBeforeUnmount } from 'vue';
 import { themeChange } from 'theme-change';
 import { useUserStore } from "~/composables/useUserStore";
 import { useThemeStore } from "~/composables/useThemeStore"
-
-
+import {toRaw} from "vue";
 
 
 /**
@@ -187,8 +179,7 @@ const themeStore = useThemeStore();
  * References
  */
 const { userData } = storeToRefs(userStore);
-
-// const originalData = ref(structuredClone(toRaw(userData.value)));
+const originalData = ref(structuredClone(toRaw(userData.value)));
 /**
  * Computed Properties
  */
@@ -200,14 +191,23 @@ const { userData } = storeToRefs(userStore);
 /**
  * Watchers
  */
+onBeforeRouteLeave(async () => {
+  const editedProfile = await userStore.dataHasEdited(originalData.value)
+  if (editedProfile) {
+    const response = await swal.confirm('Data Profile', 'Data profile was edited do you wanna leave?')
 
+    if (!response) {
+      return false
+    }
+
+  }
+
+});
 /**
  * Mounted/Unmounted
  */
 onMounted(() => {
-  themeChange(false)
+
 });
 
 </script>
-
-<style scoped></style>

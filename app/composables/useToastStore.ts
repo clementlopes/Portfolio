@@ -24,7 +24,6 @@ export const useToastStore = defineStore('useToastStore', () =>{
         toasts,
         getToasts,
 
-
     }
 
 
