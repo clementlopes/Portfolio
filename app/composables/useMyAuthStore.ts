@@ -6,7 +6,7 @@ export const useAuthStore = defineStore('auth', () => {
   const pocketBaseStore = usePocketbaseStore()
   const userStore = useUserStore()
 
-  const mapAuthDataToUser = (authData: any): User => {
+  const mapAuthDataToUser = (authData: any): UserType => {
     
     const record = authData.record
 

@@ -128,7 +128,6 @@ const drawerStore = useDrawersStore();
 const authStore = useAuthStore();
 const toast = useToastStore();
 const userStore = useUserStore();
-const {userdata} = storeToRefs(userStore);
 
 /**
  * Props/Emits

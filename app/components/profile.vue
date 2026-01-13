@@ -163,6 +163,7 @@ import { onMounted, onBeforeUnmount } from 'vue';
 import { themeChange } from 'theme-change';
 import { useUserStore } from "~/composables/useUserStore";
 import { useThemeStore } from "~/composables/useThemeStore"
+import {useAlertStore} from "~/composables/useAlertStore";
 import {toRaw} from "vue";
 
 
@@ -171,6 +172,7 @@ import {toRaw} from "vue";
  */
 const userStore = useUserStore();
 const themeStore = useThemeStore();
+const alertStore = useAlertStore();
 /**
  * Props/Emits
  */
@@ -188,13 +190,14 @@ const originalData = ref(structuredClone(toRaw(userData.value)));
  * Methods
  */
 
+
 /**
  * Watchers
  */
 onBeforeRouteLeave(async () => {
-  const editedProfile = await userStore.dataHasEdited(originalData.value)
+  const editedProfile = await userStore.userDataHasEdited(originalData.value)
   if (editedProfile) {
-    const response = await swal.confirm('Data Profile', 'Data profile was edited do you wanna leave?')
+    const response = await alertStore.openAlert({type: 'success', message: 'Data profile was edited do you wanna leave?'})
 
     if (!response) {
       return false

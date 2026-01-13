@@ -5,9 +5,9 @@ import {usePocketbaseStore} from "~/composables/usePocketbaseStore";
 export const useUserStore = defineStore('userStore', () => {
 
     const pocketbase = usePocketbaseStore();
-    const userData = ref<User | null>(null);
+    const userData = ref<UserType | null>(null);
 
-    const saveUserData = (authData: User) => {
+    const saveUserData = (authData: UserType) => {
         userData.value = authData
     }
 
@@ -15,11 +15,11 @@ export const useUserStore = defineStore('userStore', () => {
         userData.value = null
     }
 
-    const dataHasEdited = async (data: User) => {
+    const userDataHasEdited = async (data: UserType) => {
         return JSON.stringify(data) !== JSON.stringify(userData.value);
     }
 
-    const updateUser = async (newData: User) =>{
+    const updateUser = async (newData: UserType) =>{
 
        const data = {
             "name": newData.name,
@@ -38,6 +38,7 @@ export const useUserStore = defineStore('userStore', () => {
         saveUserData,
         clearUser,
         updateUser,
+        userDataHasEdited,
 
     }
 

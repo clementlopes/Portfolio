@@ -3,8 +3,7 @@ import {ref} from 'vue'
 
 export const useToastStore = defineStore('useToastStore', () =>{
 
-    const toasts = ref<Toast[]>([])
-
+    const toasts = ref<ToastType[]>([])
 
     const openToast = ({type, message}) =>{
         const id = Date.now()
@@ -23,7 +22,6 @@ export const useToastStore = defineStore('useToastStore', () =>{
         openToast,
         toasts,
         getToasts,
-
     }
 
 

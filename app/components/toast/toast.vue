@@ -1,7 +1,9 @@
 <template>
   <div class="toast toast-top toast-end w-56 mt-15 z-100">
-    <div  v-for="toast in toasts" class="alert bg-base-100 border-2 text-base-content font-semibold align-middle" :class="toastClass(toast.type)">
-      <component :is="toastIconMap[toast.type] ?? toastIconMap['info']" class="w-6 h-6 " :class="toastColor(toast.type)" />
+    <div v-for="toast in toasts" :class="toastClass(toast.type)"
+         class="alert bg-base-100 border-2 text-base-content font-semibold align-middle">
+      <component :is="toastIconMap[toast.type] ?? toastIconMap['info']" :class="toastColor(toast.type)"
+                 class="w-6 h-6 "/>
       <span>{{ toast.message }}</span>
     </div>
   </div>
