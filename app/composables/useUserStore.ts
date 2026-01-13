@@ -14,6 +14,10 @@ export const useUserStore = defineStore('userStore', () => {
     const clearUser = () => {
         userData.value = null
     }
+    
+    const setUserData = (data: UserType) =>{
+        userData.value = data;
+    }
 
     const userDataHasEdited = async (data: UserType) => {
         return JSON.stringify(data) !== JSON.stringify(userData.value);
@@ -31,6 +35,7 @@ export const useUserStore = defineStore('userStore', () => {
 
         const record = await pocketbase.pb.collection('users').update(newData.id, data);
     }
+
 
 
     return {

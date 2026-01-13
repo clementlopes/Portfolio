@@ -145,7 +145,7 @@
 
           <!-- Botões de ação -->
           <div class="flex w-full justify-end gap-2 p-4">
-            <button class="btn btn-outline btn-error rounded-md">Cancelar</button>
+            <button @click="cancelChanges()" class="btn btn-outline btn-error rounded-md">Cancelar</button>
             <button class="btn btn-outline btn-success rounded-md">Guardar Alterações</button>
           </div>
         </div>
@@ -189,6 +189,9 @@ const originalData = ref(structuredClone(toRaw(userData.value)));
 /**
  * Methods
  */
+const cancelChanges = () =>{
+  
+}
 
 
 /**
