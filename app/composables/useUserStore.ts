@@ -15,26 +15,23 @@ export const useUserStore = defineStore('userStore', () => {
         userData.value = null
     }
     
-    const setUserData = (data: UserType) =>{
-        userData.value = data;
+    const updateUser = async (newData: UserType)=>{
+
+        console.table(newData)
+        const data = {
+            "name": newData.name,
+            "themeMode": newData.themeMode,
+        };
+
+        const record = await pocketbase.pb.collection('users').update(newData.id, data);
+        return record
     }
 
     const userDataHasEdited = async (data: UserType) => {
         return JSON.stringify(data) !== JSON.stringify(userData.value);
     }
 
-    const updateUser = async (newData: UserType) =>{
-
-       const data = {
-            "name": newData.name,
-            "themeMode": newData.themeMode,
-            "oldPassword": newData.oldPassword,
-            "password": newData.password,
-            "passwordConfirm": newData.passwordConfirm,
-        };
-
-        const record = await pocketbase.pb.collection('users').update(newData.id, data);
-    }
+ 
 
 
 

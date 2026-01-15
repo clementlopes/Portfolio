@@ -11,11 +11,11 @@
           <div class="flex flex-col h-auto items-center p-6 border-b border-base-300">
             <div class="avatar online mb-4">
               <div class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img :src="userData.avatar" />
+                <img :src="originalData.avatar" />
               </div>
             </div>
-            <h2 class="text-xl font-bold">{{ userData.name }}</h2>
-            <p class="text-base-content/70">{{ userData.email }}</p>
+            <h2 class="text-xl font-bold">{{ originalData.name }}</h2>
+            <p class="text-base-content/70">{{ originalData.email }}</p>
             <div class="mt-4 w-full">
               <label class="btn btn-outline w-full btn-sm gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -34,7 +34,7 @@
             <div class=" stats stats-vertical w-full shadow">
               <div class="stat">
                 <div class="stat-title">Created</div>
-                <div class="stat-desc text-lg">{{ userData.created }}</div>
+                <div class="stat-desc text-lg">{{ originalData.created }}</div>
               </div>
             </div>
           </div>
@@ -56,15 +56,15 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                   <div class="form-control w-full">
-                    <label class="fieldset-legend" for="first_name"> Name</label>
-                    <input id="first_name" v-model="userData.name" type="text" placeholder="Your name"
+                    <label class="fieldset-legend" for="name"> Name</label>
+                    <input id="name" v-model="originalData.name" type="text" placeholder="Your name"
                       class="input w-full validator">
                     <p class="validator-hint"> Required Field!</p>
                   </div>
 
                   <div class="form-control w-full">
                     <label class="fieldset-legend" for="email"> Email</label>
-                    <input id="email" v-model="userData.email" type="email" placeholder="email@exemplo.com"
+                    <input id="email" v-model="originalData.email" type="email" placeholder="email@exemplo.com"
                       class="input w-full validator">
                     <p class="validator-hint">Required Field!</p>
                   </div>
@@ -107,7 +107,7 @@
 
                   <div class="form-control w-full">
                     <label class="fieldset-legend" for="email"> Email</label>
-                    <input id="email1" v-model="userData.email" type="email" placeholder="email@exemplo.com"
+                    <input id="email1" v-model="originalData.email" type="email" placeholder="email@exemplo.com"
                            class="input w-full validator">
                     <p class="validator-hint">Required Field!</p>
                   </div>
@@ -146,7 +146,7 @@
           <!-- Botões de ação -->
           <div class="flex w-full justify-end gap-2 p-4">
             <button @click="cancelChanges()" class="btn btn-outline btn-error rounded-md">Cancelar</button>
-            <button class="btn btn-outline btn-success rounded-md">Guardar Alterações</button>
+            <button @click="saveChanges()" class="btn btn-outline btn-success rounded-md">Guardar Alterações</button>
           </div>
         </div>
     </div>
@@ -164,6 +164,7 @@ import { themeChange } from 'theme-change';
 import { useUserStore } from "~/composables/useUserStore";
 import { useThemeStore } from "~/composables/useThemeStore"
 import {useAlertStore} from "~/composables/useAlertStore";
+import {useToastStore} from "~/composables/useToastStore";
 import {toRaw} from "vue";
 
 
@@ -173,6 +174,7 @@ import {toRaw} from "vue";
 const userStore = useUserStore();
 const themeStore = useThemeStore();
 const alertStore = useAlertStore();
+const toastStore = useToastStore();
 /**
  * Props/Emits
  */
@@ -190,8 +192,19 @@ const originalData = ref(structuredClone(toRaw(userData.value)));
  * Methods
  */
 const cancelChanges = () =>{
+
+  originalData.value = structuredClone(toRaw(userData.value));
   
-}
+};
+
+const saveChanges = async () =>{
+    const response = await userStore.updateUser(originalData.value);
+    if(response){
+        toastStore.openToast({type: 'success', message: 'Dados atualizados com sucesso!'})
+    }else{
+        toastStore.openToast({type: 'error', message: 'Erro ao atualizar dados!'})
+    }
+};
 
 
 /**

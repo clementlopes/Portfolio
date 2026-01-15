@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
 import { usePocketbaseStore } from './usePocketbaseStore'
 import { useUserStore } from './useUserStore'
+import { useThemeStore } from '~/composables/useThemeStore'  
 
 export const useAuthStore = defineStore('auth', () => {
-  const pocketBaseStore = usePocketbaseStore()
-  const userStore = useUserStore()
+  const pocketBaseStore = usePocketbaseStore();
+  const userStore = useUserStore();
+  const themeStore = useThemeStore();
 
   const mapAuthDataToUser = (authData: any): UserType => {
     
@@ -19,6 +21,10 @@ export const useAuthStore = defineStore('auth', () => {
       `${String(d.getDate()).padStart(2, '0')}-` +
       `${String(d.getMonth() + 1).padStart(2, '0')}-` +
       `${d.getFullYear()}`
+
+      if(record.themeMode === ''){
+        record.themeMode = themeStore.activeTheme
+      }
 
     return {
       id: record.id,
