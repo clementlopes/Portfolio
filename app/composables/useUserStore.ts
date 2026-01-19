@@ -1,10 +1,12 @@
-import { defineStore } from "pinia";
-import { ref } from 'vue'
+import {defineStore} from "pinia";
+import {ref} from 'vue'
 import {usePocketbaseStore} from "~/composables/usePocketbaseStore";
+import {useAuthStore} from "~/composables/useMyAuthStore";
 
 export const useUserStore = defineStore('userStore', () => {
 
     const pocketbase = usePocketbaseStore();
+    const MyAuthStore = useAuthStore();
     const userData = ref<UserType | null>(null);
 
     const saveUserData = (authData: UserType) => {
@@ -14,10 +16,9 @@ export const useUserStore = defineStore('userStore', () => {
     const clearUser = () => {
         userData.value = null
     }
-    
-    const updateUser = async (newData: UserType)=>{
 
-        console.table(newData)
+    const updateUser = async (newData: UserType) => {
+
         const data = {
             "name": newData.name,
             "themeMode": newData.themeMode,
@@ -26,20 +27,20 @@ export const useUserStore = defineStore('userStore', () => {
         const record = await pocketbase.pb.collection('users').update(newData.id, data);
         return record
     }
-    
-    const updatePassword = async (id: string, oldPassword: string, newPassword: string, confirmPassword:string) =>{
+
+    const updatePassword = async (id: string, oldPassword: string, newPassword: string, confirmPassword: string) => {
         try {
-            console.table({id, oldPassword, newPassword, confirmPassword})
-            
+
             const data = {
                 "oldPassword": oldPassword,
                 "password": newPassword,
                 "passwordConfirm": confirmPassword,
             };
-            const record = await pocketbase.pb.collection('users').update(id, data);
-            return record
+            const response = await pocketbase.pb.collection('users').update(id, data);
+            MyAuthStore.logout()
+            return response
+
         } catch (error) {
-            console.error('Error updating password:', error);
             return null
         }
     }
@@ -47,9 +48,6 @@ export const useUserStore = defineStore('userStore', () => {
     const userDataHasEdited = async (data: UserType) => {
         return JSON.stringify(data) !== JSON.stringify(userData.value);
     }
-
- 
-
 
 
     return {

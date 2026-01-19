@@ -12,7 +12,7 @@ export const useToastStore = defineStore('useToastStore', () =>{
 
         setTimeout(() =>{
             toasts.value = toasts.value.filter(toast => toast.id !== id)
-        }, 2000)
+        }, 3000)
 
     }
 

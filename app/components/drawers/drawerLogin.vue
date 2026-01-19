@@ -25,7 +25,7 @@
         <img src="" alt="Logo" class="h-12">
       </div>
       <h2 class="text-2xl font-bold text-center text-primary mb-6">Login to your Account</h2>
-      <form @submit.prevent="doLogin()">
+        <form ref="loginForm" @submit.prevent="doLogin()">
 
         <div>
           <label class="fieldset-legend" for="email">Email</label>
@@ -145,6 +145,7 @@ const handleClose = () => emits('close');
  */
 const email = ref<string>('')
 const password = ref<string>('')
+const loginForm = ref<HTMLFormElement | null>(null)
 
 /**
  * Computed Properties
@@ -164,10 +165,13 @@ const doLogin = async () => {
 
   try {
     data = await authStore.login(email.value, password.value);
-    toast.openToast({type: 'success', message: `Bem vindo ${data.record.name}`})
+    toast.openToast({type: 'success', message: `Welcome ${data.record.name}`})
     
   } catch (e) {
-
+    if (loginForm.value) {
+      loginForm.value.reset();
+    }
+    toast.openToast({type:'error', message:'Invalid credentials!'})
     return
   }
 
@@ -178,9 +182,13 @@ const doGoogleLogin = async () => {
   let data;
   try {
     data = await authStore.loginWithGoogle();
-    console.log(data)
+    toast.openToast({type: 'success', message: `Welcome ${data.record.name}`})
+
   } catch (e) {
-    console.error(e)
+    if (loginForm.value) {
+      loginForm.value.reset();
+    }
+    toast.openToast({type:'error', message:'Invalid credentials!'})
     return
   }
   close();
@@ -197,7 +205,3 @@ const doGoogleLogin = async () => {
  * Mounted/Unmounted
  */
 </script>
-
-<style scoped>
-
-</style>
