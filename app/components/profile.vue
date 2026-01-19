@@ -11,11 +11,11 @@
           <div class="flex flex-col h-auto items-center p-6 border-b border-base-300">
             <div class="avatar online mb-4">
               <div class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img :src="originalData.avatar" />
+                <img :src="userData.avatar" />
               </div>
             </div>
-            <h2 class="text-xl font-bold">{{ originalData.name }}</h2>
-            <p class="text-base-content/70">{{ originalData.email }}</p>
+            <h2 class="text-xl font-bold">{{ userData.name }}</h2>
+            <p class="text-base-content/70">{{ userData.email }}</p>
             <div class="mt-4 w-full">
               <label class="btn btn-outline w-full btn-sm gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -34,7 +34,7 @@
             <div class=" stats stats-vertical w-full shadow">
               <div class="stat">
                 <div class="stat-title">Created</div>
-                <div class="stat-desc text-lg">{{ originalData.created }}</div>
+                <div class="stat-desc text-lg">{{ userData.created }}</div>
               </div>
             </div>
           </div>
@@ -57,14 +57,14 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                   <div class="form-control w-full">
                     <label class="fieldset-legend" for="name"> Name</label>
-                    <input id="name" v-model="originalData.name" type="text" placeholder="Your name"
+                    <input id="name" v-model="duplicateData.name" type="text" placeholder="Your name"
                       class="input w-full validator">
                     <p class="validator-hint"> Required Field!</p>
                   </div>
 
                   <div class="form-control w-full">
                     <label class="fieldset-legend" for="email"> Email</label>
-                    <input id="email" v-model="originalData.email" type="email" placeholder="email@exemplo.com"
+                    <input id="email" v-model="duplicateData.email" type="email" placeholder="email@exemplo.com"
                       class="input w-full validator">
                     <p class="validator-hint">Required Field!</p>
                   </div>
@@ -107,14 +107,14 @@
 
                   <div class="form-control w-full">
                     <label class="fieldset-legend" for="email"> Email</label>
-                    <input id="email1" v-model="originalData.email" type="email" placeholder="email@exemplo.com"
+                    <input id="email1" v-model="duplicateData.email" type="email" placeholder="email@exemplo.com"
                            class="input w-full validator">
                     <p class="validator-hint">Required Field!</p>
                   </div>
 
                   <div class="form-control">
                     <label class="fieldset-legend">Password atual</label>
-                    <input type="password" required class="input validator w-full"
+                    <input v-model="currentPassword" type="password" class="input validator w-full"
                       placeholder="Password atual" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                       title="Repita a nova password">
                     <p class="validator-hint">Required Field!</p>
@@ -123,18 +123,19 @@
                   <div class="form-control">
                     <label class="fieldset-legend">Nova Password</label>
 
-                    <input type="password" required class="input validator w-full"
+                    <input v-model="newPassword" type="password" class="input validator w-full"
                       placeholder="Nova password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                       title="Deve conter 8 caracteres com letra maiúscula, minuscula, números e símbolos">
                     <p class=" validator-hint">Minimum 8 characters with uppercase, lowercase, numbers, and symbols.</p>
+                  
                   </div>
 
                   <div class="form-control">
                     <label class="fieldset-legend">Confirmar nova password</label>
-                    <input type="password" required class="input validator w-full "
+                    <input v-model="confirmPassword" type="password" class="input validator w-full "
                       placeholder="Confirme nova password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                       title="Deve conter 8 caracteres com letra maiúscula, minuscula, números e símbolos">
-                    <p class="validator-hint">Passwords do not match!</p>
+                    <p v-if="passwordMisMatch()" class="text-error">Passwords do not match!</p>
                   </div>
 
                 </div>
@@ -159,13 +160,12 @@
 
 <script setup lang="ts">
 
-import { onMounted, onBeforeUnmount } from 'vue';
+import { onMounted, onBeforeUnmount, ref, toRaw } from 'vue';
 import { themeChange } from 'theme-change';
 import { useUserStore } from "~/composables/useUserStore";
 import { useThemeStore } from "~/composables/useThemeStore"
 import {useAlertStore} from "~/composables/useAlertStore";
 import {useToastStore} from "~/composables/useToastStore";
-import {toRaw} from "vue";
 
 
 /**
@@ -183,7 +183,10 @@ const toastStore = useToastStore();
  * References
  */
 const { userData } = storeToRefs(userStore);
-const originalData = ref(structuredClone(toRaw(userData.value)));
+const duplicateData = ref(structuredClone(toRaw(userData.value)));
+const currentPassword = ref('');
+const newPassword = ref('');
+const confirmPassword = ref('');
 /**
  * Computed Properties
  */
@@ -193,17 +196,43 @@ const originalData = ref(structuredClone(toRaw(userData.value)));
  */
 const cancelChanges = () =>{
 
-  originalData.value = structuredClone(toRaw(userData.value));
+  duplicateData.value = structuredClone(toRaw(userData.value));
   
 };
 
+const passwordMisMatch = () => {
+    return newPassword.value !== confirmPassword.value;
+};
+
 const saveChanges = async () =>{
-    const response = await userStore.updateUser(originalData.value);
+    
+    if (newPassword.value || confirmPassword.value || currentPassword.value) {
+        if (newPassword.value !== confirmPassword.value) {
+            toastStore.openToast({type: 'error', message: 'As passwords não coincidem!'})
+            return
+        }
+        if (!currentPassword.value) {
+            toastStore.openToast({type: 'error', message: 'Password atual é obrigatória!'})
+            return
+        }
+        const passwordResponse = await userStore.updatePassword(duplicateData.value.id, currentPassword.value, newPassword.value, confirmPassword.value);
+        
+        if(!passwordResponse){
+            toastStore.openToast({type: 'error', message: 'Erro ao atualizar password!'})
+            return
+        }
+    }
+    
+    const response = await userStore.updateUser(duplicateData.value);
     if(response){
         toastStore.openToast({type: 'success', message: 'Dados atualizados com sucesso!'})
     }else{
         toastStore.openToast({type: 'error', message: 'Erro ao atualizar dados!'})
     }
+    
+    currentPassword.value = ''
+    newPassword.value = ''
+    confirmPassword.value = ''
 };
 
 
@@ -211,7 +240,7 @@ const saveChanges = async () =>{
  * Watchers
  */
 onBeforeRouteLeave(async () => {
-  const editedProfile = await userStore.userDataHasEdited(originalData.value)
+  const editedProfile = await userStore.userDataHasEdited(duplicateData.value)
   if (editedProfile) {
     const response = await alertStore.openAlert({type: 'success', message: 'Data profile was edited do you wanna leave?'})
 

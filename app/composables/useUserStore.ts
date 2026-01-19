@@ -26,6 +26,23 @@ export const useUserStore = defineStore('userStore', () => {
         const record = await pocketbase.pb.collection('users').update(newData.id, data);
         return record
     }
+    
+    const updatePassword = async (id: string, oldPassword: string, newPassword: string, confirmPassword:string) =>{
+        try {
+            console.table({id, oldPassword, newPassword, confirmPassword})
+            
+            const data = {
+                "oldPassword": oldPassword,
+                "password": newPassword,
+                "passwordConfirm": confirmPassword,
+            };
+            const record = await pocketbase.pb.collection('users').update(id, data);
+            return record
+        } catch (error) {
+            console.error('Error updating password:', error);
+            return null
+        }
+    }
 
     const userDataHasEdited = async (data: UserType) => {
         return JSON.stringify(data) !== JSON.stringify(userData.value);
@@ -40,6 +57,7 @@ export const useUserStore = defineStore('userStore', () => {
         saveUserData,
         clearUser,
         updateUser,
+        updatePassword,
         userDataHasEdited,
 
     }
