@@ -1,28 +1,24 @@
-import {defineStore} from "pinia";
-import {ref} from 'vue'
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
 export const useToastStore = defineStore('useToastStore', () => {
+  const toasts = ref<{ id: number; type: string; message: string }[]>([]);
 
-    const toasts = ref<ToastType[]>([])
+  const openToast = ({ type, message }: { type: string; message: string }) => {
+    const id = Date.now();
 
-    const openToast = ({type, message}) => {
-        const id = Date.now()
+    toasts.value.push({ id, type, message });
 
-        toasts.value.push({id, type, message})
+    setTimeout(() => {
+      toasts.value = toasts.value.filter(toast => toast.id !== id);
+    }, 3000);
+  };
 
-        setTimeout(() => {
-            toasts.value = toasts.value.filter(toast => toast.id !== id)
-        }, 3000)
+  const getToasts = computed(() => toasts);
 
-    }
-
-    const getToasts = computed(() => toasts)
-
-    return {
-        openToast,
-        toasts,
-        getToasts,
-    }
-
-
-})
+  return {
+    openToast,
+    toasts,
+    getToasts,
+  };
+});

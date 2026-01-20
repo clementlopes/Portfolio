@@ -1,12 +1,11 @@
-import {defineStore} from "pinia";
-import PocketBase from 'pocketbase'
+import { defineStore } from 'pinia';
+import PocketBase from 'pocketbase';
 
-export const usePocketbaseStore = defineStore('usePocketBaseStore', () =>{
+export const usePocketbaseStore = defineStore('usePocketBaseStore', () => {
+  const config = useRuntimeConfig();
+  const pb = new PocketBase(config.public.pocketbaseUrl as string);
 
-    const pb = new PocketBase('https://api.clementlopes.site');
-
-    return{
-        pb,
-    }
-
-})
+  return {
+    pb,
+  };
+});

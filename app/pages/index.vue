@@ -6,10 +6,8 @@
     <projects />
     <Contacts />
     <scroll-to-top />
-    <ProgressBar/>
+    <ProgressBar />
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
