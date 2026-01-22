@@ -52,7 +52,7 @@
       <div v-if="userData" class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full border-2 border-primary">
-            <img alt="Avatar" :src="userData?.avatar" />
+            <img alt="Avatar" :src="userData?.avatar || '/img/user.png'" />
           </div>
         </div>
         <ul

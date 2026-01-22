@@ -2,13 +2,13 @@
   <div class="w-full h-full px-4 py-16 mt-20">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Left col  - Avatar and created -->
-      <div class="lg:col-span-1">
+      <div class="col-span-1">
         <div class="h-full flex flex-col bg-base-100 rounded-xl shadow-xl border border-base-300">
           <!-- Seção de avatar -->
           <div class="flex flex-col h-auto items-center p-6 border-b border-base-300">
             <div class="avatar online mb-4">
               <div class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img :src="userData?.avatar" />
+                <img :src="userData?.avatar || '/img/user.png'" />
               </div>
             </div>
             <h2 class="text-xl font-bold">{{ userData?.name }}</h2>
@@ -29,7 +29,7 @@
                     d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
                   />
                 </svg>
-                Change phot                <input type="file" class="hidden" accept="image/*" @change="handleFileChange" />
+                Change photo                <input type="file" class="hidden" accept="image/*" @change="handleFileChange" />
               </label>
             </div>
           </div>
