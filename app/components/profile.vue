@@ -29,8 +29,7 @@
                     d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
                   />
                 </svg>
-                Change photo
-                <input type="file" class="hidden" />
+                Change phot                <input type="file" class="hidden" accept="image/*" @change="handleFileChange" />
               </label>
             </div>
           </div>
@@ -62,7 +61,7 @@
                   <label class="fieldset-legend" for="name"> Name</label>
                   <input
                     id="name"
-                    v-model="duplicateData?.name"
+                    v-model="duplicateData.name"
                     type="text"
                     placeholder="Your name"
                     class="input w-full validator"
@@ -74,7 +73,7 @@
                   <label class="fieldset-legend" for="email"> Email</label>
                   <input
                     id="email"
-                    v-model="duplicateData?.email"
+                    v-model="duplicateData.email"
                     type="email"
                     placeholder="email@example.com"
                     class="input w-full validator"
@@ -129,10 +128,10 @@
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div class="form-control w-full">
-                  <label class="fieldset-legend" for="email"> Email</label>
+                  <label class="fieldset-legend" for="email1"> Email</label>
                   <input
                     id="email1"
-                    v-model="duplicateData?.email"
+                    v-model="duplicateData.email"
                     type="email"
                     placeholder="email@example.com"
                     disabled
@@ -149,7 +148,7 @@
                     placeholder="Current password"
                     minlength="8"
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                    title="Repeat new password"
+                    title="You password"
                   />
                   <p class="validator-hint">Required Field!</p>
                 </div>
@@ -204,14 +203,10 @@
 </template>
 
 <script setup lang="ts">
-import auth from '~/middleware/auth';
-
-definePageMeta({
-  middleware: ['auth'],
-});
-
 import { onMounted, ref, toRaw } from 'vue';
+import { navigateTo } from '#app';
 import { onBeforeRouteLeave } from '#vue-router';
+import { storeToRefs } from 'pinia';
 import { themeChange } from 'theme-change';
 import { useUserStore } from '~/composables/useUserStore';
 import { useThemeStore } from '~/composables/useThemeStore';
@@ -233,7 +228,7 @@ const toastStore = useToastStore();
  * References
  */
 const { userData } = storeToRefs(userStore);
-const duplicateData = ref(structuredClone(toRaw(userData.value)));
+const duplicateData = ref(structuredClone(toRaw(userData.value)) || {});
 const currentPassword = ref('');
 const newPassword = ref('');
 const confirmPassword = ref('');
@@ -249,7 +244,21 @@ const cancelChanges = () => {
 };
 
 const passwordMisMatch = () => {
+  if(confirmPassword.value.length > 0)
   return newPassword.value !== confirmPassword.value;
+};
+
+const handleFileChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files[0]) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (duplicateData.value && e.target?.result) {
+        duplicateData.value.avatar = e.target.result as string;
+      }
+    };
+    reader.readAsDataURL(target.files[0]);
+  }
 };
 
 const saveChanges = async () => {
