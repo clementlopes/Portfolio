@@ -30,6 +30,19 @@ export const useUserStore = defineStore('userStore', () => {
     }
   };
 
+  const uploadAvatar = async (file: File) => {
+    try {
+      const formData = new FormData();
+      formData.append('avatar', file);
+      
+      const record = await pocketbase.pb.collection('users').update(userData.value!.id, formData);
+      userData.value!.avatar = record.avatar;
+      return record.avatar;
+    } catch (error: any) {
+      throw new Error(error?.message || 'Failed to upload avatar. Please try again.');
+    }
+  };
+
   const updatePassword = async (
     id: string,
     oldPassword: string,
@@ -61,5 +74,6 @@ export const useUserStore = defineStore('userStore', () => {
     updateUser,
     updatePassword,
     userDataHasEdited,
+    uploadAvatar,
   };
 });

@@ -7,29 +7,23 @@
           <!-- Seção de avatar -->
           <div class="flex flex-col h-auto items-center p-6 border-b border-base-300">
             <div class="avatar online mb-4">
-              <div class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img :src="userData?.avatar || '/img/user.png'" />
+              <div class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 relative">
+                <img :src="previewUrl || userData?.avatar || '/img/user.png'" />
+                <div v-if="selectedFile" class="absolute -top-1 -right-1 badge badge-warning badge-sm">
+                  New
+                </div>
               </div>
             </div>
             <h2 class="text-xl font-bold">{{ userData?.name }}</h2>
             <p class="text-base-content/70">{{ userData?.email }}</p>
             <div class="mt-4 w-full">
-              <label class="btn btn-outline w-full btn-sm gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-4 h-4"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-                  />
+              <label class="btn btn-outline w-full btn-sm gap-2 ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                 </svg>
-                Change photo                <input type="file" class="hidden" accept="image/*" @change="handleFileChange" />
+                Change photo <input type="file" class="hidden" accept="image/*" @change="handleFileChange" />
               </label>
             </div>
           </div>
@@ -59,25 +53,15 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div class="form-control w-full">
                   <label class="fieldset-legend" for="name"> Name</label>
-                  <input
-                    id="name"
-                    v-model="duplicateData.name"
-                    type="text"
-                    placeholder="Your name"
-                    class="input w-full validator"
-                  />
+                  <input id="name" v-model="duplicateData.name" type="text" placeholder="Your name"
+                    class="input w-full validator" />
                   <p class="validator-hint">Required Field!</p>
                 </div>
 
                 <div class="form-control w-full">
                   <label class="fieldset-legend" for="email"> Email</label>
-                  <input
-                    id="email"
-                    v-model="duplicateData.email"
-                    type="email"
-                    placeholder="email@example.com"
-                    class="input w-full validator"
-                  />
+                  <input id="email" v-model="duplicateData.email" type="email" placeholder="email@example.com"
+                    class="input w-full validator" />
                   <p class="validator-hint">Required Field!</p>
                 </div>
               </div>
@@ -89,33 +73,19 @@
             <h2 class="text-xl font-bold mb-4">Theme preference</h2>
             <label class="swap-rotate swap btn btn-ghost">
               <!-- Theme change -->
-              <input
-                type="checkbox"
-                :checked="themeStore.activeTheme === 'winter'"
-                data-toggle-theme="forest,winter"
-                @change="themeStore.changeTheme()"
-              />
+              <input type="checkbox" :checked="themeStore.activeTheme === 'winter'" data-toggle-theme="forest,winter"
+                @change="themeStore.changeTheme()" />
 
               <!-- sun icon -->
-              <svg
-                class="swap-off w-6 h-6 fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
+              <svg class="swap-off w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path
-                  d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"
-                />
+                  d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
               </svg>
 
               <!-- moon icon -->
-              <svg
-                class="swap-on w-6 h-6 fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
+              <svg class="swap-on w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path
-                  d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"
-                />
+                  d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
               </svg>
             </label>
           </div>
@@ -129,42 +99,24 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div class="form-control w-full">
                   <label class="fieldset-legend" for="email1"> Email</label>
-                  <input
-                    id="email1"
-                    v-model="duplicateData.email"
-                    type="email"
-                    placeholder="email@example.com"
-                    disabled
-                    class="input w-full validator"
-                  />
+                  <input id="email1" v-model="duplicateData.email" type="email" placeholder="email@example.com" disabled
+                    class="input w-full validator" />
                 </div>
 
                 <div class="form-control">
                   <label class="fieldset-legend">Current password</label>
-                  <input
-                    v-model="currentPassword"
-                    type="password"
-                    class="input validator w-full"
-                    placeholder="Current password"
-                    minlength="8"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                    title="You password"
-                  />
+                  <input v-model="currentPassword" type="password" class="input validator w-full"
+                    placeholder="Current password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="You password" />
                   <p class="validator-hint">Required Field!</p>
                 </div>
 
                 <div class="form-control">
                   <label class="fieldset-legend">New password</label>
 
-                  <input
-                    v-model="newPassword"
-                    type="password"
-                    class="input validator w-full"
-                    placeholder="New password"
-                    minlength="8"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                    title="Must contain 8 characters with uppercase, lowercase, numbers, and symbols"
-                  />
+                  <input v-model="newPassword" type="password" class="input validator w-full" placeholder="New password"
+                    minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Must contain 8 characters with uppercase, lowercase, numbers, and symbols" />
                   <p class="validator-hint">
                     Minimum 8 characters with uppercase, lowercase, numbers, and symbols.
                   </p>
@@ -172,15 +124,9 @@
 
                 <div class="form-control">
                   <label class="fieldset-legend">Confirm new password</label>
-                  <input
-                    v-model="confirmPassword"
-                    type="password"
-                    class="input validator w-full"
-                    placeholder="Confirm new password"
-                    minlength="8"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                    title="Must contain 8 characters with uppercase, lowercase, numbers, and symbols"
-                  />
+                  <input v-model="confirmPassword" type="password" class="input validator w-full"
+                    placeholder="Confirm new password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Must contain 8 characters with uppercase, lowercase, numbers, and symbols" />
                   <p v-if="passwordMisMatch()" class="text-error">Passwords do not match!</p>
                 </div>
               </div>
@@ -232,6 +178,8 @@ const duplicateData = ref(structuredClone(toRaw(userData.value)) || {});
 const currentPassword = ref('');
 const newPassword = ref('');
 const confirmPassword = ref('');
+const selectedFile = ref<File | null>(null);
+const previewUrl = ref<string>('');
 /**
  * Computed Properties
  */
@@ -241,25 +189,32 @@ const confirmPassword = ref('');
  */
 const cancelChanges = () => {
   duplicateData.value = structuredClone(toRaw(userData.value));
+  selectedFile.value = null;
+  previewUrl.value = '';
 };
 
 const passwordMisMatch = () => {
-  if(confirmPassword.value.length > 0)
-  return newPassword.value !== confirmPassword.value;
+  if (confirmPassword.value.length > 0)
+    return newPassword.value !== confirmPassword.value;
 };
+
+
 
 const handleFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
+
   if (target.files && target.files[0]) {
+    selectedFile.value = target.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
-      if (duplicateData.value && e.target?.result) {
-        duplicateData.value.avatar = e.target.result as string;
+      if (e.target?.result) {
+        previewUrl.value = e.target.result as string;
       }
     };
     reader.readAsDataURL(target.files[0]);
   }
 };
+
 
 const saveChanges = async () => {
   if (newPassword.value || confirmPassword.value || currentPassword.value) {
@@ -292,11 +247,25 @@ const saveChanges = async () => {
     }
   }
 
+    else if (selectedFile) {
+      try {
+        console.log(selectedFile.value);
+        const avatarUrl = await userStore.uploadAvatar(selectedFile);
+        duplicateData.value.avatar = avatarUrl;
+      } catch (error: any) {
+        toastStore.openToast({ type: 'error', message: 'Failed to upload avatar!' });
+        return;
+      }
+    }
+  
+
   try {
     const response = await userStore.updateUser(duplicateData.value);
     toastStore.openToast({ type: 'success', message: 'Data updated successfully!' });
+    selectedFile.value = null;
+    previewUrl.value = '';
   } catch (error: any) {
-    toastStore.openToast({ type: 'error', message: error.message || 'Error updating data!' });
+    toastStore.openToast({ type: 'error', message:'Error updating data!' });
   }
 
   currentPassword.value = '';
@@ -323,5 +292,5 @@ onBeforeRouteLeave(async () => {
 /**
  * Mounted/Unmounted
  */
-onMounted(() => {});
+onMounted(() => { });
 </script>
