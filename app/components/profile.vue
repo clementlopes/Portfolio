@@ -224,11 +224,12 @@ const saveChanges = async () => {
   let passwordChange = false;
 
   formData.append('name', duplicateData.value.name);
+  formData.append('themeMode', themeStore.activeTheme);
 
   if (duplicateData.value.email !== userData.value?.email) {
     const response = await alertStore.openAlert({
       type: 'warning',
-      message: `You try to change your email to ${duplicateData.value.email}, do you want to proceed?`,
+      message: `You try to change your email to "${duplicateData.value.email}", do you want to proceed?`,
     });
     if (response) {
       emailChange = true;

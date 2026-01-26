@@ -1,26 +1,26 @@
 <template>
   <div v-if="alert !== null" class="fixed p-4 top-0 w-screen h-screen backdrop-blur-xs z-60">
-    <div
-      :class="alertClassMap[alert.type]"
-      class="alert alert-outline bg-base-300 mt-20 z-50"
-      role="alert"
-    >
-      <component
-        :is="alertIconMap[alert.type] ?? alertIconMap['info']"
-        :class="alertColor(alert.type)"
-        class="size-16"
-      />
+    <div :class="alertClassMap[alert.type]" class="flex flex-col lg:flex-row justify-between alert alert-outline bg-base-100 mt-20 z-50"
+      role="alert">
+      <div class="flex items-center gap-2">
+        <component :is="alertIconMap[alert.type] ?? alertIconMap['info']" :class="alertColor(alert.type)"
+          class="size-16" />
 
-      <span class="font-semibold text-xl">{{ alert.message }}</span>
-
-      <div class="flex gap-2">
-        <button @click="alertStore.onDenyRef?.()" class="btn btn-outline btn-error rounded-md">
-          Deny
-        </button>
-        <button @click="alertStore.onAcceptRef?.()" class="btn btn-outline btn-success rounded-md">
-          Accept
-        </button>
+        <span class="font-semibold text-xs md:text-lg lg:text-xl px-4">{{ alert.message }}</span>
       </div>
+      <!-- Buttons -->
+      <div class="flex items-center" >
+        <div class="flex gap-2">
+          <button @click="alertStore.onDenyRef?.()" class="btn btn-outline btn-error rounded-md">
+            Deny
+          </button>
+          <button @click="alertStore.onAcceptRef?.()" class="btn btn-outline btn-success rounded-md">
+            Accept
+          </button>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </template>
