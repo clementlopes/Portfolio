@@ -4,6 +4,7 @@ export interface UserType {
   name: string;
   email: string;
   avatar?: string;
+  avatarFile?: File;
   created: string;
   themeMode: string;
   oldPassword?: string;

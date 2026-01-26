@@ -18,48 +18,9 @@ export const useUserStore = defineStore('userStore', () => {
 
   const updateUser = async (newData: UserType) => {
     try {
-      const data = {
-        name: newData.name,
-        themeMode: newData.themeMode,
-      };
-
-      const record = await pocketbase.pb.collection('users').update(newData.id, data);
-      return record;
+      return await pocketbase.pb.collection('users').update(userData.value!.id, newData);
     } catch (error: any) {
       throw new Error(error?.message || 'Failed to update user data. Please try again.');
-    }
-  };
-
-  const uploadAvatar = async (file: File) => {
-    try {
-      const formData = new FormData();
-      formData.append('avatar', file);
-      
-      const record = await pocketbase.pb.collection('users').update(userData.value!.id, formData);
-      userData.value!.avatar = record.avatar;
-      return record.avatar;
-    } catch (error: any) {
-      throw new Error(error?.message || 'Failed to upload avatar. Please try again.');
-    }
-  };
-
-  const updatePassword = async (
-    id: string,
-    oldPassword: string,
-    newPassword: string,
-    confirmPassword: string
-  ) => {
-    try {
-      const data = {
-        oldPassword: oldPassword,
-        password: newPassword,
-        passwordConfirm: confirmPassword,
-      };
-      const response = await pocketbase.pb.collection('users').update(id, data);
-      MyAuthStore.logout();
-      return response;
-    } catch (error: any) {
-      throw new Error(error?.message || 'Failed to update password. Please try again.');
     }
   };
 
@@ -72,8 +33,6 @@ export const useUserStore = defineStore('userStore', () => {
     saveUserData,
     clearUser,
     updateUser,
-    updatePassword,
     userDataHasEdited,
-    uploadAvatar,
   };
 });

@@ -87,11 +87,19 @@ export const useAuthStore = defineStore('auth', () => {
       userStore.clearUser();
     }
   };
+  const emailChange = async (newEmail: string) => {
+    try {
+      await pocketBaseStore.pb.collection('users').requestEmailChange(newEmail);
+    } catch (error: any) {
+      throw new Error(error?.message || 'Email change failed. Please try again.');
+    }
+  };
 
   return {
-    login,
-    loginWithGoogle,
-    logout,
-    authRefresh,
-  };
-});
+      login,
+      loginWithGoogle,
+      logout,
+      authRefresh,
+      emailChange,
+    };
+  });
