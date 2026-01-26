@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <profile />
-  </div>
+  <Profile />
 </template>
 
 <script setup lang="ts">
-
+definePageMeta({
+  middleware: ['auth'],
+});
 </script>

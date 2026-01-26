@@ -1,6 +1,5 @@
 <template>
-  <div class="navbar top-0 fixed bg-base-100 px-4 shadow-lg z-100">
-
+  <div class="navbar top-0 fixed bg-base-100 px-4 shadow-lg z-10">
     <div class="navbar-start">
       <!-- mobile menu -->
       <div class="dropdown">
@@ -10,11 +9,21 @@
           </svg>
         </label>
         <ul tabindex="0" class="w-52 menu menu-md dropdown-content mt-3 p-2 bg-base-100 rounded-box shadow">
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">My Stack</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li>
+            <NuxtLink to="/#hero" class="text-lg">Home</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/#about" class="text-lg">About</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/#skills" class="text-lg">My Stack</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/#projects" class="text-lg">Projects</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/#contact" class="text-lg">Contact</NuxtLink>
+          </li>
         </ul>
       </div>
       <NuxtLink to="/" class="font-bold text-xl hover:scale-105 transition duration-500">Clément Lopes</NuxtLink>
@@ -23,44 +32,56 @@
     <!-- desktop menu -->
     <div class="hidden lg:flex navbar-center">
       <ul class="px-1 menu menu-horizontal">
-        <li><a href="#hero" class="text-lg">Home</a></li>
-        <li><a href="#about" class="text-lg">About</a></li>
-        <li><a href="#skills" class="text-lg">My Stack</a></li>
-        <li><a href="#projects" class="text-lg">Projects</a></li>
-        <li><a href="#contact" class="text-lg">Contact</a></li>
+        <li>
+          <NuxtLink to="/#hero" class="text-lg">Home</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="/#about" class="text-lg">About</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="/#skills" class="text-lg">My Stack</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="/#projects" class="text-lg">Projects</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="/#contact" class="text-lg">Contact</NuxtLink>
+        </li>
       </ul>
     </div>
 
     <div class="navbar-end">
-
-      <div v-if="userData" class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-          <div class="w-10 rounded-full border-2 border-primary">
-            <img alt="Avatar" :src="userData?.avatar" />
+      <div v-if="userData">
+        <div class="dropdown dropdown-bottom dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+            <div class="w-10 rounded-full border-2 border-primary">
+              <img alt="Avatar" :src="userData?.avatar || '/img/user.png'" />
+            </div>
           </div>
+          <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+            <li>
+              <NuxtLink class="justify-between" to="/profilePage">
+                Perfil
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+              </NuxtLink>
+            </li>
+            <li @click="handleLogout()">
+              <a class="justify-between" href="/">Logout
+                <svg class="size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+                </svg></a>
+            </li>
+          </ul>
         </div>
-        <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-          
-           <li>
-            <NuxtLink class="justify-between" to="/profilePage"> Perfil <svg
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-6">
-              <path
-                  stroke-linecap="round" stroke-linejoin="round"
-                  d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-            </svg> </NuxtLink>
-          </li>
-          
-          <li @click="handleLogout()"><a class="justify-between" href="/">Logout <svg
-                  class="size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor">
-                <path
-                    stroke-linecap="round" stroke-linejoin="round"
-                    d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25"/>
-              </svg></a></li>
-        </ul>
       </div>
+
 
       <div v-else>
         <label class="swap-rotate swap btn btn-ghost">
@@ -81,14 +102,12 @@
           </svg>
         </label>
 
-
         <button @click="openLoginDrawer()" class="btn btn-ghost">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
           </svg>
-
         </button>
       </div>
     </div>
@@ -96,30 +115,27 @@
 </template>
 
 <script setup lang="ts">
-
 /**
  * Stores
  */
 
-
-import { onMounted } from "vue";
-import { useThemeStore } from "~/composables/useThemeStore";
-import { useDrawersStore } from "~/composables/useDrawersStore";
-import { useUserStore } from "~/composables/useUserStore";
-import { useAuthStore } from "~/composables/useMyAuthStore";
-import { themeChange } from 'theme-change'
-import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue';
+import { useThemeStore } from '~/composables/useThemeStore';
+import { useDrawersStore } from '~/composables/useDrawersStore';
+import { useUserStore } from '~/composables/useUserStore';
+import { useMyAuthStore } from '~/composables/useMyAuthStore';
+import { themeChange } from 'theme-change';
+import { storeToRefs } from 'pinia';
 
 const themeStore = useThemeStore();
 const drawerStore = useDrawersStore();
 const userStore = useUserStore();
-const authStore = useAuthStore();
+const authStore = useMyAuthStore();
 const { userData } = storeToRefs(userStore);
 
 /**
  * Props/Emits
  */
-
 
 /**
  * References
@@ -134,7 +150,7 @@ const { userData } = storeToRefs(userStore);
  */
 
 const openLoginDrawer = () => {
-  drawerStore.openDrawer('drawerLogin')
+  drawerStore.openDrawer('drawerLogin');
 };
 
 const handleLogout = async () => {
@@ -151,8 +167,6 @@ const handleLogout = async () => {
 
 // Initialize theme on component mounted
 onMounted(() => {
-  themeChange(false)
+  themeChange(false);
 });
-
-
 </script>

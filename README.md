@@ -10,12 +10,14 @@ This is the source code for my personal portfolio, deployed from my **homelab** 
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **Framework**: [Nuxt 4](https://nuxt.com) (Vue 3, Vite)
 - **State Management**: [Pinia](https://pinia.vuejs.org)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) + [DaisyUI](https://daisyui.com)
 - **IDE**: [WebStorm](https://www.jetbrains.com/webstorm/)
 
 ### Deployment & Infrastructure
+
 - **Homelab**: Self-managed server running [Proxmox VE](https://www.proxmox.com)
 - **Containers**: Docker inside LXC container [Docker LXC](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker)
 - **Orchestration**: [Portainer](https://www.portainer.io) for container management
@@ -40,3 +42,4 @@ This is the source code for my personal portfolio, deployed from my **homelab** 
    ```bash
    git clone https://github.com/your-username/your-repo.git
    cd your-repo
+   ```
