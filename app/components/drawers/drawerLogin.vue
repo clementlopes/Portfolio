@@ -123,12 +123,12 @@
 
 import { storeToRefs } from 'pinia';
 import { useDrawersStore } from '~/composables/useDrawersStore';
-import { useAuthStore } from '~/composables/useMyAuthStore';
+import { useMyAuthStore } from '~/composables/useMyAuthStore';
 import { useToastStore } from '~/composables/useToastStore';
 import { useUserStore } from '~/composables/useUserStore';
 
 const drawerStore = useDrawersStore();
-const authStore = useAuthStore();
+const authStore = useMyAuthStore();
 const toast = useToastStore();
 const userStore = useUserStore();
 

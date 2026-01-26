@@ -1,5 +1,5 @@
 <template>
-  <div v-if="alert !== null" class="fixed p-4 top-0 w-screen h-screen backdrop-blur-xs z-40">
+  <div v-if="alert !== null" class="fixed p-4 top-0 w-screen h-screen backdrop-blur-xs z-60">
     <div
       :class="alertClassMap[alert.type]"
       class="alert alert-outline bg-base-300 mt-20 z-50"

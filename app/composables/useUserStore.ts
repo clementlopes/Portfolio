@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { usePocketbaseStore } from '~/composables/usePocketbaseStore';
-import { useAuthStore } from '~/composables/useMyAuthStore';
+import { useMyAuthStore } from '~/composables/useMyAuthStore';
 
 export const useUserStore = defineStore('userStore', () => {
   const pocketbase = usePocketbaseStore();
-  const MyAuthStore = useAuthStore();
+  const MyAuthStore = useMyAuthStore();
   const userData = ref<UserType | null>(null);
 
   const saveUserData = (authData: UserType) => {
@@ -16,11 +16,13 @@ export const useUserStore = defineStore('userStore', () => {
     userData.value = null;
   };
 
-  const updateUser = async (newData: UserType) => {
+  const updateUser = async (newData: UserType | FormData) => {
     try {
-      return await pocketbase.pb.collection('users').update(userData.value!.id, newData);
+      await pocketbase.pb.collection('users').update(userData.value!.id, newData);
+      return true;
     } catch (error: any) {
       throw new Error(error?.message || 'Failed to update user data. Please try again.');
+      return false;
     }
   };
 

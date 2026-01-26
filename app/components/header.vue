@@ -57,7 +57,7 @@
             <img alt="Avatar" :src="userData?.avatar || '/img/user.png'" />
           </div>
         </div>
-        <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-15 mt-3 w-52 p-2 shadow">
           <li>
             <NuxtLink class="justify-between" to="/profilePage">
               Perfil
@@ -121,14 +121,14 @@ import { onMounted } from 'vue';
 import { useThemeStore } from '~/composables/useThemeStore';
 import { useDrawersStore } from '~/composables/useDrawersStore';
 import { useUserStore } from '~/composables/useUserStore';
-import { useAuthStore } from '~/composables/useMyAuthStore';
+import { useMyAuthStore } from '~/composables/useMyAuthStore';
 import { themeChange } from 'theme-change';
 import { storeToRefs } from 'pinia';
 
 const themeStore = useThemeStore();
 const drawerStore = useDrawersStore();
 const userStore = useUserStore();
-const authStore = useAuthStore();
+const authStore = useMyAuthStore();
 const { userData } = storeToRefs(userStore);
 
 /**

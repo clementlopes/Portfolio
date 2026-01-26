@@ -3,7 +3,7 @@ import { usePocketbaseStore } from './usePocketbaseStore';
 import { useUserStore } from './useUserStore';
 import { useThemeStore } from '~/composables/useThemeStore';
 
-export const useAuthStore = defineStore('auth', () => {
+export const useMyAuthStore = defineStore('auth', () => {
   const pocketBaseStore = usePocketbaseStore();
   const userStore = useUserStore();
   const themeStore = useThemeStore();
@@ -33,6 +33,10 @@ export const useAuthStore = defineStore('auth', () => {
       avatar,
       created,
       themeMode: record.themeMode,
+      password: '',
+      passwordConfirm: '',
+      oldPassword: '',
+      avatarFile: null,
     };
   };
 
@@ -81,13 +85,13 @@ export const useAuthStore = defineStore('auth', () => {
 
       userStore.saveUserData(mapAuthDataToUser(authData));
     } catch (error: any) {
-      console.error('Auth refresh failed:', error?.message);
       pocketBaseStore.pb.authStore.clear();
       localStorage.removeItem('pocketbase_auth');
       userStore.clearUser();
     }
   };
   const emailChange = async (newEmail: string) => {
+    console.log(newEmail)
     try {
       await pocketBaseStore.pb.collection('users').requestEmailChange(newEmail);
     } catch (error: any) {
@@ -96,10 +100,10 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   return {
-      login,
-      loginWithGoogle,
-      logout,
-      authRefresh,
-      emailChange,
-    };
-  });
+    login,
+    loginWithGoogle,
+    logout,
+    authRefresh,
+    emailChange,
+  };
+});

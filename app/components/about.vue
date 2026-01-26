@@ -44,7 +44,7 @@
                   rel="noopener noreferrer"
                   class="font-semibold text-lg hover:text-primary"
                 >
-                  Cv Clément Lopes
+                  Resume
                 </a>
 
                 <a href="/files/clement_lopes_cv_En.pdf" download class="hover:text-primary">

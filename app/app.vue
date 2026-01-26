@@ -1,10 +1,16 @@
 <template>
-  <Header />
-  <NuxtPage />
-  <Footer />
-  <DrawersContainer />
-  <Toast />
-  <Alert />
+  <div class="w-full min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-grow">
+      <NuxtPage />
+       <DrawersContainer />
+    <Toast />
+    <Alert />
+    </main>
+    <Footer class="mt-auto" />
+   
+  </div>
+
 </template>
 
 <script setup lang="ts">

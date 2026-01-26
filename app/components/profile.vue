@@ -159,6 +159,7 @@ import { useThemeStore } from '~/composables/useThemeStore';
 import { useAlertStore } from '~/composables/useAlertStore';
 import { useToastStore } from '~/composables/useToastStore';
 import { useMyAuthStore } from '~/composables/useMyAuthStore';
+import { useDrawersStore } from '~/composables/useDrawersStore';
 
 /**
  * Stores
@@ -168,6 +169,7 @@ const themeStore = useThemeStore();
 const alertStore = useAlertStore();
 const toastStore = useToastStore();
 const myAuthStore = useMyAuthStore();
+const drawersStore = useDrawersStore();
 /**
  * Props/Emits
  */
@@ -177,14 +179,15 @@ const myAuthStore = useMyAuthStore();
  */
 const { userData } = storeToRefs(userStore);
 
-const duplicateData = ref(structuredClone(toRaw(userData.value)) || {});
 
-duplicateData.value.password = '';
-duplicateData.value.passwordConfirm = '';
-duplicateData.value.oldPassword = '';
-duplicateData.value.avatarFile = null;
+userData.value.password = '';
+userData.value.passwordConfirm = '';
+userData.value.oldPassword = '';
+userData.value.avatarFile = null;
 
+const duplicateData = ref(structuredClone(toRaw(userData.value)));
 const previewUrl = ref<string>('');
+
 /**
  * Computed Properties
  */
@@ -199,7 +202,7 @@ const cancelChanges = () => {
 };
 
 const passwordMisMatch = () => {
-  if (duplicateData.value.passwordConfirm.length > 0)
+  if (duplicateData.value.passwordConfirm.length >= 7)
     return duplicateData.value.password !== duplicateData.value.passwordConfirm;
 };
 
@@ -218,13 +221,14 @@ const saveChanges = async () => {
 
   const formData = new FormData();
   let emailChange = false;
+  let passwordChange = false;
 
   formData.append('name', duplicateData.value.name);
 
   if (duplicateData.value.email !== userData.value?.email) {
     const response = await alertStore.openAlert({
       type: 'warning',
-      message: `Changing your email will log you out, do you want to proceed?`,
+      message: `You try to change your email to ${duplicateData.value.email}, do you want to proceed?`,
     });
     if (response) {
       emailChange = true;
@@ -244,9 +248,10 @@ const saveChanges = async () => {
       return;
     }
 
-    formData.append('currentPassword', duplicateData.value.oldPassword);
-    formData.append('newPassword', duplicateData.value.password);
-    formData.append('confirmPassword', duplicateData.value.passwordConfirm);
+    formData.append('oldPassword', duplicateData.value.oldPassword);
+    formData.append('password', duplicateData.value.password);
+    formData.append('passwordConfirm', duplicateData.value.passwordConfirm);
+    passwordChange = true;
   }
 
   if (duplicateData.value.avatarFile) {
@@ -255,19 +260,28 @@ const saveChanges = async () => {
 
   try {
     const response = await userStore.updateUser(formData);
-    let emailChangeResponse = true;
-    
+    let emailChangeResponse = false;
     if (emailChange) {
-      emailChangeResponse = await userStore.changeEmail(duplicateData.value.email);
+      try {
+        await myAuthStore.emailChange(duplicateData.value.email);
+        emailChangeResponse = true;
+      } catch (error: any) {
+        toastStore.openToast({ type: 'error', message: error?.message || 'Error changing email!' });
+        return;
+      }
     }
-    
-    if (response && emailChangeResponse) {
+
+    if (response || emailChangeResponse) {
       toastStore.openToast({ type: 'success', message: 'Data updated successfully!' });
-      
-      if (emailChange) {
-        await userStore.clearUser();
-        previewUrl.value = '';
-        navigateTo('/login');
+
+      if (emailChange || passwordChange) {
+        await myAuthStore.logout();
+        navigateTo('/');
+        drawersStore.openDrawer('drawerLogin')
+      } else {
+        await myAuthStore.authRefresh();
+        cancelChanges();
+        navigateTo('/profilePage');
       }
     }
   } catch (error: any) {
@@ -295,5 +309,7 @@ onBeforeRouteLeave(async () => {
 /**
  * Mounted/Unmounted
  */
-onMounted(() => { });
+onMounted(() => {
+  themeChange(false);
+});
 </script>
