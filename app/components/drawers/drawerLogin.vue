@@ -19,9 +19,9 @@
       <h2 class="text-2xl font-bold text-center text-primary mb-6">Login to your Account</h2>
       <form ref="loginForm" @submit.prevent="doLogin()">
         <div>
-          <label class="fieldset-legend" for="email">Email</label>
+          <div class="fieldset-legend mt-2" for="email">Email</div>
         </div>
-        <label class="input input-primary validator w-full">
+        <label class="input input-primary validator w-full ">
           <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
               <rect width="20" height="16" x="2" y="4" rx="2" />
@@ -33,7 +33,7 @@
         <div class="validator-hint hidden">Enter valid email address</div>
 
         <div>
-          <label class="fieldset-legend" for="password">Password</label>
+          <div class="fieldset-legend mt-2" for="password">Password</div>
         </div>
         <label class="w-full input input-primary validator">
           <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -79,7 +79,6 @@
  * Stores
  */
 
-import { storeToRefs } from 'pinia';
 import { useDrawersStore } from '~/composables/useDrawersStore';
 import { useMyAuthStore } from '~/composables/useMyAuthStore';
 import { useToastStore } from '~/composables/useToastStore';

@@ -86,5 +86,3 @@ const alertColor = (type: string) => alertColorMap[type] ?? 'text-info';
  * Mounted/Unmounted
  */
 </script>
-
-<style scoped></style>
