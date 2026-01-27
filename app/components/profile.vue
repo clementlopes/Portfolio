@@ -104,17 +104,17 @@
                 </div>
 
                 <div class="form-control">
-                  <label class="fieldset-legend">Current password</label>
-                  <input v-model="duplicateData.oldPassword" type="password" class="input validator w-full"
+                  <label class="fieldset-legend" for="pasword">Current password</label>
+                  <input v-model="duplicateData.oldPassword" type="password" id="pasword" class="input validator w-full"
                     placeholder="Current password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     title="You password" />
                   <p class="validator-hint">Required Field!</p>
                 </div>
 
                 <div class="form-control">
-                  <label class="fieldset-legend">New password</label>
+                  <label class="fieldset-legend" for="newPassword">New password</label>
 
-                  <input v-model="duplicateData.password" type="password" class="input validator w-full"
+                  <input v-model="duplicateData.password" type="password" id="newPassword" class="input validator w-full"
                     placeholder="New password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     title="Must contain 8 characters with uppercase, lowercase, numbers, and symbols" />
                   <p class="validator-hint">
@@ -123,8 +123,8 @@
                 </div>
 
                 <div class="form-control">
-                  <label class="fieldset-legend">Confirm new password</label>
-                  <input v-model="duplicateData.passwordConfirm" type="password" class="input validator w-full"
+                  <label class="fieldset-legend" for="confirmPassword">Confirm new password</label>
+                  <input v-model="duplicateData.passwordConfirm" type="password" id="confirmPassword" class="input validator w-full"
                     placeholder="Confirm new password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     title="Must contain 8 characters with uppercase, lowercase, numbers, and symbols" />
                   <p v-if="passwordMisMatch()" class="text-error">Passwords do not match!</p>

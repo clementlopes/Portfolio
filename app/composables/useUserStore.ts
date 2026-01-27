@@ -5,7 +5,6 @@ import { useMyAuthStore } from '~/composables/useMyAuthStore';
 
 export const useUserStore = defineStore('userStore', () => {
   const pocketbase = usePocketbaseStore();
-  const MyAuthStore = useMyAuthStore();
   const userData = ref<UserType | null>(null);
 
   const saveUserData = (authData: UserType) => {
@@ -22,7 +21,6 @@ export const useUserStore = defineStore('userStore', () => {
       return true;
     } catch (error: any) {
       throw new Error(error?.message || 'Failed to update user data. Please try again.');
-      return false;
     }
   };
 
