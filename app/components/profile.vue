@@ -218,33 +218,33 @@ const handleFileChange = (event: Event) => {
 
 
 const saveChanges = async () => {
-
   const formData = new FormData();
-  let emailChange = false;
-  let passwordChange = false;
-
+  
   formData.append('name', duplicateData.value.name);
   formData.append('themeMode', themeStore.activeTheme);
 
-  if (duplicateData.value.email !== userData.value?.email) {
+  const emailChanged = duplicateData.value.email !== userData.value?.email;
+  const hasPasswordFields = duplicateData.value.password || duplicateData.value.passwordConfirm || duplicateData.value.oldPassword;
+
+  if (emailChanged) {
     const response = await alertStore.openAlert({
       type: 'warning',
       message: `You try to change your email to "${duplicateData.value.email}", do you want to proceed?`,
     });
     if (response) {
-      emailChange = true;
       formData.append('email', duplicateData.value.email);
     } else {
       duplicateData.value.email = userData.value?.email || '';
+      return;
     }
   }
 
-  if (duplicateData.value.password || duplicateData.value.passwordConfirm || duplicateData.value.oldPassword) {
+  if (hasPasswordFields) {
     if (duplicateData.value.password !== duplicateData.value.passwordConfirm) {
       toastStore.openToast({ type: 'error', message: 'Passwords do not match!' });
       return;
     }
-    else if (!duplicateData.value.oldPassword) {
+    if (!duplicateData.value.oldPassword) {
       toastStore.openToast({ type: 'error', message: 'Current password is required!' });
       return;
     }
@@ -252,7 +252,6 @@ const saveChanges = async () => {
     formData.append('oldPassword', duplicateData.value.oldPassword);
     formData.append('password', duplicateData.value.password);
     formData.append('passwordConfirm', duplicateData.value.passwordConfirm);
-    passwordChange = true;
   }
 
   if (duplicateData.value.avatarFile) {
@@ -261,34 +260,30 @@ const saveChanges = async () => {
 
   try {
     const response = await userStore.updateUser(formData);
-    let emailChangeResponse = false;
-    if (emailChange) {
+    
+    if (emailChanged) {
       try {
         await myAuthStore.emailChange(duplicateData.value.email);
-        emailChangeResponse = true;
       } catch (error: any) {
         toastStore.openToast({ type: 'error', message: error?.message || 'Error changing email!' });
         return;
       }
     }
 
-    if (response || emailChangeResponse) {
-      toastStore.openToast({ type: 'success', message: 'Data updated successfully!' });
+    toastStore.openToast({ type: 'success', message: 'Data updated successfully!' });
 
-      if (emailChange || passwordChange) {
-        await myAuthStore.logout();
-        navigateTo('/');
-        drawersStore.openDrawer('drawerLogin')
-      } else {
-        await myAuthStore.authRefresh();
-        cancelChanges();
-        navigateTo('/profilePage');
-      }
+    if (emailChanged || hasPasswordFields) {
+      await myAuthStore.logout();
+      navigateTo('/');
+      drawersStore.openDrawer('drawerLogin');
+    } else {
+      await myAuthStore.authRefresh();
+      cancelChanges();
+      navigateTo('/profilePage');
     }
   } catch (error: any) {
     toastStore.openToast({ type: 'error', message: 'Error updating data!' });
   }
-
 };
 
 /**
