@@ -43,5 +43,3 @@ const drawers = {
  * Mounted/Unmounted
  */
 </script>
-
-<style scoped></style>

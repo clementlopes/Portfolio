@@ -3,12 +3,12 @@
     <div class="navbar-start">
       <!-- mobile menu -->
       <div class="dropdown">
-        <label tabindex="0" class="lg:hidden btn btn-ghost">
+        <div tabindex="0" class="lg:hidden btn btn-ghost">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
           </svg>
-        </label>
-        <ul tabindex="0" class="w-52 menu menu-md dropdown-content mt-3 p-2 bg-base-100 rounded-box shadow">
+        </div>
+        <ul class="w-52 menu menu-md dropdown-content mt-3 p-2 bg-base-100 rounded-box shadow">
           <li>
             <NuxtLink to="/#hero" class="text-lg">Home</NuxtLink>
           </li>
@@ -53,12 +53,12 @@
     <div class="navbar-end">
       <div v-if="userData">
         <div class="dropdown dropdown-bottom dropdown-end">
-          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar" >
             <div class="w-10 rounded-full border-2 border-primary">
               <img alt="Avatar" :src="userData?.avatar || '/img/user.png'" />
             </div>
           </div>
-          <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+          <ul class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
             <li>
               <NuxtLink class="justify-between" to="/profilePage">
                 Perfil

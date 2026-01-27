@@ -26,11 +26,9 @@
         class="w-96 rounded-full avatar shadow-lg hover:scale-105 hover:shadow-2xl shadow-primary/50 transition-all duration-300"
       >
         <div class="w-96 rounded-full ring-1 ring-primary opacity-70 hover:opacity-100">
-          <img src="/img/photo.png" alt="Profile photo" />
+          <img src="/img/photo.png" alt="Profile" />
         </div>
       </div>
     </div>
   </section>
 </template>
-
-<script setup lang="ts"></script>

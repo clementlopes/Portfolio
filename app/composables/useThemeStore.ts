@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
-import { themeChange } from 'theme-change';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { useUserStore } from '~/composables/useUserStore';
 
 export const useThemeStore = defineStore('useThemeStore', () => {
@@ -8,7 +7,7 @@ export const useThemeStore = defineStore('useThemeStore', () => {
   const activeTheme = ref('forest');
 
   const setTheme = () => {
-    if (userStore.userData !== null) {
+    if (userStore.userData) {
       activeTheme.value = userStore.userData.themeMode;
     } else {
       activeTheme.value = localStorage.getItem('theme') || 'forest';
@@ -17,11 +16,10 @@ export const useThemeStore = defineStore('useThemeStore', () => {
 
   };
 
-  const changeTheme = () => {
-    activeTheme.value === 'forest'
-      ? (activeTheme.value = 'winter')
-      : (activeTheme.value = 'forest');
-  };
+const changeTheme = () => {
+  activeTheme.value =
+    activeTheme.value === 'forest' ? 'winter' : 'forest';
+};
 
   return {
     activeTheme,

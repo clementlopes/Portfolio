@@ -104,17 +104,17 @@
                 </div>
 
                 <div class="form-control">
-                  <label class="fieldset-legend">Current password</label>
-                  <input v-model="duplicateData.oldPassword" type="password" class="input validator w-full"
+                  <label class="fieldset-legend" for="pasword">Current password</label>
+                  <input v-model="duplicateData.oldPassword" type="password" id="pasword" class="input validator w-full"
                     placeholder="Current password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     title="You password" />
                   <p class="validator-hint">Required Field!</p>
                 </div>
 
                 <div class="form-control">
-                  <label class="fieldset-legend">New password</label>
+                  <label class="fieldset-legend" for="newPassword">New password</label>
 
-                  <input v-model="duplicateData.password" type="password" class="input validator w-full"
+                  <input v-model="duplicateData.password" type="password" id="newPassword" class="input validator w-full"
                     placeholder="New password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     title="Must contain 8 characters with uppercase, lowercase, numbers, and symbols" />
                   <p class="validator-hint">
@@ -123,8 +123,8 @@
                 </div>
 
                 <div class="form-control">
-                  <label class="fieldset-legend">Confirm new password</label>
-                  <input v-model="duplicateData.passwordConfirm" type="password" class="input validator w-full"
+                  <label class="fieldset-legend" for="confirmPassword">Confirm new password</label>
+                  <input v-model="duplicateData.passwordConfirm" type="password" id="confirmPassword" class="input validator w-full"
                     placeholder="Confirm new password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     title="Must contain 8 characters with uppercase, lowercase, numbers, and symbols" />
                   <p v-if="passwordMisMatch()" class="text-error">Passwords do not match!</p>
@@ -218,33 +218,33 @@ const handleFileChange = (event: Event) => {
 
 
 const saveChanges = async () => {
-
   const formData = new FormData();
-  let emailChange = false;
-  let passwordChange = false;
-
+  
   formData.append('name', duplicateData.value.name);
   formData.append('themeMode', themeStore.activeTheme);
 
-  if (duplicateData.value.email !== userData.value?.email) {
+  const emailChanged = duplicateData.value.email !== userData.value?.email;
+  const hasPasswordFields = duplicateData.value.password || duplicateData.value.passwordConfirm || duplicateData.value.oldPassword;
+
+  if (emailChanged) {
     const response = await alertStore.openAlert({
       type: 'warning',
       message: `You try to change your email to "${duplicateData.value.email}", do you want to proceed?`,
     });
     if (response) {
-      emailChange = true;
       formData.append('email', duplicateData.value.email);
     } else {
       duplicateData.value.email = userData.value?.email || '';
+      return;
     }
   }
 
-  if (duplicateData.value.password || duplicateData.value.passwordConfirm || duplicateData.value.oldPassword) {
+  if (hasPasswordFields) {
     if (duplicateData.value.password !== duplicateData.value.passwordConfirm) {
       toastStore.openToast({ type: 'error', message: 'Passwords do not match!' });
       return;
     }
-    else if (!duplicateData.value.oldPassword) {
+    if (!duplicateData.value.oldPassword) {
       toastStore.openToast({ type: 'error', message: 'Current password is required!' });
       return;
     }
@@ -252,7 +252,6 @@ const saveChanges = async () => {
     formData.append('oldPassword', duplicateData.value.oldPassword);
     formData.append('password', duplicateData.value.password);
     formData.append('passwordConfirm', duplicateData.value.passwordConfirm);
-    passwordChange = true;
   }
 
   if (duplicateData.value.avatarFile) {
@@ -261,34 +260,30 @@ const saveChanges = async () => {
 
   try {
     const response = await userStore.updateUser(formData);
-    let emailChangeResponse = false;
-    if (emailChange) {
+    
+    if (emailChanged) {
       try {
         await myAuthStore.emailChange(duplicateData.value.email);
-        emailChangeResponse = true;
       } catch (error: any) {
         toastStore.openToast({ type: 'error', message: error?.message || 'Error changing email!' });
         return;
       }
     }
 
-    if (response || emailChangeResponse) {
-      toastStore.openToast({ type: 'success', message: 'Data updated successfully!' });
+    toastStore.openToast({ type: 'success', message: 'Data updated successfully!' });
 
-      if (emailChange || passwordChange) {
-        await myAuthStore.logout();
-        navigateTo('/');
-        drawersStore.openDrawer('drawerLogin')
-      } else {
-        await myAuthStore.authRefresh();
-        cancelChanges();
-        navigateTo('/profilePage');
-      }
+    if (emailChanged || hasPasswordFields) {
+      await myAuthStore.logout();
+      navigateTo('/');
+      drawersStore.openDrawer('drawerLogin');
+    } else {
+      await myAuthStore.authRefresh();
+      cancelChanges();
+      navigateTo('/profilePage');
     }
   } catch (error: any) {
     toastStore.openToast({ type: 'error', message: 'Error updating data!' });
   }
-
 };
 
 /**

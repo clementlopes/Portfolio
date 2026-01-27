@@ -77,5 +77,3 @@ const toastColor = (type: string) => toastColorMap[type] ?? 'text-info';
  * Mounted/Unmounted
  */
 </script>
-
-<style scoped></style>
