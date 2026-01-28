@@ -22,7 +22,7 @@
                  <span class="flex justify-center text-md">Already have an account? &nbsp; <a @click="login()" class="text-sm text-blue-500 hover:underline cursor-pointer">Login</a></span>
              </div>
 
-             <form ref="createUserForm" @submit.prevent="doCreateUser()">
+             <form ref="createUserForm" @submit.prevent="createUser()">
                  <div>
                      <div class="fieldset-legend mt-2" for="name">Full Name</div>
                  </div>
@@ -32,7 +32,7 @@
                              <path d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 14a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7Z" />
                          </g>
                      </svg>
-                     <input v-model="name" type="text" placeholder="Your name" required />
+                     <input v-model="newUser.name" type="text" placeholder="Your name" required />
                  </label>
 
                  <div>
@@ -45,7 +45,7 @@
                              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                          </g>
                      </svg>
-                     <input v-model="email" type="email" placeholder="yourmail@mail.com" required />
+                     <input v-model="newUser.email" type="email" placeholder="yourmail@mail.com" required />
                  </label>
                  <div class="validator-hint hidden">Enter valid email address</div>
 
@@ -60,7 +60,7 @@
                              <circle cx="16.5" cy="7.5" r=".5" fill="currentColor" />
                          </g>
                      </svg>
-                     <input v-model="password" type="password" required placeholder="Password" minlength="8"
+                     <input v-model="newUser.password" type="password" required placeholder="Password" minlength="8"
                          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                          title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
                  </label>
@@ -81,7 +81,7 @@
                              <circle cx="16.5" cy="7.5" r=".5" fill="currentColor" />
                          </g>
                      </svg>
-                     <input v-model="confirmPassword" type="password" required placeholder="Confirm Password" minlength="8"
+                     <input v-model="newUser.passwordConfirm" type="password" required placeholder="Confirm Password" minlength="8"
                          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                          title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
                  </label>
@@ -118,14 +118,11 @@
 import { useDrawersStore } from '~/composables/useDrawersStore';
 import { useMyAuthStore } from '~/composables/useMyAuthStore';
 import { useToastStore } from '~/composables/useToastStore';
-import { useUserStore } from '~/composables/useUserStore';
 import { useThemeStore } from '~/composables/useThemeStore';
-import { themeChange } from 'theme-change';
 
 const drawerStore = useDrawersStore();
 const authStore = useMyAuthStore();
 const toast = useToastStore();
-const userStore = useUserStore();
 const themeStore = useThemeStore();
 
 /**
@@ -141,11 +138,13 @@ const handleClose = () => emits('close');
 /**
  * References
  */
-const name = ref<string>('');
-const email = ref<string>('');
-const password = ref<string>('');
-const confirmPassword = ref<string>('');
-const createUserForm = ref<HTMLFormElement | null>(null);
+const newUser = ref<NewUserType>({
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    themeMode: themeStore.activeTheme,
+});
 
 /**
  * Computed Properties
@@ -160,21 +159,17 @@ const close = () => {
   drawerStore.closeDrawer();
 };
 
-const doCreateUser = async () => {
+const createUser = async () => {
   let data;
 
   try {
-    data = await authStore.register(name.value, email.value, password.value, confirmPassword.value);
+    data = await authStore.createAccount(newUser.value);
     toast.openToast({ type: 'success', message: `Account created successfully! Welcome ${data.record.name}` });
   } catch (e: any) {
-    if (createUserForm.value) {
-      createUserForm.value.reset();
-    }
+   
     toast.openToast({ type: 'error', message: e.message || 'Account creation failed!' });
     return;
   }
-  themeStore.setTheme();
-  themeChange(false);
   close();
 };
 

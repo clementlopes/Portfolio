@@ -40,11 +40,32 @@ export const useMyAuthStore = defineStore('auth', () => {
     };
   };
 
+  const createAccount = async (newUser: NewUserType) => {
+
+    const data = {
+      "email": newUser.email,
+      "emailVisibility": false,
+      "name": newUser.name,
+      "themeMode": newUser.themeMode,
+      "password": newUser.password,
+      "passwordConfirm": newUser.passwordConfirm,
+    };
+    console.log(data);
+
+    try {
+      const authData = await pocketBaseStore.pb.collection('users').create(data);
+   console.log(authData);
+      return authData;
+    } catch (error: any) {
+      throw new Error(error?.message || 'Account creation failed. Please try again.');
+    }
+
+  };
+
+
   const login = async (email: string, password: string) => {
     try {
-      const authData = await pocketBaseStore.pb
-        .collection('users')
-        .authWithPassword(email, password);
+      const authData = await pocketBaseStore.pb.collection('users').authWithPassword(email, password);
 
       userStore.saveUserData(mapAuthDataToUser(authData));
       return authData;
@@ -105,5 +126,6 @@ export const useMyAuthStore = defineStore('auth', () => {
     logout,
     authRefresh,
     emailChange,
+    createAccount,
   };
 });
