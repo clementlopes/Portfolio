@@ -6,7 +6,7 @@
     <div class="fixed top-0 right-0 h-screen w-full md:w-1/3 bg-base-100 shadow-2xl z-50 transform transition-transform duration-500 ease-in-out"
         :class="open ? 'translate-x-0' : 'translate-x-full'">
         <div class="bg-base-200 p-4 pt-20 w-full h-full">
-            <button class="absolute top-4 right-4 btn btn-outline btn-error md:hidden" @click="">
+            <button class="absolute top-4 right-4 btn btn-outline btn-error md:hidden" @click="handleClose">
                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

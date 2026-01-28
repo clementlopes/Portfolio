@@ -17,6 +17,11 @@
         <img src="/img/user.png" alt="Logo" class="h-36 border border-primary rounded-full" />
       </div>
       <h2 class="text-2xl font-bold text-center text-primary mb-6">Login to your Account</h2>
+
+      <div class="items-center my-6">
+        <span class="flex justify-center text-md">Don´t have an account? &nbsp; <a @click="createAccount()" class="text-sm text-blue-500 hover:underline cursor-pointer">Create an Account</a></span>
+        </div>
+
       <form ref="loginForm" @submit.prevent="doLogin()">
         <div>
           <div class="fieldset-legend mt-2" for="email">Email</div>
@@ -53,8 +58,8 @@
           letter
         </p>
 
-        <div class="flex items-center justify-between mb-6">
-          <a href="#" class="text-sm text-blue-500 hover:underline">Forgot Password?</a>
+        <div class="flex items-center justify-between p-2 mb-6">
+          <a href="#" class="text-md text-blue-500 hover:underline">Forgot Password?</a>
         </div>
 
         <button type="submit" class="w-full btn btn-primary">
@@ -63,12 +68,6 @@
       </form>
       <div class="divider my-8">OR</div>
       <div class="flex flex-col space-y-4">
-
-        <button
-          class="w-full btn btn-primary focus:outline-none focus:shadow-outline transition duration-300"
-          @click="createAccount()">
-          <span>Create Account</span>
-        </button>
 
         <button
           class="w-full btn btn-primary focus:outline-none focus:shadow-outline transition duration-300"
