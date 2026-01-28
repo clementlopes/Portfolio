@@ -10,6 +10,7 @@
 <script setup lang="ts">
 import { useDrawersStore } from '~/composables/useDrawersStore';
 import drawerLogin from '@/components/drawers/drawerLogin.vue';
+import drawerCreateUser from '@/components/drawers/drawerCreateUser.vue';
 
 /**
  * Stores
@@ -29,6 +30,7 @@ const drawerStore = useDrawersStore();
  */
 const drawers = {
   drawerLogin,
+  drawerCreateUser,
 };
 
 /**

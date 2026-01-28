@@ -61,14 +61,22 @@
           <span>Login</span>
         </button>
       </form>
-      <div class="divider">OR</div>
+      <div class="divider my-8">OR</div>
       <div class="flex flex-col space-y-4">
+
         <button
-          class="w-full btn btn-primary rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+          class="w-full btn btn-primary focus:outline-none focus:shadow-outline transition duration-300"
+          @click="createAccount()">
+          <span>Create Account</span>
+        </button>
+
+        <button
+          class="w-full btn btn-primary focus:outline-none focus:shadow-outline transition duration-300"
           @click="doGoogleLogin()">
           <img src="https://authjs.dev/img/providers/google.svg" alt="Google" class="w-6 h-6 mr-2" />
           <span>Sign in with Google</span>
         </button>
+
       </div>
     </div>
   </div>
@@ -154,6 +162,11 @@ const doGoogleLogin = async () => {
   }
   close();
   await navigateTo('/');
+};
+
+const createAccount = () => {
+  close();
+  drawerStore.openDrawer('drawerCreateUser');
 };
 
 /**
