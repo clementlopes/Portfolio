@@ -166,7 +166,6 @@ const createUser = async () => {
     data = await authStore.createAccount(newUser.value);
     toast.openToast({ type: 'success', message: `Account created successfully! Welcome ${data.record.name}` });
   } catch (e: any) {
-   
     toast.openToast({ type: 'error', message: e.message || 'Account creation failed!' });
     return;
   }
