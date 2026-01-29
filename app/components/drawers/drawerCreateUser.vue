@@ -4,7 +4,7 @@
 
      <!-- DrawerCreateUser panel -->
      <div
-         class="fixed top-0 right-0 h-screen w-full md:w-1/3 bg-base-100 shadow-2xl z-50 transform transition-transform duration-500 ease-in-out"
+         class="fixed top-0 right-0 h-screen w-full md:w-1/4 bg-base-100 shadow-2xl z-50 transform transition-transform duration-500 ease-in-out"
          :class="open ? 'translate-x-0' : 'translate-x-full'">
          <div class="bg-base-200 p-4 pt-20 w-full h-full">
              <button class="absolute top-4 right-4 btn btn-outline btn-error md:hidden" @click="handleClose">
@@ -19,7 +19,7 @@
              <h2 class="text-2xl font-bold text-center text-primary mb-6">Create New Account</h2>
 
              <div class="items-center my-6">
-                 <span class="flex justify-center text-md">Already have an account? &nbsp; <a @click="login()" class="text-sm text-blue-500 hover:underline cursor-pointer">Login</a></span>
+                 <span class="flex justify-center text-md">Already have an account? &nbsp; <a @click="login()" class="text-blue-500 hover:underline cursor-pointer">Login</a></span>
              </div>
 
              <form ref="createUserForm" @submit.prevent="createUser()">
