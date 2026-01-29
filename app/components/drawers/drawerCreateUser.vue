@@ -22,7 +22,7 @@
                  <span class="flex justify-center text-md">Already have an account? &nbsp; <a @click="login()" class="text-blue-500 hover:underline cursor-pointer">Login</a></span>
              </div>
 
-             <form ref="createUserForm" @submit.prevent="createUser()">
+             <form @submit.prevent="createUser()">
                  <div>
                      <div class="fieldset-legend mt-2" for="name">Full Name</div>
                  </div>
@@ -90,6 +90,7 @@
                      <br />At least one number <br />At least one lowercase letter <br />At least one uppercase
                      letter
                  </p>
+                 <p v-if="passwordMisMatch()" class="text-error">Passwords do not match!</p>
 
                  <button type="submit" class="w-full btn btn-primary mt-6">
                      <span>Create Account</span>
@@ -159,6 +160,16 @@ const close = () => {
   drawerStore.closeDrawer();
 };
 
+const clearForm = () => {
+  newUser.value = {
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    themeMode: themeStore.activeTheme,
+  };
+};
+
 const createUser = async () => {
   let data;
 
@@ -178,12 +189,10 @@ const doGoogleLogin = async () => {
     data = await authStore.loginWithGoogle();
     toast.openToast({ type: 'success', message: `Welcome ${data.record.name}` });
   } catch (e: any) {
-    if (createUserForm.value) {
-      createUserForm.value.reset();
-    }
     toast.openToast({ type: 'error', message: e.message || 'Google login failed!' });
     return;
   }
+  clearForm();
   close();
   await navigateTo('/');
 };
@@ -191,6 +200,11 @@ const doGoogleLogin = async () => {
 const login = () => {
   close();
   drawerStore.openDrawer('drawerLogin');
+};
+
+const passwordMisMatch = () => {
+  if (newUser.value.passwordConfirm.length >= 7)
+    return newUser.value.password !== newUser.value.passwordConfirm;
 };
 
 /**

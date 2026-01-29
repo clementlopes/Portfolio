@@ -114,8 +114,9 @@
                 <div class="form-control">
                   <label class="fieldset-legend" for="newPassword">New password</label>
 
-                  <input v-model="duplicateData.password" type="password" id="newPassword" class="input validator w-full"
-                    placeholder="New password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  <input v-model="duplicateData.password" type="password" id="newPassword"
+                    class="input validator w-full" placeholder="New password" minlength="8"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     title="Must contain 8 characters with uppercase, lowercase, numbers, and symbols" />
                   <p class="validator-hint">
                     Minimum 8 characters with uppercase, lowercase, numbers, and symbols.
@@ -124,22 +125,29 @@
 
                 <div class="form-control">
                   <label class="fieldset-legend" for="confirmPassword">Confirm new password</label>
-                  <input v-model="duplicateData.passwordConfirm" type="password" id="confirmPassword" class="input validator w-full"
-                    placeholder="Confirm new password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  <input v-model="duplicateData.passwordConfirm" type="password" id="confirmPassword"
+                    class="input validator w-full" placeholder="Confirm new password" minlength="8"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     title="Must contain 8 characters with uppercase, lowercase, numbers, and symbols" />
                   <p v-if="passwordMisMatch()" class="text-error">Passwords do not match!</p>
                 </div>
               </div>
+            </div>
+            <div class="flex justify-center ">
+
+              <button @click="deleteAccount()" class="btn btn-outline btn-error w-1/2">
+                Delete Account
+              </button>
             </div>
           </div>
         </div>
 
         <!-- Botões de ação -->
         <div class="flex w-full justify-end gap-2 p-4">
-          <button @click="cancelChanges()" class="btn btn-outline btn-error rounded-md">
+          <button @click="cancelChanges()" class="btn btn-outline btn-error ">
             Cancel
           </button>
-          <button @click="saveChanges()" class="btn btn-outline btn-success rounded-md">
+          <button @click="saveChanges()" class="btn btn-outline btn-success">
             Save Changes
           </button>
         </div>
@@ -195,6 +203,10 @@ const previewUrl = ref<string>('');
 /**
  * Methods
  */
+const clearAllData = () => {
+  duplicateData.value = null
+};
+
 const cancelChanges = () => {
   duplicateData.value = structuredClone(toRaw(userData.value));
   duplicateData.value.avatarFile = null;
@@ -219,7 +231,7 @@ const handleFileChange = (event: Event) => {
 
 const saveChanges = async () => {
   const formData = new FormData();
-  
+
   formData.append('name', duplicateData.value.name);
   formData.append('themeMode', themeStore.activeTheme);
 
@@ -260,7 +272,7 @@ const saveChanges = async () => {
 
   try {
     const response = await userStore.updateUser(formData);
-    
+
     if (emailChanged) {
       try {
         await myAuthStore.emailChange(duplicateData.value.email);
@@ -283,6 +295,23 @@ const saveChanges = async () => {
     }
   } catch (error: any) {
     toastStore.openToast({ type: 'error', message: 'Error updating data!' });
+  }
+};
+const deleteAccount = async () => {
+  const response = await alertStore.openAlert({
+    type: 'error',
+    message: `Are you sure you want to delete your account? This action is irreversible!`,
+  });
+  if (response) {
+    try {
+      await myAuthStore.deleteAccount();
+      toastStore.openToast({ type: 'success', message: 'Account deleted successfully!' });
+      clearAllData();
+      await myAuthStore.logout();
+      navigateTo('/');
+    } catch (error: any) {
+      toastStore.openToast({ type: 'error', message: error?.message || 'Error deleting account!' });
+    }
   }
 };
 
