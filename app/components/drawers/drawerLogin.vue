@@ -4,7 +4,7 @@
 
   <!-- DrawerLogin panel -->
   <div
-    class="fixed top-0 right-0 h-screen w-full md:w-1/3 bg-base-100 shadow-2xl z-50 transform transition-transform duration-500 ease-in-out"
+    class="fixed top-0 right-0 h-screen w-full md:w-1/4 bg-base-100 shadow-2xl z-50 transform transition-transform duration-500 ease-in-out"
     :class="open ? 'translate-x-0' : 'translate-x-full'">
     <div class="bg-base-200 p-4 pt-20 w-full h-full">
       <button class="absolute top-4 right-4 btn btn-outline btn-error md:hidden" @click="handleClose">
@@ -17,6 +17,11 @@
         <img src="/img/user.png" alt="Logo" class="h-36 border border-primary rounded-full" />
       </div>
       <h2 class="text-2xl font-bold text-center text-primary mb-6">Login to your Account</h2>
+
+      <div class="items-center my-6">
+        <span class="flex justify-center text-md">Don´t have an account? &nbsp; <a @click="createAccount()" class="text-blue-500 hover:underline cursor-pointer">Create an Account</a></span>
+        </div>
+
       <form ref="loginForm" @submit.prevent="doLogin()">
         <div>
           <div class="fieldset-legend mt-2" for="email">Email</div>
@@ -53,22 +58,24 @@
           letter
         </p>
 
-        <div class="flex items-center justify-between mb-6">
-          <a href="#" class="text-sm text-blue-500 hover:underline">Forgot Password?</a>
+        <div class="flex items-center justify-between p-2 mb-6">
+          <a href="#" class="text-md text-blue-500 hover:underline">Forgot Password?</a>
         </div>
 
         <button type="submit" class="w-full btn btn-primary">
           <span>Login</span>
         </button>
       </form>
-      <div class="divider">OR</div>
+      <div class="divider my-8">OR</div>
       <div class="flex flex-col space-y-4">
+
         <button
-          class="w-full btn btn-primary rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+          class="w-full btn btn-primary focus:outline-none focus:shadow-outline transition duration-300"
           @click="doGoogleLogin()">
           <img src="https://authjs.dev/img/providers/google.svg" alt="Google" class="w-6 h-6 mr-2" />
           <span>Sign in with Google</span>
         </button>
+
       </div>
     </div>
   </div>
@@ -154,6 +161,11 @@ const doGoogleLogin = async () => {
   }
   close();
   await navigateTo('/');
+};
+
+const createAccount = () => {
+  close();
+  drawerStore.openDrawer('drawerCreateUser');
 };
 
 /**

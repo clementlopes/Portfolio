@@ -40,11 +40,32 @@ export const useMyAuthStore = defineStore('auth', () => {
     };
   };
 
+  const createAccount = async (newUser: NewUserType) => {
+
+    const data = {
+      "email": newUser.email,
+      "emailVisibility": false,
+      "name": newUser.name,
+      "themeMode": newUser.themeMode,
+      "password": newUser.password,
+      "passwordConfirm": newUser.passwordConfirm,
+    };
+  
+    try {
+      await pocketBaseStore.pb.collection('users').create(data);
+      const authData = await login(newUser.email, newUser.password);
+      userStore.saveUserData(mapAuthDataToUser(authData));
+      return authData;
+    } catch (error: any) {
+      throw new Error(error?.message || 'Account creation failed. Please try again.');
+    }
+
+  };
+
+
   const login = async (email: string, password: string) => {
     try {
-      const authData = await pocketBaseStore.pb
-        .collection('users')
-        .authWithPassword(email, password);
+      const authData = await pocketBaseStore.pb.collection('users').authWithPassword(email, password);
 
       userStore.saveUserData(mapAuthDataToUser(authData));
       return authData;
@@ -98,6 +119,14 @@ export const useMyAuthStore = defineStore('auth', () => {
       throw new Error(error?.message || 'Email change failed. Please try again.');
     }
   };
+  const deleteAccount = async () => {
+    try {
+      await pocketBaseStore.pb.collection('users').delete(userStore.userData.id);
+      
+    } catch (error: any) {
+      throw new Error(error?.message || 'Account deletion failed. Please try again.');
+    }
+  };
 
   return {
     login,
@@ -105,5 +134,7 @@ export const useMyAuthStore = defineStore('auth', () => {
     logout,
     authRefresh,
     emailChange,
+    createAccount,
+    deleteAccount,
   };
 });
