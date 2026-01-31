@@ -58,11 +58,12 @@
           letter
         </p>
 
-        <div class="flex items-center justify-between p-2 mb-6">
+      <!--  <div class="flex items-center justify-between p-2 mb-6">
           <a href="#" class="text-md text-blue-500 hover:underline">Forgot Password?</a>
         </div>
+        -->
 
-        <button type="submit" class="w-full btn btn-primary">
+        <button type="submit" class="w-full btn btn-primary mt-8">
           <span>Login</span>
         </button>
       </form>
@@ -74,6 +75,12 @@
           @click="doGoogleLogin()">
           <img src="https://authjs.dev/img/providers/google.svg" alt="Google" class="w-6 h-6 mr-2" />
           <span>Sign in with Google</span>
+        </button>
+        <button
+          class="w-full btn btn-primary focus:outline-none focus:shadow-outline transition duration-300"
+          @click="doGithubLogin()">
+          <img src="https://authjs.dev/img/providers/github.svg" alt="GitHub" class="w-6 h-6 mr-2" />
+          <span>Sign in with GitHub</span>
         </button>
 
       </div>
@@ -163,6 +170,21 @@ const doGoogleLogin = async () => {
   await navigateTo('/');
 };
 
+const doGithubLogin = async () => {
+  let data;
+  try {
+    data = await authStore.loginWithGithub();
+    toast.openToast({ type: 'success', message: `Welcome ${data.record.name}` });
+  } catch (e: any) {
+    if (loginForm.value) {
+      loginForm.value.reset();
+    }
+    toast.openToast({ type: 'error', message: e.message || 'GitHub login failed!' });
+    return;
+  }
+  close();
+  await navigateTo('/');
+};
 const createAccount = () => {
   close();
   drawerStore.openDrawer('drawerCreateUser');

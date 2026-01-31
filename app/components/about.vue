@@ -39,7 +39,7 @@
               <h3 class="text-md font-bold">Curriculum</h3>
               <div class="bg-base-100 flex justify-between p-4">
                 <a
-                  href="/files/clement_lopes_cv_En.pdf"
+                  href="/files/CV_Clement_Lopes_En.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="font-semibold text-lg hover:text-primary"
@@ -47,7 +47,7 @@
                   Resume
                 </a>
 
-                <a href="/files/clement_lopes_cv_En.pdf" download class="hover:text-primary">
+                <a href="/files/CV_Clement_Lopes_En.pdf" download class="hover:text-primary">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
