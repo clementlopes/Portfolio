@@ -65,7 +65,7 @@
                 </a>
               </div>
             </div>
-            <div class="w-full grid gap-4 mt-2">
+            <div class="w-full grid gap-4 mt-2 hidden">
               <h3 class="text-md font-bold">Recommendation letter</h3>
               <div class="bg-base-100 flex justify-between p-4">
                 <a
