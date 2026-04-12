@@ -1,0 +1,2 @@
+sonar.projectKey='your project key of sonarQube'
+sonar.organization='your organization of sonarQube'
