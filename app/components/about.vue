@@ -33,7 +33,7 @@
           </p>
           <!--          FILES-->
           <div
-            class="w-full grid grid-cols-1 rounded-t-2xl bg-base-200 gap-2 md:grid-cols-2 my-4 p-4"
+            class="w-full rounded-t-2xl bg-base-200 gap-2 md:grid-cols-2 my-4 p-4"
           >
             <div class="w-full grid gap-4 mt-2">
               <h3 class="text-md font-bold">Curriculum</h3>
@@ -65,7 +65,7 @@
                 </a>
               </div>
             </div>
-            <div class="w-full grid gap-4 mt-2">
+            <div class="w-full grid gap-4 mt-2 hidden ">
               <h3 class="text-md font-bold">Recommendation letter</h3>
               <div class="bg-base-100 flex justify-between p-4">
                 <a
