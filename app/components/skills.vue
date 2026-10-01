@@ -27,13 +27,20 @@
               class="flex flex-col p-4 items-center text-center w-1/3 sm:w-1/4 lg:w-1/5 hover:scale-110 transition duration-300"
             >
               <img
-                v-if="item.icon"
+                v-if="item.icon && item.onDark"
+                class="size-12 rounded-lg bg-gray-900 p-1.5"
+                :src="item.icon"
+                :alt="item.label"
+                loading="lazy"
+              />
+              <img
+                v-else-if="item.icon"
                 class="flex size-12"
                 :src="item.icon"
                 :alt="item.label"
                 loading="lazy"
               />
-              <div v-else class="flex size-12 items-center justify-center">
+              <div v-else class="flex size-12 items-center justify-center rounded-lg border border-base-300 bg-base-200">
                 <span class="text-lg font-bold text-primary/70">{{ item.initials }}</span>
               </div>
               <p class="flex p-2 text-sm font-semibold leading-tight">{{ item.label }}</p>
@@ -56,11 +63,11 @@ const areas = [
       { label: 'TypeScript', icon: '/img/typescript.svg' },
       { label: 'Vue.js', icon: '/img/vue.svg' },
       { label: 'Nuxt', icon: '/img/nuxt.svg' },
-      { label: 'Pinia', initials: 'P' },
+      { label: 'Pinia', icon: '/img/pinia.webp' },
       { label: 'Vuex', initials: 'Vx' },
       { label: 'TailwindCSS', icon: '/img/tailwind.svg' },
-      { label: 'DaisyUI', initials: 'dUI' },
-      { label: 'Electron', initials: 'E' },
+      { label: 'DaisyUI', icon: '/img/daisyui.svg' },
+      { label: 'Electron', icon: '/img/Electron_Logo.svg' },
     ],
   },
   {
@@ -69,12 +76,12 @@ const areas = [
     caption: 'Commerce & data flows',
     items: [
       { label: 'WooCommerce', icon: '/img/woocommerce.svg' },
-      { label: 'Goldylocks ERP', initials: 'G' },
-      { label: 'iThenPay', icon: '/img/ifthenpay.svg' },
+      { label: 'Goldylocks ERP', icon: '/img/goldylocks_logo.png' },
+      { label: 'iThenPay', icon: '/img/ifthenpay.svg', onDark: true },
       { label: 'REST API', initials: 'API' },
       { label: 'MySQL', icon: '/img/MySQL.svg' },
       { label: 'SQL', icon: '/img/sql.png' },
-      { label: 'PHP', initials: 'PHP' },
+      { label: 'PHP', icon: '/img/php.svg' },
       { label: 'PocketBase', icon: '/img/pocketbase.svg' },
       { label: 'Postman', icon: '/img/postman.svg' },
       { label: 'n8n', icon: '/img/n8n.svg' },
@@ -87,7 +94,7 @@ const areas = [
     items: [
       { label: 'Proxmox VE', icon: '/img/proxmox.svg' },
       { label: 'Docker', icon: '/img/docker.svg' },
-      { label: 'LXC', initials: 'LXC' },
+      { label: 'LXC', icon: '/img/linux-containers-lxc.svg' },
       { label: 'Git', icon: '/img/git.svg' },
       { label: 'GitLab', icon: '/img/gitlab.svg' },
       { label: 'Coolify', icon: '/img/coolify.svg' },
@@ -97,6 +104,7 @@ const areas = [
       { label: 'Headscale', initials: 'Hs' },
       { label: 'AdGuard Home', icon: '/img/adguardhome.svg' },
       { label: 'Home Assistant', icon: '/img/homeassistant.svg' },
+      { label: 'Immich', icon: '/img/immich.svg' },
       { label: 'Uptime Kuma', icon: '/img/uptimekuma.svg' },
       { label: 'Discord', icon: '/img/discord.svg' },
       { label: 'SonarQube', icon: '/img/sonar.png' },

@@ -32,6 +32,9 @@
               :project="entry.project"
               :number="entry.number"
               :category-label="category.label"
+              :open="openProjectId === entry.project.id"
+              @open="openProjectId = entry.project.id"
+              @close="openProjectId = null"
             />
           </div>
         </div>
@@ -41,9 +44,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { projectCategories, getProjectsByCategory } from '~/data/projects';
 import ProjectCard from '~/components/projects/ProjectCard.vue';
+
+const openProjectId = ref<string | null>(null);
 
 const sections = computed(() =>
   projectCategories

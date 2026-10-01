@@ -8,6 +8,8 @@ export interface ProjectLink {
 export interface StackItem {
   label: string;
   icon?: string;
+  initials?: string;
+  onDark?: boolean;
 }
 
 export interface LimitationItem {

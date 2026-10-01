@@ -68,8 +68,8 @@ export const projects: ProjectType[] = [
     ],
     stack: [
       { label: 'WooCommerce', icon: '/img/woocommerce.svg' },
-      { label: 'Goldylocks ERP' },
-      { label: 'iThenPay', icon: '/img/ifthenpay.svg' },
+      { label: 'Goldylocks ERP', icon: '/img/goldylocks_logo.png' },
+      { label: 'iThenPay', icon: '/img/ifthenpay.svg', onDark: true },
       { label: 'REST API' },
     ],
     limitations: [
@@ -115,17 +115,18 @@ export const projects: ProjectType[] = [
       {
         title: 'Network architecture',
         body:
-          'The residential connection sits behind carrier-grade NAT, so there is no public IP address to forward ports to and dynamic DNS cannot resolve to the network. Instead of working around that constraint with port forwarding, the public ingress is an outbound Cloudflare Tunnel: the tunnel dials out from inside the network and terminates at Cloudflare, which means no inbound port is ever opened on the router.',
+          'The residential connection sits behind carrier-grade NAT, so there is no public IP address to forward ports to and dynamic DNS cannot resolve to the network. Instead of working around that constraint with port forwarding, the public ingress is an outbound Cloudflare Tunnel: the tunnel dials out from inside the network and terminates at Cloudflare, which means no inbound port is ever opened on the router. Domains such as this portfolio resolve through Cloudflare, reach the tunnel and terminate at NPMplus, which forwards each hostname to the matching IP:port inside the lab.',
         items: [
           'NPMplus is the single public entry point and reverse proxy. It decides which container answers for a given hostname.',
-          'PocketBase API and n8n are the only services exposed externally, and only because they need it.',
-          'GitLab, Coolify, Home Assistant, Immich, AdGuard Home and Uptime Kuma are not reachable from the Internet.',
+          'A Cloudflare API token lets NPMplus issue and renew TLS certificates through DNS-01 validation, automatically, without port 80 or 443.',
+          'Sites published through Coolify — including this portfolio — are exposed the same way: Cloudflare DNS, the tunnel, NPMplus, then the application IP:port.',
+          'Private services such as GitLab, Home Assistant, Immich and AdGuard Home stay on the mesh and are never exposed to the Internet.',
         ],
       },
       {
         title: 'Private access',
         body:
-          'Remote access to the private services does not go through the public ingress. A Tailscale mesh VPN is used, with the coordination server self-hosted through Headscale and its administration interface in Headplane, so the tailnet does not depend on a third-party coordination service. Machines are enrolled in the tailnet and are reachable either on the local network or through the mesh from an authorized device.',
+          'Remote access to the private services does not go through the public ingress. The labs use Tailscale as the mesh VPN: its free tier is enough for the current fleet, up to 100 enrolled machines. Headscale and Headplane were evaluated first — a self-hosted coordination server to keep the tailnet independent from a third party — but Headscale is not compatible with the Cloudflare Tunnel, so Tailscale was selected for day-to-day remote access.',
       },
       {
         title: 'Network topology',
@@ -153,7 +154,7 @@ export const projects: ProjectType[] = [
     ],
     stack: [
       { label: 'Proxmox VE', icon: '/img/proxmox.svg' },
-      { label: 'LXC' },
+      { label: 'LXC', icon: '/img/linux-containers-lxc.svg' },
       { label: 'Docker', icon: '/img/docker.svg' },
       { label: 'GitLab', icon: '/img/gitlab.svg' },
       { label: 'Coolify', icon: '/img/coolify.svg' },
@@ -164,6 +165,7 @@ export const projects: ProjectType[] = [
       { label: 'AdGuard Home', icon: '/img/adguardhome.svg' },
       { label: 'Tailscale', icon: '/img/tailscale.svg' },
       { label: 'Home Assistant', icon: '/img/homeassistant.svg' },
+      { label: 'Immich', icon: '/img/immich.svg' },
       { label: 'Uptime Kuma', icon: '/img/uptimekuma.svg' },
       { label: 'Discord', icon: '/img/discord.svg' },
     ],
@@ -183,11 +185,11 @@ export const projects: ProjectType[] = [
           'Hosting the monitor outside the machine it watches, so a host failure still produces a notification.',
       },
       {
-        title: 'Headscale is not publicly reachable',
+        title: 'Coordination depends on a third-party service',
         detail:
-          'Headscale with Headplane was working locally, but through the Cloudflare Tunnel the server never receives the request, because the tunnel strips a header that Headplane requires. Remote administration of it therefore depends on the mesh rather than on the public ingress.',
+          'Tailscale is the mesh currently in use. It was chosen after evaluating Headscale, which could not work through the Cloudflare Tunnel. The tailnet therefore depends on a third-party coordination service, which is accepted in exchange for compatibility.',
         mitigation:
-          'Configuring the tunnel to preserve the headers the application depends on.',
+          'Returning to a self-hosted coordination server if a compatible setup is found, keeping the same Tailscale client protocol.',
       },
       {
         title: 'Limited public exposure is not network security',
@@ -235,9 +237,9 @@ export const projects: ProjectType[] = [
     ],
     stack: [
       { label: 'Vue.js', icon: '/img/vue.svg' },
-      { label: 'Vuex' },
+      { label: 'Vuex', initials: 'Vx' },
       { label: 'TailwindCSS', icon: '/img/tailwind.svg' },
-      { label: 'Electron' },
+      { label: 'Electron', icon: '/img/Electron_Logo.svg' },
     ],
     limitations: [],
     links: [{ label: 'Goldylocks', href: 'https://www.github.com/goldylocks-portugal' }],
@@ -269,10 +271,10 @@ export const projects: ProjectType[] = [
     ],
     stack: [
       { label: 'MySQL', icon: '/img/MySQL.svg' },
-      { label: 'PHP' },
+      { label: 'PHP', icon: '/img/php.svg' },
       { label: 'JavaScript', icon: '/img/javascript.svg' },
-      { label: 'Bootstrap' },
-      { label: 'jsPDF' },
+      { label: 'Bootstrap', icon: '/img/bootstrap.svg' },
+      { label: 'jsPDF', initials: 'PDF' },
       { label: 'SQL', icon: '/img/sql.png' },
     ],
     limitations: [],
