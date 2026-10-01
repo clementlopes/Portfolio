@@ -7,12 +7,15 @@
         <h1
           class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary"
         >
-          FRONTEND DEVELOPER<br />
+          SOFTWARE DEVELOPER<br />
         </h1>
         <p class="py-6 text-lg text-base-content/90">
-          A curious frontend developer building thoughtful, responsive, and accessible UIs with Vue
-          & Nuxt making one commit at a time. Currently leveling up and open to junior
-          opportunities.
+          I build applications with Vue and Nuxt, integrate them with business systems, and run the
+          infrastructure that hosts them. My work covers the full path of a commercial order — from
+          the storefront to invoicing — and the self-hosted environment that keeps it online.
+        </p>
+        <p class="pb-6 text-sm text-base-content/60 font-mono">
+          Vue.js · Nuxt · TypeScript · API Integrations · Automation · Self-hosted Infrastructure
         </p>
         <div
           class="flex flex-col items-center sm:flex-row gap-4 justify-center lg:justify-start pt-4"

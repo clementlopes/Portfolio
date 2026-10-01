@@ -1,0 +1,289 @@
+import type { ProjectCategory, ProjectType } from '#shared/types/ProjectType';
+
+export const projectCategories: ProjectCategory[] = [
+  {
+    id: 'business-integration',
+    order: '01',
+    label: 'E-commerce & Business Integration',
+    caption: 'Commercial project',
+    description:
+      'Connecting storefronts to commercial systems: catalog, stock, orders and invoicing.',
+  },
+  {
+    id: 'infrastructure',
+    order: '02',
+    label: 'Infrastructure & Self-hosting',
+    caption: 'Home Lab',
+    description:
+      'Virtualization, networking, deployment and monitoring on self-owned hardware.',
+  },
+  {
+    id: 'software',
+    order: '03',
+    label: 'Software Development',
+    caption: 'Applications',
+    description: 'Application development across front-end and full-stack work.',
+  },
+];
+
+export const projects: ProjectType[] = [
+  {
+    id: 'marca-q-marca',
+    categoryId: 'business-integration',
+    title: "MARCA Q' MARCA",
+    subtitle: 'E-commerce platform with invoicing system integration',
+    summary:
+      'Online store with roughly 21,000 articles, nightly product and stock synchronization, and order data transmitted to the Goldylocks invoicing system. Payments are handled through iThenPay.',
+    highlights: [
+      'Web development',
+      'API integration',
+      'Commercial process automation',
+      'System-to-system communication',
+    ],
+    sections: [
+      {
+        title: 'Catalog integration',
+        body:
+          'The store serves a catalog of approximately 21,000 articles through WooCommerce. New products are imported and stock levels are refreshed by a scheduled nightly job rather than by manual intervention, so the store reflects supplier and warehouse movements without recurring manual work.',
+      },
+      {
+        title: 'Billing system integration',
+        body:
+          'When an order is placed, the store transmits structured commercial data to the Goldylocks ERP: customer identity, shipping address, product lines with quantities and unit prices, and the applicable VAT rates. The point is not simply importing products — it is connecting the order process to a system that has to receive commercially consistent information and turn it into an invoice.',
+      },
+      {
+        title: 'Order flow',
+        diagram: 'order-flow',
+      },
+      {
+        title: 'After the handover',
+        body:
+          'Once the order has been handed over, it is marked as completed in the store and management stays centralized in the Goldylocks software. The transmission is one-way: the store sends the order and does not wait for an invoice document to be returned. Invoicing, order states and commercial management remain the responsibility of the ERP, which is already the single source of truth for the operation.',
+      },
+      {
+        title: 'Payments',
+        body:
+          'Payments are integrated into the checkout through iThenPay, which completes the purchase as a payment-by-reference flow before the order is handed to the invoicing system.',
+      },
+    ],
+    stack: [
+      { label: 'WooCommerce', icon: '/img/woocommerce.svg' },
+      { label: 'Goldylocks ERP' },
+      { label: 'iThenPay', icon: '/img/ifthenpay.svg' },
+      { label: 'REST API' },
+    ],
+    limitations: [
+      {
+        title: 'Nightly synchronization window',
+        detail:
+          'Product and stock data refresh once per night, so the store can carry up to roughly 24 hours of drift from the underlying supplier and warehouse reality.',
+        mitigation:
+          'Event-driven or higher-frequency synchronization for the categories where drift is commercially relevant.',
+      },
+      {
+        title: 'Stock can be oversold inside the window',
+        detail:
+          'An order accepted near the end of the day may reference an article that is no longer available, because availability was last read hours earlier. Detecting that at order level would require real-time stock validation before the order is accepted.',
+      },
+      {
+        title: 'One-way transmission',
+        detail:
+          'The store does not receive an invoice confirmation back, so it cannot independently verify that a document was issued. The order is completed on the store side because management is centralized in the ERP. This is a deliberate design decision rather than a defect, but it does mean invoicing state is only observable in the ERP.',
+      },
+    ],
+    links: [{ label: 'marcarqmarca.com', href: 'https://marcarqmarca.com' }],
+  },
+  {
+    id: 'home-lab',
+    categoryId: 'infrastructure',
+    title: 'Home Lab — Proxmox VE',
+    subtitle: 'Self-hosting · Virtualization · Networking · DevOps',
+    summary:
+      'Self-hosted Proxmox VE infrastructure on a mini PC: LXC and Docker workloads, restricted public exposure through a single controlled ingress, mesh VPN for private access, automated deployment, and availability monitoring with Discord alerts.',
+    highlights: [
+      'Virtualization & containers',
+      'Network segmentation',
+      'Automated deployment',
+      'Monitoring & alerting',
+    ],
+    sections: [
+      {
+        title: 'Virtualization & services',
+        body:
+          'A mini PC running Proxmox VE hosts the workloads as LXC containers and Docker containers, which keeps resource allocation explicit per service group. Development and deployment run on self-hosted GitLab, with Coolify handling application builds and containerized deployments. Automation and backend services run on PocketBase and n8n. Home automation and multimedia services include Home Assistant, ESPHome, DVR Agent, Immich and iVentoy.',
+      },
+      {
+        title: 'Network architecture',
+        body:
+          'The residential connection sits behind carrier-grade NAT, so there is no public IP address to forward ports to and dynamic DNS cannot resolve to the network. Instead of working around that constraint with port forwarding, the public ingress is an outbound Cloudflare Tunnel: the tunnel dials out from inside the network and terminates at Cloudflare, which means no inbound port is ever opened on the router.',
+        items: [
+          'NPMplus is the single public entry point and reverse proxy. It decides which container answers for a given hostname.',
+          'PocketBase API and n8n are the only services exposed externally, and only because they need it.',
+          'GitLab, Coolify, Home Assistant, Immich, AdGuard Home and Uptime Kuma are not reachable from the Internet.',
+        ],
+      },
+      {
+        title: 'Private access',
+        body:
+          'Remote access to the private services does not go through the public ingress. A Tailscale mesh VPN is used, with the coordination server self-hosted through Headscale and its administration interface in Headplane, so the tailnet does not depend on a third-party coordination service. Machines are enrolled in the tailnet and are reachable either on the local network or through the mesh from an authorized device.',
+      },
+      {
+        title: 'Network topology',
+        diagram: 'network-topology',
+      },
+      {
+        title: 'Storage & backups',
+        body:
+          'Two SSDs split the workloads. The first carries the LVM-based storage used by the containers. The second, of 500 GB, holds Immich, DVR Agent, n8n storage and the backup destination. A scheduled Proxmox backup runs daily at 21:00 and covers all containers to the local disk.',
+      },
+      {
+        title: 'Monitoring & alerting',
+        body:
+          'Uptime Kuma provides availability monitoring for the self-hosted services. Fewer than ten monitors are configured: ICMP pings to the Docker host machines, NPMplus and the databases, plus HTTP requests against the exposed sites to confirm they actually answer. Events are pushed to a Discord channel through webhooks, so outages and recoveries surface as notifications instead of requiring the dashboard to be checked manually.',
+        items: [
+          'The monitors reach services over the same host or bridge network, which lets private services be monitored without exposing them.',
+          'Notifications are outbound webhook calls, so the alerting path adds no new inbound exposure.',
+        ],
+      },
+      {
+        title: 'Deployment',
+        body:
+          'Applications are developed in the self-hosted GitLab instance. Coolify consumes the repository, builds the image and deploys it as a container, which keeps the path from commit to running service inside the same infrastructure.',
+      },
+    ],
+    stack: [
+      { label: 'Proxmox VE', icon: '/img/proxmox.svg' },
+      { label: 'LXC' },
+      { label: 'Docker', icon: '/img/docker.svg' },
+      { label: 'GitLab', icon: '/img/gitlab.svg' },
+      { label: 'Coolify', icon: '/img/coolify.svg' },
+      { label: 'PocketBase', icon: '/img/pocketbase.svg' },
+      { label: 'n8n', icon: '/img/n8n.svg' },
+      { label: 'NPMplus', icon: '/img/npmplus.svg' },
+      { label: 'Cloudflare Tunnel', icon: '/img/cloudflare.svg' },
+      { label: 'AdGuard Home', icon: '/img/adguardhome.svg' },
+      { label: 'Tailscale', icon: '/img/tailscale.svg' },
+      { label: 'Home Assistant', icon: '/img/homeassistant.svg' },
+      { label: 'Uptime Kuma', icon: '/img/uptimekuma.svg' },
+      { label: 'Discord', icon: '/img/discord.svg' },
+    ],
+    limitations: [
+      {
+        title: 'Backups live on the same host',
+        detail:
+          'The daily backup goes to a local disk on the same mini PC it is protecting. It covers mistakes at the service and data level, but it would not survive the failure of that disk or of the machine itself.',
+        mitigation:
+          'Copying backups periodically to external storage. The reason it is not in place is the cost of the additional equipment.',
+      },
+      {
+        title: 'The monitor runs on the host it monitors',
+        detail:
+          'Uptime Kuma is hosted on the same mini PC it watches. If that machine goes down, the monitor cannot report the outage — the failure is silent instead of being alerted.',
+        mitigation:
+          'Hosting the monitor outside the machine it watches, so a host failure still produces a notification.',
+      },
+      {
+        title: 'Headscale is not publicly reachable',
+        detail:
+          'Headscale with Headplane was working locally, but through the Cloudflare Tunnel the server never receives the request, because the tunnel strips a header that Headplane requires. Remote administration of it therefore depends on the mesh rather than on the public ingress.',
+        mitigation:
+          'Configuring the tunnel to preserve the headers the application depends on.',
+      },
+      {
+        title: 'Limited public exposure is not network security',
+        detail:
+          'Exposing only a few services reduces the attack surface, but it is a decision rather than a guarantee. Security still depends on firewall rules, open ports, application permissions, TLS and authentication on each service.',
+      },
+      {
+        title: 'Flat internal segmentation',
+        detail:
+          'The monitored services sit on the same host or bridge network, which is convenient for monitoring but means isolation between them relies on container boundaries rather than on network segmentation between zones.',
+        mitigation: 'Firewall rules between the service groups, so a compromised service is not adjacent to the others.',
+      },
+    ],
+    links: [],
+  },
+  {
+    id: 'goldylocks-pos',
+    categoryId: 'software',
+    title: 'Goldylocks POS',
+    subtitle: 'Point of sale front-end — cafés & restaurants',
+    summary:
+      'Maintained and improved the front-end of a point-of-sale system for public retail, covering cafés and restaurants. New features, operational fixes, API testing in Postman and coordination with the backend team.',
+    highlights: [
+      'Front-end maintenance',
+      'Sales workflow fixes',
+      'REST API testing',
+      'Backend coordination',
+    ],
+    sections: [
+      {
+        title: 'Scope',
+        body:
+          'Responsible for maintaining and improving the front-end of the POS system: implementing new features, fixing operational issues inside the sales workflow, and handling day-to-day problems that surface in a live retail environment.',
+      },
+      {
+        title: 'API testing',
+        body:
+          'REST endpoints were exercised and validated in Postman, with issues triaged and coordinated against the backend team.',
+      },
+      {
+        title: 'Relation to the MARCA Q\' MARCA integration',
+        body:
+          'The POS is the retail-facing surface of the same Goldylocks ERP that receives the order data from the MARCA Q\' MARCA e-commerce integration. Working on both ends of that system means seeing the commercial flow from the invoicing back office through to the point of sale.',
+      },
+    ],
+    stack: [
+      { label: 'Vue.js', icon: '/img/vue.svg' },
+      { label: 'Vuex' },
+      { label: 'TailwindCSS', icon: '/img/tailwind.svg' },
+      { label: 'Electron' },
+    ],
+    limitations: [],
+    links: [{ label: 'Goldylocks', href: 'https://www.github.com/goldylocks-portugal' }],
+  },
+  {
+    id: 'pgo',
+    categoryId: 'software',
+    title: 'PGO — Budget Management Platform',
+    subtitle: 'Full-stack · documents, clients, line items & PDF',
+    summary:
+      'A budget-management platform developed end to end. Documents, clients and line items with products or services, line-level values, and final PDF generation.',
+    highlights: [
+      'Full-stack',
+      'Document generation',
+      'PDF export',
+      'Relational data model',
+    ],
+    sections: [
+      {
+        title: 'What it does',
+        body:
+          'Documents, clients and line items can be created, edited and deleted. A line item carries a product or a service together with its own value, and the platform generates a final PDF from the assembled document.',
+      },
+      {
+        title: 'Scope',
+        body:
+          'Built end to end, covering the relational data model, the persistence layer and the interface.',
+      },
+    ],
+    stack: [
+      { label: 'MySQL', icon: '/img/MySQL.svg' },
+      { label: 'PHP' },
+      { label: 'JavaScript', icon: '/img/javascript.svg' },
+      { label: 'Bootstrap' },
+      { label: 'jsPDF' },
+      { label: 'SQL', icon: '/img/sql.png' },
+    ],
+    limitations: [],
+    links: [
+      {
+        label: 'github.com/clementlopes',
+        href: 'https://github.com/clementlopes/Plataforma-gestao-de-orcamentos',
+      },
+    ],
+  },
+];
+
+export const getProjectsByCategory = (categoryId: string): ProjectType[] =>
+  projects.filter((project) => project.categoryId === categoryId);
