@@ -10,4 +10,4 @@ services:
     container_name: portfolio
     restart: unless-stopped
     ports:
-      - "3000:3000"   # Default port for pocketbase
+      - "3000:3000"   # Default port for the Nuxt/Nitro server

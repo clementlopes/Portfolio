@@ -3,12 +3,9 @@
     <Header />
     <main class="flex-grow">
       <NuxtPage />
-       <DrawersContainer />
-    <Toast />
-    <Alert />
     </main>
     <Footer class="mt-auto" />
-   
+
   </div>
 
 </template>
@@ -16,17 +13,14 @@
 <script setup lang="ts">
 import Header from './components/header.vue';
 import Footer from './components/footer.vue';
-import DrawersContainer from './components/drawers/drawersContainer.vue';
-import Toast from './components/toast/toast.vue';
-import Alert from '~/components/alerts/alert.vue';
 
 useHead({
-  title: 'Clément Lopes - Frontend Developer',
+  title: 'Clément Lopes - Software Developer | Vue, Nuxt & TypeScript',
   meta: [
     {
       name: 'description',
       content:
-        'Frontend Developer passionate about Vue, Nuxt, and accessible UIs. Portfolio featuring projects, skills, and contact. Open to junior/entry-level roles in Portugal and remote.',
+        'Software developer working across application development, business systems integration and self-hosted infrastructure. Vue, Nuxt and TypeScript on the front-end; WooCommerce to ERP integration and API automation; Proxmox VE, Docker, networking and monitoring with Uptime Kuma. Based in Braga, Portugal.',
     },
 
     { name: 'canonical', content: 'https://clementlopes.site' },
@@ -34,7 +28,7 @@ useHead({
     {
       name: 'keywords',
       content:
-        'frontend developer, Vue.js developer, Nuxt , developer Portugal, Tailwind CSS, Pinia, VueX, State Management, DaisyUI, Vue 3, Nuxt 4, UI/UX, API, javascript, typescript, Clément Lopes',
+        'software developer, Vue.js developer, Nuxt, TypeScript, developer Portugal, WooCommerce, ERP integration, API integration, business systems, e-commerce integration, Proxmox VE, LXC, Docker, self-hosting, homelab, DevOps, automation, n8n, Tailscale, Headscale, Cloudflare Tunnel, Nginx Proxy Manager, AdGuard Home, Uptime Kuma, monitoring, Tailwind CSS, Pinia, Vuex, DaisyUI, REST API, MySQL, PocketBase, Clément Lopes',
     },
 
     { name: 'author', content: 'Clément Lopes' },

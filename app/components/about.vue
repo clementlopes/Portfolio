@@ -1,32 +1,54 @@
 <template>
   <section id="about" class="py-16 bg-base-100">
     <div class="container mx-auto px-4 mt-10">
-      <div class="text-center mb-16">
+<div class="text-center mb-16">
         <h2 class="text-4xl font-bold text-center mb-12 text-primary">This is me</h2>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         <!-- Introduction -->
-        <div class="lg:order-0 p-4">
-          <div class="mb-8 text-center">
+        <div class="lg:order-0 p-4 flex flex-col gap-4">
+          <div class="mb-2 text-center">
             <h3 class="text-3xl font-bold mb-6 text-base-content">Hi i'm Clément Lopes</h3>
           </div>
+
+          <ul class="flex flex-col gap-3">
+            <li
+              v-for="pillar in pillars"
+              :key="pillar.title"
+              class="rounded-xl border border-base-300 bg-base-200/40 p-4 flex flex-col gap-1"
+            >
+              <span class="text-xs font-mono text-primary font-bold">{{ pillar.order }}</span>
+              <span class="font-semibold text-base-content">{{ pillar.title }}</span>
+              <span class="text-sm text-base-content/70 text-justify">{{ pillar.body }}</span>
+            </li>
+          </ul>
         </div>
         <div class="grid grid-cols-1 p-4 lg:border-l-1 border-gray-500/50">
-          <p class="mb-4 text-justify">
-            Frontend Developer with professional experience in building and maintaining a
-            Point-of-Sales (POS) system using Vue.js, Vuex, and TypeScript. I specialize in creating
-            responsive and user-friendly interfaces with modern technologies like TailwindCSS and
-            DaisyUI, and in integrating and testing RESTful APIs using Postman.
+          <p class="mb-4 text-sm leading-relaxed text-justify">
+            My work sits across three areas that reinforce each other. I develop applications with
+            Vue, Nuxt and TypeScript, building responsive and accessible interfaces with TailwindCSS
+            and DaisyUI, and integrating and testing RESTful APIs. That application work sits on top
+            of commercial systems: I connect e-commerce platforms to invoicing and management
+            software, transmitting structured order data rather than just displaying a catalog.
           </p>
 
-          <p class="mb-4 text-justify">
-            Currently expanding my expertise with Nuxt and Pinia, while aiming to grow into a Full
-            Stack Developer in the near future. I'm passionate about creating thoughtful, accessible
-            UIs that provide exceptional user experiences.
+          <p class="mb-4 text-sm leading-relaxed text-justify">
+            Underneath both is the infrastructure. I run a Proxmox VE host that virtualizes the
+            workloads with LXC and Docker, keeps public exposure behind a single controlled ingress,
+            and gives private services a mesh VPN instead of an open port. Deployment runs through
+            self-hosted GitLab and Coolify, and availability is monitored with Uptime Kuma feeding
+            alerts to Discord.
           </p>
 
-          <p class="text-justify">
+          <p class="mb-4 text-sm leading-relaxed text-justify">
+            Having all three means I can reason about the whole path of an order rather than one
+            layer of it — from the storefront, through the ERP, to the hardware that keeps it
+            running. I document the limitations of what I build as carefully as the architecture,
+            because knowing where a system breaks is part of operating it.
+          </p>
+
+          <p class="text-sm leading-relaxed text-justify">
             Collaborative, adaptable, and experienced working in agile environments with Git and
             Kanban. I'm committed to continuous learning and improvement, making one commit at a
             time.
@@ -101,3 +123,23 @@
     </div>
   </section>
 </template>
+
+<script setup>
+const pillars = [
+  {
+    order: '01',
+    title: 'Application Development',
+    body: 'Interfaces and applications in Vue, Nuxt and TypeScript — responsive, accessible, and validated against real REST endpoints.',
+  },
+  {
+    order: '02',
+    title: 'Business Systems Integration',
+    body: 'Connecting e-commerce to invoicing and management software: catalog and stock synchronization, structured order data, nightly automation.',
+  },
+  {
+    order: '03',
+    title: 'Infrastructure & Automation',
+    body: 'Proxmox VE, LXC and Docker, segmented networking, self-hosted GitLab and Coolify deployments, and monitoring with alerting.',
+  },
+];
+</script>
