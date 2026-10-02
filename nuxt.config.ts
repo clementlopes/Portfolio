@@ -8,11 +8,6 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
   modules: ['@pinia/nuxt'],
-  runtimeConfig: {
-    public: {
-      pocketbaseUrl: process.env.POCKETBASE_URL,
-    },
-  },
   app: {
     head: {
       link: [
