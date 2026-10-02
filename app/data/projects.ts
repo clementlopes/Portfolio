@@ -52,10 +52,6 @@ export const projects: ProjectType[] = [
           'When an order is placed, the store transmits structured commercial data to the Goldylocks ERP: customer identity, shipping address, product lines with quantities and unit prices, and the applicable VAT rates. The point is not simply importing products — it is connecting the order process to a system that has to receive commercially consistent information and turn it into an invoice.',
       },
       {
-        title: 'Order flow',
-        diagram: 'order-flow',
-      },
-      {
         title: 'After the handover',
         body:
           'Once the order has been handed over, it is marked as completed in the store and management stays centralized in the Goldylocks software. The transmission is one-way: the store sends the order and does not wait for an invoice document to be returned. Invoicing, order states and commercial management remain the responsibility of the ERP, which is already the single source of truth for the operation.',
@@ -91,7 +87,7 @@ export const projects: ProjectType[] = [
           'The store does not receive an invoice confirmation back, so it cannot independently verify that a document was issued. The order is completed on the store side because management is centralized in the ERP. This is a deliberate design decision rather than a defect, but it does mean invoicing state is only observable in the ERP.',
       },
     ],
-    links: [{ label: 'marcarqmarca.com', href: 'https://marcarqmarca.com' }],
+    links: [{ label: 'marcaqmarca.com', href: 'https://marcaqmarca.com' }],
   },
   {
     id: 'home-lab',
@@ -127,10 +123,6 @@ export const projects: ProjectType[] = [
         title: 'Private access',
         body:
           'Remote access to the private services does not go through the public ingress. The labs use Tailscale as the mesh VPN: its free tier is enough for the current fleet, up to 100 enrolled machines. Headscale and Headplane were evaluated first — a self-hosted coordination server to keep the tailnet independent from a third party — but Headscale is not compatible with the Cloudflare Tunnel, so Tailscale was selected for day-to-day remote access.',
-      },
-      {
-        title: 'Network topology',
-        diagram: 'network-topology',
       },
       {
         title: 'Storage & backups',
@@ -248,25 +240,35 @@ export const projects: ProjectType[] = [
     id: 'pgo',
     categoryId: 'software',
     title: 'PGO — Budget Management Platform',
-    subtitle: 'Full-stack · documents, clients, line items & PDF',
+    subtitle: 'Full-stack · replacing hand-written budgets with client-ready documents',
     summary:
-      'A budget-management platform developed end to end. Documents, clients and line items with products or services, line-level values, and final PDF generation.',
+      'A budget-management platform developed end to end for a small company that was quoting work on paper. Documents, clients and line items with products or services, line-level values, and a final PDF generated on demand from the stored data.',
     highlights: [
       'Full-stack',
-      'Document generation',
-      'PDF export',
+      'Replaces paper budgets',
+      'On-demand PDF',
       'Relational data model',
     ],
     sections: [
+      {
+        title: 'Why it exists',
+        body:
+          'The company was writing budgets by hand, which made them slow to produce and hard to present: the layout changed from one document to the next and a client had no consistent structure to read. The platform assembles the same budget from stored clients, products and services, so what reaches the client is a properly formatted document with line items and totals instead of a sheet of paper.',
+      },
       {
         title: 'What it does',
         body:
           'Documents, clients and line items can be created, edited and deleted. A line item carries a product or a service together with its own value, and the platform generates a final PDF from the assembled document.',
       },
       {
+        title: 'Generated on demand, not stored',
+        body:
+          'Only the data is persisted. The PDF is rendered in the browser from the stored document whenever it is requested, and the generated file is not kept afterwards — storage stays small, but the document has to be produced again to be seen again.',
+      },
+      {
         title: 'Scope',
         body:
-          'Built end to end, covering the relational data model, the persistence layer and the interface.',
+          'Built end to end, covering the relational data model, the persistence layer and the interface. It is an internal tool for a single company: the clients interact with the finished document, not with the platform.',
       },
     ],
     stack: [
@@ -277,7 +279,36 @@ export const projects: ProjectType[] = [
       { label: 'jsPDF', initials: 'PDF' },
       { label: 'SQL', icon: '/img/sql.png' },
     ],
-    limitations: [],
+    limitations: [
+      {
+        title: 'No record of the document that was sent',
+        detail:
+          'Because the PDF is generated on demand and never saved, the database holds the current version of a budget rather than the version that was actually issued. A document edited after being sent produces different values next time it is generated, and there is no way to show what the client originally received.',
+        mitigation:
+          'Versioning each document and keeping the generated file for the revisions that were really sent, accepting the storage cost that the current approach avoids.',
+      },
+      {
+        title: 'Stack is dated and unmaintained',
+        detail:
+          'The platform runs on PHP with Bootstrap and a client-side PDF library, a combination I would not start a project with today. It is published as a reference for how the problem was solved, not as a system to deploy or extend, and none of its dependencies are being maintained.',
+        mitigation:
+          'Rewriting it on Nuxt and TypeScript with server-side PDF generation, reusing the same relational model.',
+      },
+      {
+        title: 'No authentication or roles',
+        detail:
+          'There is no login and no separation of roles, so anyone who reaches the application can create, edit and delete documents and clients. There is also no audit trail showing who changed a value or when.',
+        mitigation:
+          'Adding users and roles, and recording the author and the revision history of each document.',
+      },
+      {
+        title: 'A budget does not become an order',
+        detail:
+          'The document leaves the system as a PDF and nothing links it to invoicing or to an order, so an accepted quote still has to be re-entered elsewhere. That gap is the same one the MARCA Q\' MARCA integration closes from the other direction, by sending an order to the ERP instead of producing a document.',
+        mitigation:
+          'Marking an accepted budget as won and pushing its line items into the ERP as an order.',
+      },
+    ],
     links: [
       {
         label: 'github.com/clementlopes',

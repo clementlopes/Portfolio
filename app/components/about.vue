@@ -25,7 +25,7 @@
           </ul>
         </div>
         <div class="grid grid-cols-1 p-4 lg:border-l-1 border-gray-500/50">
-          <p class="mb-4 text-justify">
+          <p class="mb-4 text-sm leading-relaxed text-justify">
             My work sits across three areas that reinforce each other. I develop applications with
             Vue, Nuxt and TypeScript, building responsive and accessible interfaces with TailwindCSS
             and DaisyUI, and integrating and testing RESTful APIs. That application work sits on top
@@ -33,7 +33,7 @@
             software, transmitting structured order data rather than just displaying a catalog.
           </p>
 
-          <p class="mb-4 text-justify">
+          <p class="mb-4 text-sm leading-relaxed text-justify">
             Underneath both is the infrastructure. I run a Proxmox VE host that virtualizes the
             workloads with LXC and Docker, keeps public exposure behind a single controlled ingress,
             and gives private services a mesh VPN instead of an open port. Deployment runs through
@@ -41,14 +41,14 @@
             alerts to Discord.
           </p>
 
-          <p class="mb-4 text-justify">
+          <p class="mb-4 text-sm leading-relaxed text-justify">
             Having all three means I can reason about the whole path of an order rather than one
             layer of it — from the storefront, through the ERP, to the hardware that keeps it
             running. I document the limitations of what I build as carefully as the architecture,
             because knowing where a system breaks is part of operating it.
           </p>
 
-          <p class="text-justify">
+          <p class="text-sm leading-relaxed text-justify">
             Collaborative, adaptable, and experienced working in agile environments with Git and
             Kanban. I'm committed to continuous learning and improvement, making one commit at a
             time.

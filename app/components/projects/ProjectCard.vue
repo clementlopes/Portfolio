@@ -15,7 +15,15 @@
         <div class="flex flex-wrap items-center gap-2">
           <span class="badge badge-primary badge-sm font-mono">{{ projectNumber }}</span>
           <span class="badge badge-ghost badge-sm">{{ categoryLabel }}</span>
-          <span v-if="project.links.length" class="badge badge-outline badge-sm gap-1">
+          <a
+            v-for="link in project.links"
+            :key="link.href"
+            :href="link.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="badge badge-outline badge-sm gap-1 relative z-10 hover:badge-primary"
+            @click.stop
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -30,8 +38,8 @@
                 d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
               />
             </svg>
-            live project
-          </span>
+            {{ link.label }}
+          </a>
         </div>
 
         <div>
@@ -50,7 +58,7 @@
         </ul>
 
         <p class="text-xs font-semibold uppercase tracking-wide text-primary">
-          {{ project.limitations.length ? 'Case study, architecture & limitations' : 'Case study' }}
+          {{ project.limitations.length ? 'Case study & limitations' : 'Case study' }}
         </p>
       </div>
     </div>
@@ -128,12 +136,6 @@
                   <span>{{ item }}</span>
                 </li>
               </ul>
-
-              <component
-                :is="diagrams[section.diagram]"
-                v-if="section.diagram"
-                class="mt-2 rounded-xl border border-base-300 bg-base-200/40 p-4"
-              />
             </section>
 
             <div
@@ -214,8 +216,6 @@
 
 <script setup lang="ts">
 import { ref, nextTick, watch } from 'vue';
-import OrderFlowDiagram from '~/components/diagrams/OrderFlowDiagram.vue';
-import NetworkTopologyDiagram from '~/components/diagrams/NetworkTopologyDiagram.vue';
 
 const props = defineProps<{
   project: ProjectType;
@@ -230,11 +230,6 @@ const emit = defineEmits<{
 }>();
 
 const cardEl = ref<HTMLElement | null>(null);
-
-const diagrams = {
-  'order-flow': OrderFlowDiagram,
-  'network-topology': NetworkTopologyDiagram,
-};
 
 const onToggle = (event: Event) => {
   const checked = (event.target as HTMLInputElement).checked;

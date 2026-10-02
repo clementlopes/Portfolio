@@ -1,5 +1,3 @@
-export type DiagramKey = 'order-flow' | 'network-topology';
-
 export interface ProjectLink {
   label: string;
   href: string;
@@ -22,7 +20,6 @@ export interface ProjectSection {
   title: string;
   body?: string;
   items?: string[];
-  diagram?: DiagramKey;
 }
 
 export interface ProjectCategory {
