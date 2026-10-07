@@ -66,7 +66,7 @@ export const projects: ProjectType[] = [
       { label: 'WooCommerce', icon: '/img/woocommerce.svg' },
       { label: 'Goldylocks ERP', icon: '/img/goldylocks_logo.png' },
       { label: 'iThenPay', icon: '/img/ifthenpay.svg', onDark: true },
-      { label: 'REST API' },
+      { label: 'REST API', initials: 'API' },
     ],
     limitations: [
       {
@@ -229,7 +229,7 @@ export const projects: ProjectType[] = [
     ],
     stack: [
       { label: 'Vue.js', icon: '/img/vue.svg' },
-      { label: 'Vuex', initials: 'Vx' },
+      { label: 'Vuex', icon: '/img/vuex.svg' },
       { label: 'TailwindCSS', icon: '/img/tailwind.svg' },
       { label: 'Electron', icon: '/img/Electron_Logo.svg' },
     ],
