@@ -68,6 +68,7 @@ const areas = [
       { label: 'TailwindCSS', icon: '/img/tailwind.svg' },
       { label: 'DaisyUI', icon: '/img/daisyui.svg' },
       { label: 'Electron', icon: '/img/Electron_Logo.svg' },
+      { label: 'AI API Integration', initials: 'AI' },
     ],
   },
   {

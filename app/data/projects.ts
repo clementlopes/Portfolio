@@ -237,6 +237,98 @@ export const projects: ProjectType[] = [
     links: [{ label: 'Goldylocks', href: 'https://www.github.com/goldylocks-portugal' }],
   },
   {
+    id: 'jl-decoracoes',
+    categoryId: 'software',
+    title: 'JL Decorações',
+    subtitle: 'AI visualizer · instant quotes for made-to-measure window coverings',
+    summary:
+      'Website for an interior-decoration business, built end to end. The client uploads a photo of the room they want to redecorate and describes their tastes and specifications, and an AI model renders the space with the suggested decor. An instant-quote flow then takes the window and wall measurements, validates the configuration against the real catalogue and produces a budget the client can download and receive by e-mail.',
+    highlights: [
+      'AI room visualizer',
+      'Instant quote engine',
+      'Dimension validation rules',
+      'E-mail & WhatsApp delivery',
+      'Total cost: €6.38 (the domain)',
+    ],
+    sections: [
+      {
+        title: 'AI room visualizer',
+        body:
+          'The client uploads a photo of the room they want to redecorate — click or drag & drop, JPG/PNG up to 5MB — picks the space (living room, bedroom, kitchen...) and the style (modern, minimalist, classic...), and can optionally add free-text instructions for the AI. The image is resized and compressed in the browser, sent to a server route that calls the SenseNova (SenseTime) image API, and the generated visualisation comes back to the page. The uploaded images are discarded after generation, as stated in the site\'s RGPD policy.',
+      },
+      {
+        title: 'Instant quotes',
+        body:
+          'A multi-step wizard where the client enters the measurements for each window — window and wall dimensions, clearance to the ceiling, moulding — then picks the product family, the exact products, colours, mounting position and command (manual or motorised), with the total updating as the configuration changes. The finished quote can be downloaded as a file, shared on WhatsApp and is sent to the business by e-mail.',
+      },
+      {
+        title: 'Validation engine',
+        body:
+          'Every configuration is checked against the real catalogue before the quote goes out: fabric height against the required height, rail widths, oversized rails, lateral clearance and mounting rules. Problems come back as user-facing warnings inside the wizard and as structured observations attached to the quote, so an impossible combination is caught before it ever reaches the shop.',
+      },
+      {
+        title: 'Catalogue and data model',
+        body:
+          'PocketBase holds the catalogue — categories, sub-categories, products, colours, commands and mounting positions — together with the company data rendered by the legal pages and contact forms. Quote requests go through a server route that persists the customer, each window, the chosen products and the totals.',
+      },
+      {
+        title: 'SSR, SEO and structured data',
+        body:
+          'Every route is server-side rendered: per-page titles, descriptions, canonical URLs, Open Graph and Twitter cards, and JSON-LD structured data describing the business — legal entity, address, opening hours and a full catalogue of services. Search engines and social scrapers get complete HTML instead of an empty shell, while the interactive parts still hydrate on the client.',
+      },
+      {
+        title: 'Built with AI assistance',
+        body:
+          'Developed with opencode, an AI coding agent driven by skills and MCP servers, which compressed the build of the wizard, the validation rules and the legal pages into a fraction of the usual time while I kept ownership of the architecture and reviewed every change that went in.',
+      },
+      {
+        title: 'Deployment',
+        body:
+          'Self-hosted on the home lab with Coolify behind Cloudflare — the same infrastructure that runs this portfolio, so both sites are deployed and observed the same way.',
+      },
+      {
+        title: 'Running cost: the domain',
+        body:
+          'Every choice was made to keep the bill at zero. Nuxt, PocketBase, Coolify and Cloudflare are open source and run on the homelab; the contact form goes out through Brevo\'s free tier, capped at 300 e-mails per day; the visualizer runs on the SenseNova image-editing free quota, with its own usage limit. Those free-tier caps are what define the operational limits instead of paid plans, and the only real expense is the domain itself — €6.38 in total.',
+      },
+    ],
+    stack: [
+      { label: 'Nuxt 4', icon: '/img/nuxt.svg' },
+      { label: 'Vue.js', icon: '/img/vue.svg' },
+      { label: 'TailwindCSS', icon: '/img/tailwind.svg' },
+      { label: 'DaisyUI', icon: '/img/daisyui.svg' },
+      { label: 'PocketBase', icon: '/img/pocketbase.svg' },
+      { label: 'SenseNova AI', initials: 'AI' },
+      { label: 'Brevo', initials: 'BR' },
+      { label: 'REST API', initials: 'API' },
+      { label: 'Coolify', icon: '/img/coolify.svg' },
+    ],
+    limitations: [
+      {
+        title: 'Instant quotes only cover curtains',
+        detail:
+          'The quote wizard is live for curtains only. Rollers, vertical blinds and the rest of the product catalogue are not selectable yet, so those requests still fall back to the manual contact form instead of going through the validated flow.',
+        mitigation:
+          'Extending the catalogue with the remaining products and building the dedicated flow for roller and vertical blinds — currently in progress.',
+      },
+      {
+        title: 'Quote wizard hydrates client-side',
+        detail:
+          'The pages are server-rendered, but the quote calculator loads its catalogue — categories, products, colours, commands — from PocketBase after mount, so the first paint of that section is an empty container that fills in once the data arrives. Crawlers see the page copy, but not the tool itself, and a slow connection waits before it can configure anything.',
+        mitigation:
+          'Preloading the catalogue on the server (or prerendering a static snapshot of it) so the wizard renders its first step with real products in the initial HTML.',
+      },
+      {
+        title: 'No server redundancy',
+        detail:
+          'Everything runs on a single home-lab machine with no failover — if that machine or the connection goes down, both this site and the portfolio go down with it. The home lab is also the cheapest place to run, which is what kept the cost at the domain.',
+        mitigation:
+          'Health checks and automated restarts already cover software crashes; for real redundancy the next step is a second node or a static mirror on external hosting.',
+      },
+    ],
+    links: [{ label: 'jldecoracoes.com', href: 'https://www.jldecoracoes.com' }],
+  },
+  {
     id: 'pgo',
     categoryId: 'software',
     title: 'PGO — Budget Management Platform',

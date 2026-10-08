@@ -33,6 +33,14 @@
           class="link link-hover hover:text-primary transition-colors duration-200"
           >Contact</NuxtLink
         >
+        <button
+          v-if="hasZaraz"
+          type="button"
+          class="link link-hover hover:text-primary transition-colors duration-200"
+          @click.prevent="openConsentModal"
+        >
+          Cookies
+        </button>
       </nav>
 
       <p class="text-sm">© {{ currentYear }} Clément Lopes</p>
@@ -42,4 +50,5 @@
 
 <script setup lang="ts">
 const currentYear = ref(new Date().getFullYear());
+const { hasZaraz, openConsentModal } = useZarazConsent();
 </script>
