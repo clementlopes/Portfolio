@@ -37,6 +37,7 @@ export interface ProjectType {
   subtitle: string;
   summary: string;
   image?: string;
+  imageClass?: string;
   highlights: string[];
   sections: ProjectSection[];
   stack: StackItem[];
