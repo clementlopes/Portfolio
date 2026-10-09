@@ -16,6 +16,26 @@
           <div class="flex flex-wrap items-center gap-2">
             <span class="badge badge-primary badge-sm font-mono h-auto min-h-5">{{ projectNumber }}</span>
             <span class="badge badge-ghost badge-sm h-auto min-h-5">{{ categoryLabel }}</span>
+            <span
+              v-if="project.credentials"
+              class="badge badge-secondary badge-sm gap-1 h-auto min-h-5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="size-3"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"
+                />
+              </svg>
+              {{ project.credentials.label ?? 'Demo access' }}
+            </span>
             <a
               v-for="link in project.links"
               :key="link.href"
@@ -81,6 +101,37 @@
     <div class="collapse-content">
       <div class="pt-6">
         <p class="text-base-content/80 text-justify leading-relaxed">{{ project.summary }}</p>
+
+        <div
+          v-if="project.credentials"
+          class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-xl border border-secondary/40 bg-secondary/5 p-4"
+        >
+          <div class="flex items-center gap-2 font-semibold text-base-content">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="size-4 text-secondary"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"
+              />
+            </svg>
+            {{ project.credentials.label ?? 'Demo access' }}
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+            <span class="text-base-content/60">User</span>
+            <code class="rounded-md bg-base-300 px-2 py-0.5 font-mono text-base-content">{{ project.credentials.username }}</code>
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+            <span class="text-base-content/60">Password</span>
+            <code class="rounded-md bg-base-300 px-2 py-0.5 font-mono text-base-content">{{ project.credentials.password }}</code>
+          </div>
+        </div>
 
         <div class="mt-6 grid gap-6 md:grid-cols-[minmax(160px,200px)_1fr]">
           <aside v-if="project.stack.length" class="flex flex-col gap-3 self-start">

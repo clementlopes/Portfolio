@@ -417,6 +417,11 @@ export const projects: ProjectType[] = [
         href: 'https://github.com/clementlopes/Plataforma-gestao-de-orcamentos',
       },
     ],
+    credentials: {
+      label: 'Demo access',
+      username: 'admin',
+      password: 'admin2026',
+    },
   },
 ];
 
