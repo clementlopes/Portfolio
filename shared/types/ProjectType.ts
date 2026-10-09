@@ -22,6 +22,12 @@ export interface ProjectSection {
   items?: string[];
 }
 
+export interface ProjectCredentials {
+  label?: string;
+  username: string;
+  password: string;
+}
+
 export interface ProjectCategory {
   id: string;
   order: string;
@@ -43,4 +49,5 @@ export interface ProjectType {
   stack: StackItem[];
   limitations: LimitationItem[];
   links: ProjectLink[];
+  credentials?: ProjectCredentials;
 }
