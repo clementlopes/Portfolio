@@ -11,55 +11,70 @@
     />
 
     <div class="collapse-title min-h-0 py-5">
-      <div class="flex flex-col gap-4">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="badge badge-primary badge-sm font-mono">{{ projectNumber }}</span>
-          <span class="badge badge-ghost badge-sm">{{ categoryLabel }}</span>
-          <a
-            v-for="link in project.links"
-            :key="link.href"
-            :href="link.href"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="badge badge-outline badge-sm gap-1 relative z-10 hover:badge-primary"
-            @click.stop
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              class="size-3"
+      <div class="flex items-start gap-4 sm:items-stretch sm:gap-6">
+        <div class="flex min-w-0 flex-1 flex-col gap-4">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="badge badge-primary badge-sm font-mono h-auto min-h-5">{{ projectNumber }}</span>
+            <span class="badge badge-ghost badge-sm h-auto min-h-5">{{ categoryLabel }}</span>
+            <a
+              v-for="link in project.links"
+              :key="link.href"
+              :href="link.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="badge badge-outline badge-sm gap-1 relative z-10 h-auto min-h-5 hover:badge-primary"
+              @click.stop
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-              />
-            </svg>
-            {{ link.label }}
-          </a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="size-3"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                />
+              </svg>
+              {{ link.label }}
+            </a>
+          </div>
+
+          <div>
+            <h3 class="text-2xl font-bold text-base-content">{{ project.title }}</h3>
+            <p class="text-sm text-base-content/60 mt-1">{{ project.subtitle }}</p>
+          </div>
+
+          <ul class="flex flex-wrap gap-2">
+            <li
+              v-for="highlight in project.highlights"
+              :key="highlight"
+              class="badge badge-outline badge-primary h-auto min-h-6"
+            >
+              {{ highlight }}
+            </li>
+          </ul>
+
+          <p class="text-xs font-semibold uppercase tracking-wide text-primary">
+            {{ project.limitations.length ? 'Case study & limitations' : 'Case study' }}
+          </p>
         </div>
 
-        <div>
-          <h3 class="text-2xl font-bold text-base-content">{{ project.title }}</h3>
-          <p class="text-sm text-base-content/60 mt-1">{{ project.subtitle }}</p>
+        <div
+          v-if="project.image"
+          class="flex shrink-0 items-center justify-center self-start sm:w-36 sm:self-stretch"
+        >
+          <img
+            :src="project.image"
+            :alt="`${project.title} logo`"
+            :class="project.imageClass ?? 'sm:w-full'"
+            class="size-12 object-contain sm:h-auto sm:max-h-full"
+            loading="lazy"
+          />
         </div>
-
-        <ul class="flex flex-wrap gap-2">
-          <li
-            v-for="highlight in project.highlights"
-            :key="highlight"
-            class="badge badge-outline badge-primary"
-          >
-            {{ highlight }}
-          </li>
-        </ul>
-
-        <p class="text-xs font-semibold uppercase tracking-wide text-primary">
-          {{ project.limitations.length ? 'Case study & limitations' : 'Case study' }}
-        </p>
       </div>
     </div>
 

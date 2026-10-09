@@ -32,6 +32,7 @@ export const projects: ProjectType[] = [
     categoryId: 'business-integration',
     title: "MARCA Q' MARCA",
     subtitle: 'E-commerce platform with invoicing system integration',
+    image: '/img/marcaQmarca.webp',
     summary:
       'Online store with roughly 21,000 articles, nightly product and stock synchronization, and order data transmitted to the Goldylocks invoicing system. Payments are handled through iThenPay.',
     highlights: [
@@ -202,6 +203,7 @@ export const projects: ProjectType[] = [
     categoryId: 'software',
     title: 'Goldylocks POS',
     subtitle: 'Point of sale front-end — cafés & restaurants',
+    image: '/img/goldylocks_logo.png',
     summary:
       'Maintained and improved the front-end of a point-of-sale system for public retail, covering cafés and restaurants. New features, operational fixes, API testing in Postman and coordination with the backend team.',
     highlights: [
@@ -241,6 +243,8 @@ export const projects: ProjectType[] = [
     categoryId: 'software',
     title: 'JL Decorações',
     subtitle: 'AI visualizer · instant quotes for made-to-measure window coverings',
+    image: '/img/jl.webp',
+    imageClass: 'sm:w-20',
     summary:
       'Website for an interior-decoration business, built end to end. The client uploads a photo of the room they want to redecorate and describes their tastes and specifications, and an AI model renders the space with the suggested decor. An instant-quote flow then takes the window and wall measurements, validates the configuration against the real catalogue and produces a budget the client can download and receive by e-mail.',
     highlights: [
@@ -248,7 +252,7 @@ export const projects: ProjectType[] = [
       'Instant quote engine',
       'Dimension validation rules',
       'E-mail & WhatsApp delivery',
-      'Total cost: €6.38 (the domain)',
+      'Total cost: €6.38 (Domain)',
     ],
     sections: [
       {
@@ -298,8 +302,8 @@ export const projects: ProjectType[] = [
       { label: 'TailwindCSS', icon: '/img/tailwind.svg' },
       { label: 'DaisyUI', icon: '/img/daisyui.svg' },
       { label: 'PocketBase', icon: '/img/pocketbase.svg' },
-      { label: 'SenseNova AI', initials: 'AI' },
-      { label: 'Brevo', initials: 'BR' },
+      { label: 'SenseNova AI', icon: '/img/sensenova.svg' },
+      { label: 'Brevo', icon: '/img/brevo.svg' },
       { label: 'REST API', initials: 'API' },
       { label: 'Coolify', icon: '/img/coolify.svg' },
     ],
@@ -333,6 +337,7 @@ export const projects: ProjectType[] = [
     categoryId: 'software',
     title: 'PGO — Budget Management Platform',
     subtitle: 'Full-stack · replacing hand-written budgets with client-ready documents',
+    image: '/img/logoPgo.webp',
     summary:
       'A budget-management platform developed end to end for a small company that was quoting work on paper. Documents, clients and line items with products or services, line-level values, and a final PDF generated on demand from the stored data.',
     highlights: [
@@ -355,12 +360,17 @@ export const projects: ProjectType[] = [
       {
         title: 'Generated on demand, not stored',
         body:
-          'Only the data is persisted. The PDF is rendered in the browser from the stored document whenever it is requested, and the generated file is not kept afterwards — storage stays small, but the document has to be produced again to be seen again.',
+          'Only the data is persisted. The PDF is assembled in the browser with jsPDF and jspdf-autotable from the stored document whenever it is requested, and the generated file is not kept afterwards — storage stays small, but the document has to be produced again to be seen again.',
       },
       {
         title: 'Scope',
         body:
           'Built end to end, covering the relational data model, the persistence layer and the interface. It is an internal tool for a single company: the clients interact with the finished document, not with the platform.',
+      },
+      {
+        title: 'Deployment',
+        body:
+          'Published at pgo.clementlopes.site behind Cloudflare and fronted by NPM, with Virtualmin managing the domain, the PHP site and the MySQL database. Virtualmin was picked for the web applications it ships with — phpMyAdmin among them — which makes operating the database side direct, without a separate toolchain.',
       },
     ],
     stack: [
@@ -368,8 +378,7 @@ export const projects: ProjectType[] = [
       { label: 'PHP', icon: '/img/php.svg' },
       { label: 'JavaScript', icon: '/img/javascript.svg' },
       { label: 'Bootstrap', icon: '/img/bootstrap.svg' },
-      { label: 'jsPDF', initials: 'PDF' },
-      { label: 'SQL', icon: '/img/sql.png' },
+      { label: 'jsPDF + AutoTable', initials: 'PDF' },
     ],
     limitations: [
       {
@@ -380,18 +389,18 @@ export const projects: ProjectType[] = [
           'Versioning each document and keeping the generated file for the revisions that were really sent, accepting the storage cost that the current approach avoids.',
       },
       {
-        title: 'Stack is dated and unmaintained',
+        title: 'Legacy stack, still in production',
         detail:
-          'The platform runs on PHP with Bootstrap and a client-side PDF library, a combination I would not start a project with today. It is published as a reference for how the problem was solved, not as a system to deploy or extend, and none of its dependencies are being maintained.',
+          'The platform runs on PHP with AdminLTE and a client-side PDF library, a combination I would not start a new project with today. It is not a reference frozen in time either: it is deployed and in daily use, and the recent work on it covered session handling, password hashing and code organisation rather than a rewrite.',
         mitigation:
           'Rewriting it on Nuxt and TypeScript with server-side PDF generation, reusing the same relational model.',
       },
       {
-        title: 'No authentication or roles',
+        title: 'No audit trail',
         detail:
-          'There is no login and no separation of roles, so anyone who reaches the application can create, edit and delete documents and clients. There is also no audit trail showing who changed a value or when.',
+          'Access requires a login and each budget stores the user who created it, but edits are not versioned: the database keeps only the current row, with no record of who changed a value or when.',
         mitigation:
-          'Adding users and roles, and recording the author and the revision history of each document.',
+          'Recording the revision history of each document, so an issued value can be traced back to the moment it was set.',
       },
       {
         title: 'A budget does not become an order',
@@ -402,6 +411,7 @@ export const projects: ProjectType[] = [
       },
     ],
     links: [
+      { label: 'pgo.clementlopes.site', href: 'https://pgo.clementlopes.site' },
       {
         label: 'github.com/clementlopes',
         href: 'https://github.com/clementlopes/Plataforma-gestao-de-orcamentos',
