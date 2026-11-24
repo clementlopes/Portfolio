@@ -411,7 +411,7 @@ export const projects: ProjectType[] = [
       },
     ],
     links: [
-      { label: 'pgo.clementlopes.site', href: 'https://pgo.clementlopes.site' },
+      { label: 'pgo.clementlopes.pt', href: 'https://pgo.clementlopes.pt' },
       {
         label: 'github.com/clementlopes',
         href: 'https://github.com/clementlopes/Plataforma-gestao-de-orcamentos',
